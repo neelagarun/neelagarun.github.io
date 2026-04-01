@@ -3,3 +3,10 @@ description: Personal website about various ML/DL/RL projects, statistics, and p
 theme: minima
 plugins:
   - jekyll-feed
+header_pages:
+  - physics.md
+  - machine-learning.md
+  - statistics.md
+  - other.md
+  - contact.md
+  - about.md
