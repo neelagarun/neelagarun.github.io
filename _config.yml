@@ -3,6 +3,9 @@ description: Personal website about various ML/DL/RL projects, statistics, and p
 theme: minima
 plugins:
   - jekyll-feed
+show_excerpts: true
+minima:
+  social_links: []
 header_pages:
   - physics.md
   - machine-learning.md
