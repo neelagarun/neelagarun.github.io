@@ -22,9 +22,7 @@ point in time. A single model fit across everything tends to perform poorly.
 
 The approach I took instead is a hybrid: use ARIMA to capture the smooth, mean-reverting component 
 of each contract's IV trajectory, and then train a separate XGBoost model to predict the residuals 
-that ARIMA gets wrong. The final forecast is just the sum of the two:
-
-\\[\hat{y} = \hat{y}_{ARIMA} + \hat{r}_{XGBoost}\\]
+that ARIMA gets wrong. The final forecast is just the sum of the two.
 
 The idea is that ARIMA handles the trend and autocorrelation structure reasonably well, but it has 
 no way to incorporate cross-sectional information like IV skew, tenor, or the day of the week. 
