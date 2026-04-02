@@ -74,5 +74,7 @@ and the system tends toward condensation much faster, where a single agent accum
 the energy. For \\(\lambda < 0\\), the injection is anti-proportional, actively redistributing energy
 toward poorer agents and counteracting the condensation that the yard-sale mechanism would otherwise
 produce. In this sense, \\(\lambda\\) acts as a policy parameter: it encodes assumptions about how
-energy or wealth enters a system and who benefits from it, which makes it a natural object of study
-when thinking about inequality in both physical and economic systems.
+energy or wealth enters a system.
+
+In my next post I will elaborate on what has been hinted at here: the economic implications of a
+physical system with no readily apparent applications in stereotypical statistical mechanics.
