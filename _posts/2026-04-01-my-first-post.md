@@ -64,3 +64,15 @@ reverts, $$\theta$$ controls the speed of mean reversion, $$\sigma$$ is the vola
 stochastic term, $$Z$$ is a standard normal random variable, $$W(t)$$ is the total energy in the
 system at time $$t$$, and $$\lambda$$ controls how energy injection is distributed across agents
 relative to their current wealth.
+
+The parameter $$\lambda$$ deserves special attention. When $$\lambda = 0$$, energy is injected
+uniformly across all agents regardless of their current wealth, which acts as an equalizing force
+and pushes the system away from condensation. When $$\lambda = 1$$, energy is injected
+proportionally to each agent's current wealth, meaning richer agents receive more energy and the
+rich get richer. For $$\lambda > 1$$, this effect is superlinear: wealth concentration accelerates
+and the system tends toward condensation much faster, where a single agent accumulates nearly all
+the energy. For $$\lambda < 0$$, the injection is anti-proportional, actively redistributing energy
+toward poorer agents and counteracting the condensation that the yard-sale mechanism would otherwise
+produce. In this sense, $$\lambda$$ acts as a policy parameter: it encodes assumptions about how
+energy or wealth enters a system and who benefits from it, which makes it a natural object of study
+when thinking about inequality in both physical and economic systems.
