@@ -1,0 +1,79 @@
+---
+layout: post
+title: "Forecasting Implied Volatility: A Hybrid ARIMA-XGBoost Approach"
+date: 2026-04-02
+categories: machine-learning
+---
+
+One of the more interesting problems in options trading is forecasting how implied volatility (IV) 
+will evolve over the remaining life of a contract. If you can do this, you can identify 
+mispricings in the options market and trade against them systematically.
+
+Before getting into the details, I want to note that some of the context required to fully 
+appreciate what is going on here, particularly around how the contracts are selected and how the 
+ARIMA step works, will have to come in later posts. That said, I am going to try to give as much useful 
+detail as I can here so that the overall picture is at least clear. And it goes without saying that
+some important details I can't share due to the proprietary nature of the work involved.
+
+The naive approach is to fit a time series model directly to the IV of each contract and forecast 
+forward. The problem is that IV series are noisy, non-stationary in complicated ways, and each 
+contract has its own dynamics depending on its strike, tenor, and the underlying's behavior at that 
+point in time. A single model fit across everything tends to perform poorly.
+
+The approach I took instead is a hybrid: use ARIMA to capture the smooth, mean-reverting component 
+of each contract's IV trajectory, and then train a separate XGBoost model to predict the residuals 
+that ARIMA gets wrong. The final forecast is just the sum of the two:
+
+\\[\hat{y} = \hat{y}_{\text{ARIMA}} + \hat{r}_{\text{XGBoost}}\\]
+
+The idea is that ARIMA handles the trend and autocorrelation structure reasonably well, but it has 
+no way to incorporate cross-sectional information like IV skew, tenor, or the day of the week. 
+XGBoost can learn those patterns from the residuals across all contracts simultaneously, which is 
+where the leverage comes from.
+
+The ARIMA(p, d, q) model expresses the differenced series as a linear combination of its own past 
+values and past forecast errors:
+
+\\[\Delta^d y_t = c + \sum_{i=1}^{p} \phi_i \Delta^d y_{t-i} + \sum_{j=1}^{q} \theta_j \varepsilon_{t-j} + \varepsilon_t\\]
+
+where \\(\phi_i\\) are the autoregressive coefficients, \\(\theta_j\\) are the moving average 
+coefficients, \\(d\\) is the order of differencing, and \\(\varepsilon_t\\) is white noise. The 
+orders \\(p\\), \\(d\\), and \\(q\\) are selected separately per contract by minimizing an 
+information criterion.
+
+The pipeline works as follows. For each options contract, I split the observed IV history into a 
+fit window and a validation window. ARIMA is fit on the fit window, and its out-of-sample forecasts 
+over the validation window give both a predicted trajectory and confidence intervals. The 
+difference between those forecasts and the actual observed IV is the residual:
+
+\\[r_t = y_t - \hat{y}_{\text{ARIMA}, t}\\]
+
+and that residual becomes the target for XGBoost.
+
+The features I pass to XGBoost are things that are available at inference time. The 
+lagged residuals are important because ARIMA residuals tend to be autocorrelated in ways that 
+ARIMA itself does not fully capture, and XGBoost can exploit that structure.
+
+One subtlety worth mentioning is that the lag features have to be computed per contract before 
+concatenating everything into a single training dataset. If you compute them after concatenation, 
+lags will bleed across contract boundaries and you will be leaking information from one contract 
+into another.
+
+After training, the model is applied at inference time to the forward window of each contract: 
+from the last observed point out to expiry. The ARIMA forward forecast gives the baseline 
+trajectory, XGBoost predicts the residual correction at each timestep, and the sum gives the 
+final IV forecast. I also compute the probability that realized IV will fall below the forecast 
+at each point. Using the ARIMA confidence interval as a proxy for the distribution, and treating 
+the interval as approximately normal, the standard deviation at each timestep is:
+
+\\[\sigma_t = \frac{\text{upper}_t - \text{lower}_t}{2 \times 1.96}\\]
+
+which gives the probability that realized IV falls below the hybrid forecast as:
+
+\\[P(\text{IV} \leq \hat{y}_t) = \Phi\left(\frac{\hat{y}_t - \hat{y}_{\text{ARIMA}, t}}{\sigma_t}\right)\\]
+
+where \\(\Phi\\) is the standard normal CDF. This gives a sense of where in the ARIMA confidence 
+interval the hybrid forecast is landing, which turns out to be a useful signal on its own.
+
+There is a lot more to say about the ARIMA fitting procedure, how contracts are selected, and how 
+the forecasts are actually used to construct trades. I will get into those in future posts.
