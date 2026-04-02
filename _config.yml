@@ -14,3 +14,6 @@ header_pages:
   - travel.md
   - contact.md
   - about.md
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
