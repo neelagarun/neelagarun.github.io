@@ -73,7 +73,7 @@ which gives the probability that realized IV falls below the hybrid forecast as:
 
 where
 
-\\[z_t = \frac{\hat{y}_t - \hat{y}_{\text{ARIMA},t}}{\sigma_t}\\]
+\\[z_t = \frac{\hat{y}_t - \hat{y}_{ARIMA,t}}{\sigma_t}\\]
 
 and \\(\Phi\\) is the standard normal CDF. This gives a sense of where in the ARIMA confidence 
 interval the hybrid forecast is landing, which turns out to be a useful signal on its own.
