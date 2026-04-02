@@ -2,7 +2,7 @@
 layout: post
 title: "Forecasting Implied Volatility: A Hybrid ARIMA-XGBoost Approach"
 date: 2026-04-02
-categories: machine-learning
+categories: [machine-learning, statistics]
 ---
 
 One of the more interesting problems in options trading is forecasting how implied volatility (IV) 
