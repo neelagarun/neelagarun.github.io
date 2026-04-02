@@ -69,7 +69,9 @@ the interval as approximately normal, the standard deviation at each timestep is
 
 which gives the probability that realized IV falls below the hybrid forecast as:
 
-\\[P(\text{IV} \leq \hat{y}_t) = \Phi\left(\frac{\hat{y}_t - \hat{y}_{A,t}}{\sigma_t}\right)\\]
+\\[P(\text{IV} \leq \hat{y}_t) = \Phi(z_t)\\]
+
+where \\(z_t = \frac{\hat{y}_t - \hat{y}_{\text{ARIMA},t}}{\sigma_t}\\)
 
 where \\(\Phi\\) is the standard normal CDF. This gives a sense of where in the ARIMA confidence 
 interval the hybrid forecast is landing, which turns out to be a useful signal on its own.
