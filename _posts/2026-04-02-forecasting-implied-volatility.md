@@ -71,12 +71,10 @@ which gives the probability that realized IV falls below the hybrid forecast as:
 
 \\[P(\text{IV} \leq \hat{y}_t) = \Phi(z_t)\\]
 
-where
-
-\\[z_t = \frac{\hat{y}_t - \hat{y}_{ARIMA,t}}{\sigma_t}\\]
-
-and \\(\Phi\\) is the standard normal CDF. This gives a sense of where in the ARIMA confidence 
-interval the hybrid forecast is landing, which turns out to be a useful signal on its own.
+where \\(z_t\\) is the standardized distance between the hybrid forecast and the ARIMA baseline,
+scaled by \\(\sigma_t\\), and \\(\Phi\\) is the standard normal CDF. This gives a sense of where 
+in the ARIMA confidence interval the hybrid forecast is landing, which turns out to be a useful 
+signal on its own.
 
 It's worth noting that this tends to be interesting for sizing trades with various procedures like Kelly
 Criterion, for example.
