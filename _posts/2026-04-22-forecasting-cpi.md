@@ -12,6 +12,10 @@ Urban Consumers. The question I want to answer is whether a sequence model can
 extract more signal than a naive autoregression, and what assumptions you have
 to make about the data along the way for the answer to mean anything.
 
+The problem is that CPI is an aggregate of thousands of individual prices across categories that move for completely different reasons: energy prices respond to geopolitics and OPEC supply decisions, shelter costs follow the housing cycle with a long lag built into how the BLS measures rent, food prices track agricultural commodities and supply chains, and core services reflect labor market tightness. Any model that tries to forecast the aggregate has to somehow learn these heterogeneous dynamics from a single target series, which is part of why naive autoregressions are hard to beat.
+
+
+
 The dataset is FRED MD, the monthly database maintained by the St. Louis Fed.
 It has roughly 120 macro and financial series including industrial production,
 employment by sector, exchange rates, treasury yields at various maturities,
