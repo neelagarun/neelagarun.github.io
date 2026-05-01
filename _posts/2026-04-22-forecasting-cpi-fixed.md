@@ -1,13 +1,12 @@
 ---
 layout: post
 title: "An LSTM Recurrent Neural Network Method to Predict CPI"
-date: 2026-04-02
+date: 2026-04-22
 categories: [machine-learning]
 ---
 
-There is an interesting problem in macroeconomic forecasting that asks the
-following question: given a panel of monthly indicators going back to the 1950s,
-how well can you predict next month's inflation? The headline series everyone
+I want to answer the question of whether or not you can use a recurrent neural
+network to predicgt CPI. The headline series everyone
 cares about is CPIAUCSL, the seasonally adjusted Consumer Price Index for All
 Urban Consumers. The question I want to answer is whether a sequence model can
 extract more signal than a naive autoregression, and what assumptions you have
