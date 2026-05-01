@@ -181,5 +181,5 @@ state space layer in place of the LSTM, a probabilistic head that returns a
 distribution rather than a point estimate. Each of these changes the bias
 variance tradeoff in a different direction.
 
-This rudimentary version I have crafted shows that there is significant progress to be made in using RNNs to
-predict CPI levels, and that more sophisticated implementations with higher computational power can lend to better feature selection methodology, among other things I've already touched on.
+This rudimentary version I have crafted shows that there is significant progress to be made in using neural networks to 
+predict the CPI levels as opposed (or in conjunction with) econometric methods.
