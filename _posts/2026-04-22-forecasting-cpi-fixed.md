@@ -124,9 +124,6 @@ validation MSE sits around 7.3 at its best. That gap is large and it is the
 honest signal that the model is memorizing the training period more than it is
 learning generalizable structure.
 
-![Training and validation loss curves across epochs, with MSE, RMSE, and MAE shown on linear and log scales.](/assets/images/loss_curves.png)
-*Training and validation loss curves. The train and val gap opens up around epoch 13, which is also when early stopping starts its patience countdown.*
-
 Now to the results, and the part I want to flag carefully. When I plot the
 predicted CPI level against the actual CPI level on the test set, the two
 lines hug each other almost perfectly. Predicted vs actual scatter looks like
