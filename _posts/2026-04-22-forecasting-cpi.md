@@ -169,8 +169,7 @@ model has a validation loss that tracks the training loss within a sensible
 factor, and a sick model has the gap I am reporting here. The third anchor is
 the comparison to a naive baseline. A model that predicts \\(\widehat{\Delta y}_t = 0\\)
 for every \\(t\\) is the trivial baseline, and any LSTM that does not beat it
-on delta RMSE is doing nothing useful. Reporting these three things together
-is what keeps the writeup honest, even when the underlying network is opaque.
+on delta RMSE is doing nothing useful.
 
 The natural next question is whether this approach extends to longer horizons,
 and whether you can get cleaner generalization by changing the inductive bias.
