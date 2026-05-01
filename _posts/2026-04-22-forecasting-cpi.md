@@ -6,7 +6,7 @@ categories: [machine-learning]
 ---
 
 I want to answer the question of whether or not you can use a recurrent neural
-network to predicgt CPI. The headline series everyone
+network to predict CPI. The headline series everyone
 cares about is CPIAUCSL, the seasonally adjusted Consumer Price Index for All
 Urban Consumers. The question I want to answer is whether a sequence model can
 extract more signal than a naive autoregression, and what assumptions you have
@@ -16,10 +16,9 @@ The dataset is FRED MD, the monthly database maintained by the St. Louis Fed.
 It has roughly 120 macro and financial series including industrial production,
 employment by sector, exchange rates, treasury yields at various maturities,
 money supply aggregates, commodity prices, and a long list of other things.
-After loading the file there are 690 monthly observations covering the post war
-period.
+After loading the file there are 690 monthly observations.
 
-The first thing you have to confront is that almost none of these series are
+The first thing you have to figure out is that almost none of these series are
 stationary. CPI has trended upward for seventy years. Industrial production
 grows. Money supply grows. Even short rates wander persistently. If you feed
 the level of a trended series into any model, the model will spend most of its
@@ -37,7 +36,7 @@ positive horizon. The choice to predict a difference rather than a level is
 one I will return to when I get to the results, because it ends up mattering
 much more than it might look at first.
 
-The next problem is that with around 120 candidate features and only 689 rows
+The first genuinly interesting and next problem is that with around 120 candidate features and only 689 rows
 of usable data, you will absolutely overfit if you hand the network everything
 at once. So I run a three stage feature selector, fit only on the training
 portion of the data:
@@ -48,7 +47,7 @@ $$\text{Stage 2: } \text{argtop}_{K_1} \, \left| \rho(x_i, y) \right|$$
 
 $$\text{Stage 3: } \text{argtop}_{K_2} \, I_{\text{RF}}(x_i)$$
 
-In words: drop near constants, then keep the top \\(K_1 = 60\\) features by
+Another way of explaining this: drop near constants, then keep the top \\(K_1 = 60\\) features by
 absolute Pearson correlation with the target delta, then refine to the top
 \\(K_2 = 30\\) features by Random Forest importance. The reason for the cascade
 rather than a single criterion is that correlation is a cheap linear filter
@@ -68,10 +67,10 @@ that are not necessarily contemporaneous. A change in oil prices today may not
 show up in headline inflation for several months, and the size of the effect
 depends on the state of demand and inventories. An LSTM can in principle learn
 these lagged, state dependent relationships from the sequence directly, without
-me having to specify a fixed lag structure ahead of time. That is the bet.
+me having to specify a fixed lag structure ahead of time. That is the bet I'm making.
 
 The network itself is a two layer LSTM with hidden size 64 and dropout 0.20,
-followed by a small feed forward head. At each time step the LSTM cell computes
+followed by a small feed forward head. Some basic LSTM architecture as a refresher below: At each time step the LSTM cell computes
 the standard set of gates:
 
 $$
