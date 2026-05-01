@@ -123,9 +123,6 @@ validation MSE sits around 7.3 at its best. That gap is large and it is the
 honest signal that the model is memorizing the training period more than it is
 learning generalizable structure.
 
-![Training and validation loss curves across epochs, with MSE, RMSE, and MAE shown on linear and log scales.](/assets/images/loss_curves.png)
-*Training and validation loss curves. The train and val gap opens up around epoch 13, which is also when early stopping starts its patience countdown.*
-
 Now to the results, and the part I want to flag carefully. When I plot the
 predicted CPI level against the actual CPI level on the test set, the two
 lines hug each other almost perfectly. Predicted vs actual scatter looks like
@@ -141,7 +138,7 @@ each other because most of \\(\text{level}[t+h]\\) is just \\(\text{level}[t]\\)
 which the model gets for free as the anchor. The model is being judged on a
 quantity it barely had to predict.
 
-The honest plot is the delta plot, the predicted h step change against the
+The really interesting or reliable plot is the delta plot, the predicted h step change against the
 actual h step change. There the model still does something useful, but the
 delta MAPE is 140% because actual deltas are often very close to zero and
 ratios blow up. The delta RMSE is 0.39, which is the same number as the level
@@ -164,7 +161,7 @@ of those are post hoc and approximate. None of them recover a clean structural
 story.
 
 The way I handle the interpretability gap is to anchor every claim in something
-the model is forced to commit to. The delta plot is one such anchor: the model
+the model is forced to commit to. The delta plot is one example anchor: the model
 either predicts the sign and rough magnitude of next month's change or it does
 not, and that is a falsifiable claim. The training curve is another: a healthy
 model has a validation loss that tracks the training loss within a sensible
@@ -176,10 +173,8 @@ is what keeps the writeup honest, even when the underlying network is opaque.
 
 The natural next question is whether this approach extends to longer horizons,
 and whether you can get cleaner generalization by changing the inductive bias.
-\\(h = 3\\) and \\(h = 12\\) are both economically interesting and both harder.
-Once the horizon is longer than a few months, the anchor stops doing as much
-work and the delta becomes the actual quantity you are predicting, which is
-the regime where the LSTM has to earn its keep. There are also obvious
+
+There are also obvious
 modifications to the architecture: attention over the input window, a
 state space layer in place of the LSTM, a probabilistic head that returns a
 distribution rather than a point estimate. Each of these changes the bias
