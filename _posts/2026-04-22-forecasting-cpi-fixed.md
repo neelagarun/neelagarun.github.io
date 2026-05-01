@@ -174,11 +174,7 @@ is what keeps the writeup honest, even when the underlying network is opaque.
 
 The natural next question is whether this approach extends to longer horizons,
 and whether you can get cleaner generalization by changing the inductive bias.
-\\(h = 3\\) and \\(h = 12\\) are both economically interesting and both harder.
-Once the horizon is longer than a few months, the anchor stops doing as much
-work and the delta becomes the actual quantity you are predicting, which is
-the regime where the LSTM has to earn its keep. There are also obvious
-modifications to the architecture: attention over the input window, a
+There are also obvious modifications to the architecture: attention over the input window, a
 state space layer in place of the LSTM, a probabilistic head that returns a
 distribution rather than a point estimate. Each of these changes the bias
 variance tradeoff in a different direction.
