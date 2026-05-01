@@ -144,7 +144,7 @@ actual h step change. There the model still does something useful, but the
 delta MAPE is 140% because actual deltas are often very close to zero and
 ratios blow up. The delta RMSE is 0.39, which is the same number as the level
 RMSE, and that is the point. The level RMSE is just the delta error sitting on
-top of a perfectly known anchor. Decompose like this:
+top of a perfectly known value. Decompose like this:
 
 $$\widehat{\text{CPI}}_{t+h} - \text{CPI}_{t+h} = (\text{CPI}_t + \widehat{\Delta y}) - (\text{CPI}_t + \Delta y) = \widehat{\Delta y} - \Delta y$$
 
