@@ -149,7 +149,7 @@ top of a perfectly known anchor. Decompose like this:
 $$\widehat{\text{CPI}}_{t+h} - \text{CPI}_{t+h} = (\text{CPI}_t + \widehat{\Delta y}) - (\text{CPI}_t + \Delta y) = \widehat{\Delta y} - \Delta y$$
 
 The level error is identically the delta error. Reporting the level metric
-without the delta metric is essentially a magic trick.
+without the delta metric is basically a magic trick.
 
 This is also where the black box question comes in. An LSTM with 60,000
 parameters is not interpretable in the way a regression coefficient is
@@ -158,18 +158,14 @@ increase in industrial production raises forecasted inflation by such and so."
 You can run permutation importance on the inputs after training, you can
 compute integrated gradients along the input sequence, you can run partial
 dependence on a single feature while holding the others at their median. All
-of those are post hoc and approximate. None of them recover a clean structural
-story.
+of those are post hoc and approximate. 
 
 The way I handle the interpretability gap is to anchor every claim in something
-the model is forced to commit to. The delta plot is one example anchor: the model
+the model is forced to commit to. The delta plot is one example: the model
 either predicts the sign and rough magnitude of next month's change or it does
-not, and that is a falsifiable claim. The training curve is another: a healthy
-model has a validation loss that tracks the training loss within a sensible
-factor, and a sick model has the gap I am reporting here. The third anchor is
-the comparison to a naive baseline. A model that predicts \\(\widehat{\Delta y}_t = 0\\)
-for every \\(t\\) is the trivial baseline, and any LSTM that does not beat it
-on delta RMSE is doing nothing useful.
+not, and that is a falsifiable claim. The training curve is another: a good
+model has a validation loss that tracks the training loss in a reasonable way,
+and a poor model has the gap I am reporting here. 
 
 The natural next question is whether this approach extends to longer horizons,
 and whether you can get cleaner generalization by changing the inductive bias.
