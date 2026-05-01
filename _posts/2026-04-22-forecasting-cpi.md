@@ -12,19 +12,19 @@ Urban Consumers. The question I want to answer is whether a sequence model can
 extract more signal than a naive autoregression, and what assumptions you have
 to make about the data along the way for the answer to mean anything.
 
-The problem is that CPI is an aggregate of thousands of individual prices across categories that move for completely different reasons: energy prices respond to geopolitics and OPEC supply decisions, shelter costs follow the housing cycle with a long lag built into how the BLS measures rent, food prices track agricultural commodities and supply chains, and core services reflect labor market tightness. Any model that tries to forecast the aggregate has to somehow learn these heterogeneous dynamics from a single target series, which is part of why naive autoregressions are hard to beat.
+The problem is that CPI is an aggregate of thousands of individual prices across categories that move for completely different reasons: energy prices respond to geopolitics and OPEC supply decisions, shelter costs follow the housing cycle with a long lag built into how the BLS measures rent, food prices track agricultural commodities and supply chains, and a long list of other variables to consider. Any model that tries to forecast the aggregate has to somehow learn these dynamics from a single target series, which is part of why naive autoregressions are hard to beat.
 
 
 
 The dataset is FRED MD, the monthly database maintained by the St. Louis Fed.
-It has roughly 120 macro and financial series including industrial production,
+It has something like 120 macro and financial series including industrial production,
 employment by sector, exchange rates, treasury yields at various maturities,
 money supply aggregates, commodity prices, and a long list of other things.
 After loading the file there are 690 monthly observations.
 
 The first thing you have to figure out is that almost none of these series are
 stationary. CPI has trended upward for seventy years. Industrial production
-grows. Money supply grows. Even short rates wander persistently. If you feed
+grows, the money supply grows. If you feed
 the level of a trended series into any model, the model will spend most of its
 capacity learning the trend instead of the relationships you actually care
 about. So before doing anything else I first difference every feature column:
@@ -40,7 +40,7 @@ positive horizon. The choice to predict a difference rather than a level is
 one I will return to when I get to the results, because it ends up mattering
 much more than it might look at first.
 
-The first genuinly interesting and next problem is that with around 120 candidate features and only 689 rows
+The next and first genuinly interesting problem to consider is that with around 120 candidate features and only 689 rows
 of usable data, you will absolutely overfit if you hand the network everything
 at once. So I run a three stage feature selector, fit only on the training
 portion of the data:
@@ -55,19 +55,18 @@ Another way of explaining this: drop near constants, then keep the top \\(K_1 = 
 absolute Pearson correlation with the target delta, then refine to the top
 \\(K_2 = 30\\) features by Random Forest importance. The reason for the cascade
 rather than a single criterion is that correlation is a cheap linear filter
-while a Random Forest captures nonlinear and interaction effects but is
+while a Random Forest captures nonlinear and interaction effects but is computationally
 expensive to fit on a wide matrix. Doing the cheap filter first makes the more
-expensive RF stage tractable. The crucial detail is that the selector is fit
+expensive RF stage tractable. An important detail is that the selector is fit
 only on rows whose target time also falls inside the training window. If you
 fit it on the full sample, you have already leaked information about future
-inflation into the feature set, and every metric you report afterward is a
-fiction.
+inflation into the feature set, and every metric you report afterward is not useful (it's nonsense).
 
-It is worth asking whether the features the model selected make any economic sense. Among the top 30 by Random Forest importance you would expect to find variables related to energy prices, labor market indicators, interest rate spreads, and money supply growth. If the selector is instead picking up series with no plausible causal link to inflation, that is a signal the model is fitting noise. I did not tune the selector to enforce economic priors, so whatever it picks is a revealed preference of the data. But the interpretation cuts both ways: a model that selects economically sensible features and still cannot beat a naive baseline is telling you that the signal to noise ratio in monthly macro data is genuinely low, and no amount of architecture will fix that.
+It is worth asking whether the features the model selected make any economic sense. Among the top 30 by Random Forest importance, I would expect to find variables related to energy prices, labor market indicators, interest rate spreads, and money supply growth. If the selector is instead picking up series with no plausible link to inflation, then it might be a signal the model is fitting noise. I did not tune the selector to enforce selecting certain features, so whatever it picks is a revealed preference of the data. But the interpretation cuts both ways: a model that selects economically sensible features and still cannot beat a naive baseline is telling you that the signal to noise ratio in monthly macro data is genuinely low, and no amount of architecture will fix that.
 
 The next question is what model to use. There is a real argument for just
-running an autoregression on the differenced CPI series, because inflation has
-strong serial correlation and most of the predictable variance in next month's
+running an autoregression on the differenced CPI series, because it seems that inflation has
+strong autocorrelation and most of the predictable variance in next month's
 CPI is in last month's CPI. But macro series interact with each other in ways
 that are not necessarily contemporaneous. A change in oil prices today may not
 show up in headline inflation for several months, and the size of the effect
@@ -105,8 +104,8 @@ known anchor:
 
 $$\widehat{\text{CPI}}_{t+h} = \text{CPI}_t + \sigma_y \hat{y} + \mu_y$$
 
-This anchoring step is the entire reason the level metrics look so good. More
-on that in a moment.
+This anchoring step is the entire reason the level metrics look so good. I'll have some more info
+on that later.
 
 Training uses Adam with learning rate \\(10^{-3}\\), weight decay \\(10^{-5}\\),
 gradient clipping at norm 1.0, and early stopping on validation MSE with a
@@ -121,27 +120,24 @@ time series. Random shuffling here would let the model see futures it should
 not have access to, which is a different flavor of the same leakage problem
 the feature selector has to avoid.
 
-When you train this thing, the validation loss bottoms out around epoch 13 and
+When you train this, the validation loss bottoms out around epoch 13 and
 then drifts upward, and the early stopping kicks in around epoch 28. Train MSE
 keeps falling all the way down to roughly 0.14 in standardized units while
-validation MSE sits around 7.3 at its best. That gap is large and it is the
-honest signal that the model is memorizing the training period more than it is
+validation MSE sits around 7.3 at its best. That gap is large and it is a signal that the model is memorizing the training period more than it is
 learning generalizable structure.
 
-Now to the results, and the part I want to flag carefully. When I plot the
+Now to the results, and the part that people should probably be wary of. When I plot the
 predicted CPI level against the actual CPI level on the test set, the two
-lines hug each other almost perfectly. Predicted vs actual scatter looks like
-a 45 degree line. Level RMSE on the test set is 0.39 and level MAPE is 0.125%.
-If you stopped reading at that plot you would conclude the model is excellent.
+lines mirror each other almost perfectly Level RMSE on the test set is 0.39 and level MAPE is 0.125%.
+If you stopped reading at that plot you would conclude the model is excellent (it's not bad, but there is more to consider, see below).
 
 ![Test set predictions vs actuals: CPI level over time, h step delta over time, predicted vs actual scatter on the level, and residuals over time.](/assets/images/pred_vs_actual.png)
 *Test set predictions and residuals. The level plot in the top left looks great. The delta plot in the top right is the one to actually look at.*
 
 You should not stop reading at that plot. The level plot flatters the model.
-This is exactly the trap I warned about in my last message. The two lines hug
+This is exactly what I warned about in my last message. The two lines hug
 each other because most of \\(\text{level}[t+h]\\) is just \\(\text{level}[t]\\),
-which the model gets for free as the anchor. The model is being judged on a
-quantity it barely had to predict.
+which the model gets for free as the anchor.
 
 The really interesting or reliable plot is the delta plot, the predicted h step change against the
 actual h step change. There the model still does something useful, but the
@@ -184,3 +180,6 @@ modifications to the architecture: attention over the input window, a
 state space layer in place of the LSTM, a probabilistic head that returns a
 distribution rather than a point estimate. Each of these changes the bias
 variance tradeoff in a different direction.
+
+This rudimentary version I have crafted shows that there is significant progress to be made in using RNNs to
+predict CPI levels, and that more sophisticated implementations with higher computational power can lend to better feature selection methodology, among other things I've already touched on.
