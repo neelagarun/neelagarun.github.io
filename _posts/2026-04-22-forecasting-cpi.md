@@ -63,6 +63,8 @@ fit it on the full sample, you have already leaked information about future
 inflation into the feature set, and every metric you report afterward is a
 fiction.
 
+It is worth asking whether the features the model selected make any economic sense. Among the top 30 by Random Forest importance you would expect to find variables related to energy prices, labor market indicators, interest rate spreads, and money supply growth. If the selector is instead picking up series with no plausible causal link to inflation, that is a signal the model is fitting noise. I did not tune the selector to enforce economic priors, so whatever it picks is a revealed preference of the data. But the interpretation cuts both ways: a model that selects economically sensible features and still cannot beat a naive baseline is telling you that the signal to noise ratio in monthly macro data is genuinely low, and no amount of architecture will fix that.
+
 The next question is what model to use. There is a real argument for just
 running an autoregression on the differenced CPI series, because inflation has
 strong serial correlation and most of the predictable variance in next month's
