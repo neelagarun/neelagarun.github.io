@@ -160,13 +160,6 @@ compute integrated gradients along the input sequence, you can run partial
 dependence on a single feature while holding the others at their median. All
 of those are post hoc and approximate. 
 
-The way I handle the interpretability gap is to anchor every claim in something
-the model is forced to commit to. The delta plot is one example: the model
-either predicts the sign and rough magnitude of next month's change or it does
-not, and that is a falsifiable claim. The training curve is another: a good
-model has a validation loss that tracks the training loss in a reasonable way,
-and a poor model has the gap I am reporting here. 
-
 The natural next question is whether this approach extends to longer horizons,
 and whether you can get cleaner generalization by changing the inductive bias.
 
