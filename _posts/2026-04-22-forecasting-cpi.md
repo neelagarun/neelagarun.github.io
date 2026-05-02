@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Neural Network Methods for CPI Forecasting"
+title: "CPI Forecasting: Recurrent Neural Network Methods"
 date: 2026-04-22
 categories: [machine-learning]
 ---
