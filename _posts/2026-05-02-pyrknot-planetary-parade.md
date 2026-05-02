@@ -28,7 +28,7 @@ and therefore
 
 $$F = 2 - V + E = 2 - 42 + 84 = 44$$
 
-So you end up with 44 regions on the surface of Pyrknot, each of which sees a distinct subset of the seven bodies. For a planetary parade to be visible from a region, that region needs all six planets above the horizon and the star below the horizon. At most one region can satisfy this at any given moment. By symmetry all 44 regions have the same expected area, so conditional on a parade existing somewhere, my friend is in the correct region with probability $1/44$. That gives $\alpha = 1/44$.
+There are 44 regions on the surface of Pyrknot, each of which sees a subset of the seven bodies. For a planetary parade to be visible from a region, that region needs all six planets above the horizon and the star below the horizon. At most one region can satisfy this at any given moment. By symmetry all 44 regions have the same expected area, so conditional on a parade existing somewhere, my friend is in the correct region with probability $1/44$. That gives $\alpha = 1/44$.
 
 Now for the tower, and it's worth noting that there is some trickiness that comes in because of that daylight blocking out the planets stipulation that was stated in the question.
 
