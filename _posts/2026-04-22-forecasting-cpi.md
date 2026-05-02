@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "An LSTM Recurrent Neural Network Method to Predict CPI"
+title: "Neural Network Methods for CPI Forecasting"
 date: 2026-04-22
 categories: [machine-learning]
 ---
