@@ -38,7 +38,7 @@ The next question is what the expected perimeter of a single region is. Each of 
 
 $$\text{total perimeter} = 7 \times 2 \times 2\pi R / 2 = 14\pi R$$
 
-Wait, let me be more careful. Each great circle of length $2\pi R$ contributes that length to the perimeter of the regions on both sides of it, but each segment is shared by exactly two regions. So summing perimeters over all regions counts each great circle arc exactly twice, giving $7 \times 2 \times 2\pi R / 2 = 14\pi R$. By symmetry, the expected perimeter of a single region is
+This actually isn't that great so far because you need to figure out some details. Each great circle of length $2\pi R$ contributes that length to the perimeter of the regions on both sides of it, but each segment is shared by exactly two regions. So summing perimeters over all regions counts each great circle arc exactly twice, giving $7 \times 2 \times 2\pi R / 2 = 14\pi R$. By symmetry, the expected perimeter of a single region is
 
 $$\bar{P} = \frac{14\pi R}{44} = \frac{7}{11}\pi R$$
 
