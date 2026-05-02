@@ -16,7 +16,7 @@ can see all six planets given that someone on the surface can, and then there's 
 
 The first thing you need to figure out is the geometry of who can see what. From any point on the surface of a perfect sphere, you can see exactly one hemisphere of the sky. That means every celestial body (don't forget the seventh body: the star!) defines a great circle on the surface of alien planet. On one side of that great circle, the body is above the horizon. On the other side it's the opposite. So the problem of figuring out which surface points can see which bodies reduces to understanding how seven great circles partition the sphere.
 
-The partition structure comes from Euler's formula for a sphere, $V - E + F = 2$. Every pair of great circles intersects at exactly two antipodal points, so the vertex count is
+This already seems extremely difficult, but actually the partitioning is pretty easy if you happen to know Euler's formula for a sphere, $V - E + F = 2$. Every pair of great circles intersects at exactly two antipodal points, so the vertex count is
 
 $$V = 2 \binom{7}{2} = 2 \times 21 = 42$$
 
@@ -30,7 +30,7 @@ $$F = 2 - V + E = 2 - 42 + 84 = 44$$
 
 So you end up with 44 regions on the surface of Pyrknot, each of which sees a distinct subset of the seven bodies. For a planetary parade to be visible from a region, that region needs all six planets above the horizon and the star below the horizon. At most one region can satisfy this at any given moment. By symmetry all 44 regions have the same expected area, so conditional on a parade existing somewhere, my friend is in the correct region with probability $1/44$. That gives $\alpha = 1/44$.
 
-Now for the tower, and the part that requires a bit more care than it might look at first.
+Now for the tower, and it's worth noting that there is some trickiness that comes in because of that daylight blocking out the planets stipulation that was stated in the question.
 
 The tower lets my friend see any celestial body that is visible from at least one surface point within distance $r$ of the base. To first order in $r/R$, this is equivalent to pushing the boundary of their region outward by $r$ in every direction. The region gains a strip of area along its perimeter, and the area of that strip is approximately the perimeter times $r$.
 
