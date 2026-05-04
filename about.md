@@ -26,5 +26,4 @@ In my free time I enjoy tennis, and am always looking for a match when I can fin
 also done some work applying ML and statistics to predictive analytics in sports. My favorite player 
 is Rafael Nadal.
 
-I also enjoy traveling and have been to 23 countries so far, which is probably fewer than most people 
-who claim to enjoy traveling. My intention is to visit them all, so we will see how far I get.
+I also enjoy traveling and have been to 23 countries so far. I'd like to get to them all!
