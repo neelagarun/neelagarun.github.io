@@ -15,8 +15,7 @@ preserve permutation parity.
 
 $$|\mathcal{S}| = \frac{9!}{2} = 181{,}440$$
 
-The question I want to answer is whether random, breadth first, depth first,
-greedy best first, and A* search separate the search results nicely on this problem, and how
+So does random, breadth first, depth first, greedy best first, and / or A* search separate performance on the search results nicely in this problem, and how
 much of the separation comes from the algorithm versus the heuristic you
 give it.
 
