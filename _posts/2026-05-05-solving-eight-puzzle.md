@@ -13,7 +13,7 @@ tiles into ascending order with the blank in the top left. The reachable
 state space has size 181,440, which is exactly half of 9! because tile slides
 preserve permutation parity.
 
-$$|\mathcal{S}| = \frac{9!}{2} = 181{,}440$$
+$$|S| = \frac{9!}{2} = 181{,}440$$
 
 So does random, breadth first, depth first, greedy best first, and / or A* search separate performance on the search results nicely in this problem, and how
 much of the separation comes from the algorithm versus the heuristic you
