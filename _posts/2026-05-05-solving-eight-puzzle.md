@@ -113,7 +113,7 @@ Subclasses override next_state to implement different orderings: random
 pick for the base class, FIFO for BFS, LIFO for DFS, and a priority-max
 pick for the informed searchers.
 
-$$\text{next\_state} \in \begin{cases} \text{Uniform}(\mathcal{F}) & \text{Random} \\ \arg\min_{s \in \mathcal{F}} \, t_{\text{enq}}(s) & \text{BFS} \\ \arg\max_{s \in \mathcal{F}} \, t_{\text{enq}}(s) & \text{DFS} \\ \arg\max_{s \in \mathcal{F}} \, \text{priority}(s) & \text{Greedy, A*} \end{cases}$$
+$$\text{next\_state} \in \begin{cases} \text{Uniform}(F) & \text{Random} \\ \arg\min_{s \in F} \, t_{\text{enq}}(s) & \text{BFS} \\ \arg\max_{s \in F} \, t_{\text{enq}}(s) & \text{DFS} \\ \arg\max_{s \in F} \, \text{priority}(s) & \text{Greedy, A*} \end{cases}$$
 
 There is a real argument for just running BFS and calling it done, because
 BFS is complete and optimal for unit-cost step problems, and the Eight
@@ -126,7 +126,7 @@ up optimality. That is what informed search is supposed to deliver. An
 admissible heuristic should let A* prune the frontier without ever closing
 off the optimal path.
 
-$$h \text{ admissible} \iff \forall \, s \in \mathcal{S}: \; h(s) \leq h^*(s)$$
+$$h \text{ admissible} \iff \forall \, s \in S: \; h(s) \leq h^*(s)$$
 
 That is the bet I'm making.
 
@@ -254,8 +254,8 @@ heuristic but are actually further from the goal in moves.
 
 $$h(s) \text{ small} \;\not\!\Longrightarrow\; h^*(s) \text{ small}$$
 
-Replacing the heuristic with sum of Manhattan distances would, I expect,
-close the gap. I might do that as an extension to this in the future.
+Replacing the heuristic with sum of Manhattan distances might
+close the gap. It might be something I look into as an extension to this in the future.
 
 The natural extensions from here are obvious. Implement the standard
 admissible heuristics (misplaced tiles as a proper heuristic of distance
@@ -265,7 +265,7 @@ move boards on a laptop. Move from the 8-puzzle to the 15-puzzle, where
 the state space jumps from 181K to roughly \\(10^{13}\\) and uninformed
 search is no longer an option at all.
 
-$$|\mathcal{S}_{15}| = \frac{16!}{2} \approx 1.05 \times 10^{13}$$
+$$|S_{15}| = \frac{16!}{2} \approx 1.05 \times 10^{13}$$
 
 The result of this exercise is that the algorithm hierarchy works exactly
 as expected when the heuristic is good and degrades exactly as
