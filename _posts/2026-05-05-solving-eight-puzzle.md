@@ -4,6 +4,11 @@ title: "Eight Puzzle: State Space Search and the Cost of Heuristic Choices"
 date: 2026-05-05
 categories: [puzzles]
 ---
+Everyone's familiar with the classic 8 Puzzle game:
+
+![The classic 8 puzzle board with tiles 2, 3, 8 in the top row, 6, blank, 1 in the middle, and 4, 5, 7 on the bottom.](/assets/images/eight_puzzle_board.png)
+*Slide tiles into the blank space until the numbers run 1 through 8 in order, with the blank in the top left.*
+
 
 I want to answer the question of whether the textbook hierarchy of state space
 search algorithms actually behaves the way the textbooks claim on a problem
