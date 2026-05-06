@@ -112,7 +112,7 @@ gradient clipping at norm 1.0, and early stopping on validation MSE with a
 patience of 15 epochs. The loss is mean squared error on the standardized
 delta:
 
-$$\L = \frac{1}{N} \sum_{i=1}^{N} (\hat{y}_i - y_i)^2$$
+$$L = \frac{1}{N} \sum_{i=1}^{N} (\hat{y}_i - y_i)^2$$
 
 The split is chronological: the first 70% of observations are training, the
 next 15% are validation, the final 15% are test. This is non negotiable for
