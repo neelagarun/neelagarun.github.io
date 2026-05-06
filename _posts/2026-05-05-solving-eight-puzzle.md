@@ -7,6 +7,7 @@ categories: [puzzles]
 Everyone's familiar with the classic 8 Puzzle game:
 
 ![The classic 8 puzzle board with tiles 2, 3, 8 in the top row, 6, blank, 1 in the middle, and 4, 5, 7 on the bottom.](/assets/images/eight_puzzle_board.png)
+
 *Slide tiles into the blank space until the numbers run 1 through 8 in order, with the blank in the top left.*
 
 
