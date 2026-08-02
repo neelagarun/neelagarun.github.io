@@ -4,8 +4,7 @@ title: "SIR Modeling: The Math Behind an Epidemic Curve, and How to Simulate One
 date: 2026-08-02
 categories: [statistics]
 ---
-If there is a silver lining to pandemics, it's that they lend themselves to
-rigorous mathematical representation. Mathematics turns out to be a useful
+Mathematics turns out to be a useful
 tool for the quantitative analysis of infection dynamics, the same way it's
 useful for predicting any other observable physical phenomenon. Future
 infection rates can be predicted with real accuracy, provided we're working
