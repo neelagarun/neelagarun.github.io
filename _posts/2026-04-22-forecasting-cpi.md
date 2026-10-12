@@ -8,9 +8,9 @@ categories: [machine-learning]
 I want to answer the question of whether or not you can use a recurrent neural
 network to predict CPI. The headline series everyone
 cares about is CPIAUCSL, the seasonally adjusted Consumer Price Index for All
-Urban Consumers. The question I want to answer is whether a sequence model can
+Urban Consumers. More specifically: can a sequence model
 extract more signal than a naive autoregression, and what assumptions you have
-to make about the data along the way for the answer to mean anything.
+to make about the data along the way for the answer to mean anything?
 
 The problem is that CPI is an aggregate of thousands of individual prices across categories that move for completely different reasons: energy prices respond to geopolitics and OPEC supply decisions, shelter costs follow the housing cycle with a long lag built into how the BLS measures rent, food prices track agricultural commodities and supply chains, and a long list of other variables to consider. Any model that tries to forecast the aggregate has to somehow learn these dynamics from a single target series, which is part of why naive autoregressions are hard to beat.
 
@@ -40,7 +40,7 @@ positive horizon. The choice to predict a difference rather than a level is
 one I will return to when I get to the results, because it ends up mattering
 much more than it might look at first.
 
-The next and first genuinly interesting problem to consider is that with around 120 candidate features and only 689 rows
+The next and first genuinely interesting problem to consider is that with around 120 candidate features and only 689 rows
 of usable data, you will absolutely overfit if you hand the network everything
 at once. So I run a three stage feature selector, fit only on the training
 portion of the data:
@@ -124,23 +124,26 @@ When you train this, the validation loss bottoms out around epoch 13 and
 then drifts upward, and the early stopping kicks in around epoch 28. Train MSE
 keeps falling all the way down to roughly 0.14 in standardized units while
 validation MSE sits around 7.3 at its best. That gap is large and it is a signal that the model is memorizing the training period more than it is
-learning generalizable structure.
+learning generalizable structure. And to be blunt about what 7.3
+means: the target is standardized, so a model that always predicts the
+training mean would score an MSE of about 1. On the validation period, the
+LSTM is doing worse than that.
 
 Now to the results, and the part that people should probably be wary of. When I plot the
 predicted CPI level against the actual CPI level on the test set, the two
-lines mirror each other almost perfectly Level RMSE on the test set is 0.39 and level MAPE is 0.125%.
-If you stopped reading at that plot you would conclude the model is excellent (it's not bad, but there is more to consider, see below).
+lines mirror each other almost perfectly. Level RMSE on the test set is 0.39 and level MAPE is 0.125%.
+If you stopped reading at that plot you would conclude the model is excellent.
 
 ![Test set predictions vs actuals: CPI level over time, h step delta over time, predicted vs actual scatter on the level, and residuals over time.](/assets/images/pred_vs_actual.png)
 *Test set predictions and residuals. The level plot in the top left looks great. The delta plot in the top right is the one to actually look at.*
 
-You should not stop reading at that plot. The level plot flatters the model.
-This is exactly what I warned about in my last message. The two lines hug
+The level plot flatters the model. The two lines hug
 each other because most of \\(\text{level}[t+h]\\) is just \\(\text{level}[t]\\),
-which the model gets for free as the anchor.
+which the model is handed for free: it only has to predict the change and add
+it to this month's known CPI value.
 
-The really interesting or reliable plot is the delta plot, the predicted h step change against the
-actual h step change. There the model still does something useful, but the
+The plot that actually tells you something is the delta plot, the predicted h step change against the
+actual h step change. This is where the model has to earn its keep, and the
 delta MAPE is 140% because actual deltas are often very close to zero and
 ratios blow up. The delta RMSE is 0.39, which is the same number as the level
 RMSE, and that is the point. The level RMSE is just the delta error sitting on
@@ -169,5 +172,14 @@ state space layer in place of the LSTM, a probabilistic head that returns a
 distribution rather than a point estimate. Each of these changes the bias
 variance tradeoff in a different direction.
 
-This rudimentary version I have crafted shows that there is significant progress to be made in using neural networks to 
-predict the CPI levels as opposed (or in conjunction with) econometric methods.
+So where does this leave the original question? Honestly, this version doesn't
+answer it yet. The level metrics look great for reasons that have nothing to do
+with the LSTM, the validation loss is worse than predicting the mean, and I
+haven't put a simple autoregression on the same test set to compare against.
+That comparison is the next thing to do: fit an AR(p) and a random walk (predict
+a change of zero) on the differenced CPI series and report their delta RMSE next
+to the LSTM's. Until the LSTM beats those, the honest conclusion is that monthly
+macro data is noisy enough that the extra machinery isn't paying for itself.
+I still think there's room for neural networks here, probably alongside
+econometric methods rather than instead of them, but this post is a starting
+point and not proof.

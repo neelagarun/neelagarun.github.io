@@ -50,6 +50,11 @@ and that residual becomes the target for XGBoost.
 The features I pass to XGBoost are things that are available at inference time. The 
 lagged residuals are important because ARIMA residuals tend to be autocorrelated in ways that 
 ARIMA itself does not fully capture, and XGBoost can exploit that structure.
+There is a catch when forecasting forward, though. Past the last observed
+point, the true residuals aren't known yet, so the lag features at each
+future step have to come from the model's own predicted residuals at the
+earlier steps, filled in one step at a time. Otherwise the model would be
+using information it can't actually have.
 
 One subtlety worth mentioning is that the lag features have to be computed per contract before 
 concatenating everything into a single training dataset. If you compute them after concatenation, 

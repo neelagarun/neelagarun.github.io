@@ -5,7 +5,7 @@ permalink: /puzzles/
 ---
 
 {% for post in site.posts %}
-  {% if post.categories contains "puzles" %}
+  {% if post.categories contains "puzzles" %}
 - [{{ post.title }}]({{ post.url }})
   {% endif %}
 {% endfor %}
