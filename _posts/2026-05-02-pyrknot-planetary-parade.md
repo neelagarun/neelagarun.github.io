@@ -34,15 +34,15 @@ Now for the tower, and it's worth noting that there is some trickiness that come
 
 The tower lets my friend see any celestial body that is visible from at least one surface point within distance \\(r\\) of the base. To first order in \\(r/R\\), this is equivalent to pushing the boundary of their region outward by \\(r\\) in every direction. The region gains a strip of area along its perimeter, and the area of that strip is approximately the perimeter times \\(r\\).
 
-The next question is what the expected perimeter of a single region is. Each of the 7 great circles has total length \\(2\pi R\\), and each arc segment borders two adjacent regions, so the sum of perimeters across all 44 regions is
+The next question is what the expected perimeter of a single region is. The 7 great circles have a combined length of \\(7 \times 2\pi R = 14\pi R\\). Every arc segment borders two adjacent regions, one on each side, so when you add up the perimeters of all 44 regions, each arc gets counted twice:
 
-\\[\text{total perimeter} = 7 \times 2 \times 2\pi R / 2 = 14\pi R\\]
+\\[\text{total perimeter} = 2 \times 7 \times 2\pi R = 28\pi R\\]
 
-This actually isn't that great so far because you need to figure out some details. Each great circle of length \\(2\pi R\\) contributes that length to the perimeter of the regions on both sides of it, but each segment is shared by exactly two regions. So summing perimeters over all regions counts each great circle arc exactly twice, giving \\(7 \times 2 \times 2\pi R / 2 = 14\pi R\\). By symmetry, the expected perimeter of a single region is
+By symmetry, the expected perimeter of a single region is
 
-\\[\bar{P} = \frac{14\pi R}{44} = \frac{7}{11}\pi R\\]
+\\[\bar{P} = \frac{28\pi R}{44} = \frac{7}{11}\pi R\\]
 
-This is where some details actually change the answer. Some of the information from the boundary segements can be discarded. Of the seven great circles, six come from planets and one comes from the star. When the tower pushes past a planet boundary, it lets my friend see an additional planet they could not see before. That is good, but when it pushes past the star boundary, it means the top of the tower is now in daylight, and the parade is ruined. So the star boundary actually shrinks the region we're interested in instead of expanding it.
+This is where some details actually change the answer. Not every boundary segment helps. Of the seven great circles, six come from planets and one comes from the star. When the tower pushes past a planet boundary, it lets my friend see an additional planet they could not see before. That is good, but when it pushes past the star boundary, it means the top of the tower is now in daylight, and the parade is ruined. So the star boundary actually shrinks the region we're interested in instead of expanding it.
 
 By symmetry, \\(6/7\\) of the expected perimeter comes from planet boundaries and \\(1/7\\) comes from the star boundary. The net first order change in area is
 
