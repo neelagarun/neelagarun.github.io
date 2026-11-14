@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Growing Interfaces and the KPZ Equation: Why Fluctuations Grow Like the Cube Root of Time"
+excerpt: "Deriving why a growing interface roughens like the cube root of time, from the exact solution of the linear equation to the Cole-Hopf transform, with a simulation that matches the Tracy-Widom law."
 date: 2026-11-14
 categories: [physics]
 ---
@@ -325,6 +326,9 @@ row has the fewest samples, so its standard error is the largest, about 0.03 on 
 \\(1/3\\). The excess comes from the small sizes, where the standard deviation is still below its asymptotic value,
 and it's the usual way finite-size corrections show up in these fits. A straight fit to a power law is a weaker test
 than comparing each size with the exact prediction, which the table does.
+
+![Histogram of rescaled last passage times for N equal to 200, closely following the Tracy-Widom GUE density curve.](/assets/images/kpz_tracy_widom.png)
+*The rescaled last passage time for N = 200, from 8,000 samples, against the Tracy-Widom density computed from the Airy kernel. The histogram sits slightly to the right of the curve, the finite-size shift visible in the table.*
 
 For contrast I also ran the Edwards-Wilkinson equation directly, discretized on a ring of 2,048 sites with
 \\(\nu = D = 1\\) and a time step of 0.05. The width grew with a fitted exponent of 0.245 between \\(t = 10\\) and

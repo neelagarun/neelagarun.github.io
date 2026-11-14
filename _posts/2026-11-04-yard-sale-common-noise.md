@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "The Yard-Sale Model with a Common Shock"
+excerpt: "Adding a market-wide shock to the Yard-Sale model of wealth exchange turns the wealth distribution into the solution of a stochastic PDE. Proportional shocks leave inequality unchanged, and wealth-dependent exposure makes it rise or fall depending on the asset's expected return."
 date: 2026-11-04
 categories: [statistics, physics]
 ---
@@ -254,6 +255,9 @@ from 0.0055 with no shock, or with a proportional shock, to between 0.0137 and 0
 half times as large. Subtracting the finite-population noise in quadrature, the common shock alone contributes about 0.013. Two
 economies with identical rules and identical starting points can end up with noticeably different inequality purely because of the
 path the market took, and the stochastic PDE is the object that describes that whole family of possible paths.
+
+![Three panels of Gini coefficient paths for 20 economies each. The paths with no shock and with equal exposure stay within about 0.02 of zero, while the paths with wealth-dependent exposure spread much wider.](/assets/images/yard_sale_gini_paths.png)
+*The change in the Gini coefficient over 1,000 steps for 20 independent economies in each case, with zero expected return and a shock of 0.04 per step. Equal exposure leaves the spread at the no-shock level, and wealth-dependent exposure more than doubles it.*
 
 The model leaves out a great deal. The exposure function is one I picked for illustration, and real portfolios depend on far more
 than relative wealth. Exposures here respond instantly to wealth, with no rebalancing costs or delays. The risky asset has constant
