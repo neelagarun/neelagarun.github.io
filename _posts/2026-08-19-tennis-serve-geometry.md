@@ -19,27 +19,27 @@ Start with the geometry. I'll put the server at the baseline
 (\\(x = 0\\)) hitting straight down the center line toward the T, which is the shortest serve on
 the court and the one where the net is lowest. The relevant numbers are
 
-\\[x_n = 11.885 \text{ m}, \qquad h_n = 0.914 \text{ m}, \qquad x_s = 18.285 \text{ m}\\]
+\\[x\_n = 11.885 \text{ m}, \qquad h\_n = 0.914 \text{ m}, \qquad x\_s = 18.285 \text{ m}\\]
 
-where \\(x_n\\) is the distance from the baseline to the net, \\(h_n\\) is the height of the net at
-the center strap, and \\(x_s = x_n + 6.40\\) m is the distance to the service line. The ball has
+where \\(x\_n\\) is the distance from the baseline to the net, \\(h\_n\\) is the height of the net at
+the center strap, and \\(x\_s = x\_n + 6.40\\) m is the distance to the service line. The ball has
 mass \\(m = 57.7\\) g and radius \\(r = 3.35\\) cm, and I'll write \\(H\\) for the height of the
 ball's center at contact. Since the ball has a finite size, the two conditions for a good serve
-are on the ball's center: it has to pass the net at a height of at least \\(h_n + r\\), and it
+are on the ball's center: it has to pass the net at a height of at least \\(h\_n + r\\), and it
 has to reach height \\(r\\) (the bottom of the ball touching the court) at some
-\\(x \leq x_s\\).
+\\(x \leq x\_s\\).
 
 The simplest model ignores gravity and treats the serve as a straight line. That
 sounds silly for a projectile, but at 50 m/s the ball reaches the service line in under half a
 second, and it's a useful baseline. Shift the vertical coordinate by \\(r\\) so the ground is at
-zero. A straight line from \\((0, H - r)\\) that passes exactly over the net at \\((x_n, h_n)\\)
+zero. A straight line from \\((0, H - r)\\) that passes exactly over the net at \\((x\_n, h\_n)\\)
 hits the ground where
 
-\\[x_{\text{land}} = x_n \, \frac{H - r}{H - r - h_n}\\]
+\\[x\_{\text{land}} = x\_n \, \frac{H - r}{H - r - h\_n}\\]
 
-and requiring \\(x_{\text{land}} \leq x_s\\) and solving for \\(H\\),
+and requiring \\(x\_{\text{land}} \leq x\_s\\) and solving for \\(H\\),
 
-\\[H \geq r + h_n \, \frac{x_s}{x_s - x_n} = 0.0335 + 0.914 \times \frac{18.285}{6.40} \approx 2.64 \text{ m}\\]
+\\[H \geq r + h\_n \, \frac{x\_s}{x\_s - x\_n} = 0.0335 + 0.914 \times \frac{18.285}{6.40} \approx 2.64 \text{ m}\\]
 
 So a serve with no curvature at all needs a contact point above about 2.64 m just to have a
 nonzero chance of going in, and that's down the middle, where the geometry is most forgiving. A
@@ -58,10 +58,10 @@ The useful trick here is to write \\(u = \tan \theta\\) and use
 \\[y(x) = H + x u - \frac{g x^2}{2 v^2} (1 + u^2)\\]
 
 Each condition is then a quadratic inequality in \\(u\\). Clearing the net is
-\\(y(x_n) \geq h_n + r\\) and landing in is \\(y(x_s) \leq r\\). Writing
-\\(\kappa_x = g x^2 / (2 v^2)\\), the boundary of each condition is a root of
+\\(y(x\_n) \geq h\_n + r\\) and landing in is \\(y(x\_s) \leq r\\). Writing
+\\(\kappa\_x = g x^2 / (2 v^2)\\), the boundary of each condition is a root of
 
-\\[\kappa_x u^2 - x u + \left( \kappa_x - H + y_{\text{target}} \right) = 0 \quad \Longrightarrow \quad u = \frac{x \pm \sqrt{x^2 - 4 \kappa_x \left( \kappa_x - H + y_{\text{target}} \right)}}{2 \kappa_x}\\]
+\\[\kappa\_x u^2 - x u + \left( \kappa\_x - H + y\_{\text{target}} \right) = 0 \quad \Longrightarrow \quad u = \frac{x \pm \sqrt{x^2 - 4 \kappa\_x \left( \kappa\_x - H + y\_{\text{target}} \right)}}{2 \kappa\_x}\\]
 
 The larger root corresponds to a lob, which is not how anyone serves, so the flat serve takes the
 smaller root in each case. The window of good launch angles runs from the smaller root of the net
@@ -73,59 +73,59 @@ degree in either direction.
 
 A tennis ball in air doesn't move like a projectile in a vacuum, though, and the difference is large enough to change the answer. The equation of motion with drag and spin is
 
-\\[m \frac{d \mathbf{v}}{d t} = -m g \, \hat{\mathbf{y}} - \frac{1}{2} \rho A C_D \lvert \mathbf{v} \rvert \, \mathbf{v} + \frac{1}{2} \rho A C_L \lvert \mathbf{v} \rvert^2 \, \hat{\mathbf{n}}\\]
+\\[m \frac{d \mathbf{v}}{d t} = -m g \, \hat{\mathbf{y}} - \frac{1}{2} \rho A C\_D \lvert \mathbf{v} \rvert \, \mathbf{v} + \frac{1}{2} \rho A C\_L \lvert \mathbf{v} \rvert^2 \, \hat{\mathbf{n}}\\]
 
 where \\(\rho \approx 1.21\\) kg/m³ is the density of air, \\(A = \pi r^2\\) is the ball's
-cross section, \\(C_D\\) is the drag coefficient, \\(C_L\\) is the lift coefficient from spin,
+cross section, \\(C\_D\\) is the drag coefficient, \\(C\_L\\) is the lift coefficient from spin,
 and \\(\hat{\mathbf{n}}\\) is the unit vector perpendicular to the velocity in the direction of
 \\(\boldsymbol{\omega} \times \mathbf{v}\\). For topspin, \\(\hat{\mathbf{n}}\\) is the velocity
 rotated 90 degrees downward, so for a nearly horizontal serve it points almost straight down. I'll take
-\\(C_D = 0.55\\), which is a typical value for tennis balls at these speeds and an assumption on my part, and come
-back to \\(C_L\\).
+\\(C\_D = 0.55\\), which is a typical value for tennis balls at these speeds and an assumption on my part, and come
+back to \\(C\_L\\).
 
 Drag sets a natural length scale. Dividing the drag term by \\(m\\), the deceleration is
-\\(\lvert \mathbf{v} \rvert^2 / L_D\\) with
+\\(\lvert \mathbf{v} \rvert^2 / L\_D\\) with
 
-\\[L_D = \frac{2 m}{\rho A C_D} = \frac{2 \times 0.0577}{1.21 \times 0.00353 \times 0.55} \approx 49 \text{ m}\\]
+\\[L\_D = \frac{2 m}{\rho A C\_D} = \frac{2 \times 0.0577}{1.21 \times 0.00353 \times 0.55} \approx 49 \text{ m}\\]
 
 which is the distance over which drag alone would reduce the ball's speed by a factor of \\(e\\).
 That is less than three times the length of the serve, so drag is not a small correction.
 
 This can be handled analytically. A serve is a flat trajectory: the launch angle is
-under ten degrees, so \\(\lvert \mathbf{v} \rvert \approx v_x\\) to within about one percent. Write
+under ten degrees, so \\(\lvert \mathbf{v} \rvert \approx v\_x\\) to within about one percent. Write
 \\(w(x)\\) for the horizontal velocity as a function of position. Using \\(d / dt = w \, d / dx\\),
 the horizontal equation becomes
 
-\\[w \frac{d w}{d x} = -\frac{w^2}{L_D} \quad \Longrightarrow \quad w(x) = v \, e^{-x / L_D}\\]
+\\[w \frac{d w}{d x} = -\frac{w^2}{L\_D} \quad \Longrightarrow \quad w(x) = v \, e^{-x / L\_D}\\]
 
 So the ball's speed decays exponentially with distance traveled. At the service line,
 \\(e^{-18.285 / 49.2} \approx 0.69\\), so a serve leaves the racquet at 50 m/s and arrives at the
 bounce at around 35 m/s. The full simulation below gives 35.6 m/s, which is close.
 
 The vertical motion takes more work. Define the slope of the trajectory
-\\(s = dy / dx = v_y / w\\). The vertical equation, without spin for now, is
+\\(s = dy / dx = v\_y / w\\). The vertical equation, without spin for now, is
 
-\\[\frac{d v_y}{d t} = -g - \frac{w}{L_D} v_y\\]
+\\[\frac{d v\_y}{d t} = -g - \frac{w}{L\_D} v\_y\\]
 
 using \\(\lvert \mathbf{v} \rvert \approx w\\) in the drag term. Switching to \\(x\\) with
-\\(d / dt = w \, d / dx\\) and substituting \\(v_y = s w\\):
+\\(d / dt = w \, d / dx\\) and substituting \\(v\_y = s w\\):
 
-\\[w \frac{d (s w)}{d x} = w \left( w \frac{d s}{d x} + s \frac{d w}{d x} \right) = w^2 \frac{d s}{d x} - \frac{s w^2}{L_D}\\]
+\\[w \frac{d (s w)}{d x} = w \left( w \frac{d s}{d x} + s \frac{d w}{d x} \right) = w^2 \frac{d s}{d x} - \frac{s w^2}{L\_D}\\]
 
-where I used \\(dw / dx = -w / L_D\\). The right side of the vertical equation is
-\\(-g - s w^2 / L_D\\). The drag terms cancel exactly, and what is left is
+where I used \\(dw / dx = -w / L\_D\\). The right side of the vertical equation is
+\\(-g - s w^2 / L\_D\\). The drag terms cancel exactly, and what is left is
 
-\\[w^2 \frac{d s}{d x} = -g \quad \Longrightarrow \quad \frac{d^2 y}{d x^2} = -\frac{g}{w(x)^2} = -\frac{g}{v^2} e^{2 x / L_D}\\]
+\\[w^2 \frac{d s}{d x} = -g \quad \Longrightarrow \quad \frac{d^2 y}{d x^2} = -\frac{g}{w(x)^2} = -\frac{g}{v^2} e^{2 x / L\_D}\\]
 
 So in the flat-trajectory approximation, drag doesn't act on the vertical
 motion directly at all. Its only effect is to slow the ball down, which gives gravity more time per
 meter of horizontal travel, so the path curves more and more sharply as the ball goes. Integrating
-twice with \\(y(0) = H\\) and \\(y'(0) = \tan \theta\\),
+twice with \\(y(0) = H\\) and \\(y\'(0) = \tan \theta\\),
 
-\\[y(x) = H + x \tan \theta - F_g(x), \qquad F_g(x) = \frac{g L_D^2}{4 v^2} \left( e^{2 x / L_D} - 1 - \frac{2 x}{L_D} \right)\\]
+\\[y(x) = H + x \tan \theta - F\_g(x), \qquad F\_g(x) = \frac{g L\_D^2}{4 v^2} \left( e^{2 x / L\_D} - 1 - \frac{2 x}{L\_D} \right)\\]
 
-As a check, expanding the exponential for \\(L_D \to \infty\\),
-\\(e^{2 x / L_D} - 1 - 2 x / L_D \approx 2 x^2 / L_D^2\\), and \\(F_g \to g x^2 / (2 v^2)\\), which
+As a check, expanding the exponential for \\(L\_D \to \infty\\),
+\\(e^{2 x / L\_D} - 1 - 2 x / L\_D \approx 2 x^2 / L\_D^2\\), and \\(F\_g \to g x^2 / (2 v^2)\\), which
 is the vacuum parabola.
 
 Now the spin. A spinning ball drags a thin layer of air around with it, and the asymmetry in the
@@ -135,50 +135,50 @@ the surface speed of the ball to its forward speed,
 
 \\[S = \frac{r \omega}{\lvert \mathbf{v} \rvert}\\]
 
-and I'll use the simple empirical form \\(C_L = 1 / (2 + 1 / S)\\), which rises linearly for small
+and I'll use the simple empirical form \\(C\_L = 1 / (2 + 1 / S)\\), which rises linearly for small
 spin and levels off at one half. It's an assumed form, and I haven't checked it against any particular ball. At 2500 rpm, \\(\omega \approx 262\\) rad/s, so \\(r \omega \approx 8.8\\)
-m/s, and at 50 m/s that gives \\(S \approx 0.18\\) and \\(C_L \approx 0.13\\).
+m/s, and at 50 m/s that gives \\(S \approx 0.18\\) and \\(C\_L \approx 0.13\\).
 
 In the flat approximation the Magnus force is vertical with magnitude
-\\(\tfrac{1}{2} \rho A C_L w^2\\). Defining \\(L_M = 2 m / (\rho A C_L)\\) in the same way as
-\\(L_D\\), it adds a downward acceleration \\(w^2 / L_M\\), and the same substitution as before
+\\(\tfrac{1}{2} \rho A C\_L w^2\\). Defining \\(L\_M = 2 m / (\rho A C\_L)\\) in the same way as
+\\(L\_D\\), it adds a downward acceleration \\(w^2 / L\_M\\), and the same substitution as before
 gives
 
-\\[w^2 \frac{d s}{d x} = -g - \frac{w^2}{L_M} \quad \Longrightarrow \quad \frac{d^2 y}{d x^2} = -\frac{g}{w(x)^2} - \frac{1}{L_M}\\]
+\\[w^2 \frac{d s}{d x} = -g - \frac{w^2}{L\_M} \quad \Longrightarrow \quad \frac{d^2 y}{d x^2} = -\frac{g}{w(x)^2} - \frac{1}{L\_M}\\]
 
-The topspin contribution to the curvature is \\(1 / L_M\\), and it doesn't depend on speed. Gravity's curvature \\(g / w^2\\) gets weaker as the ball goes faster, because
+The topspin contribution to the curvature is \\(1 / L\_M\\), and it doesn't depend on speed. Gravity's curvature \\(g / w^2\\) gets weaker as the ball goes faster, because
 the ball spends less time falling per meter. The Magnus force grows as \\(w^2\\), which exactly
 cancels that, so a fixed amount of spin bends the path by a fixed amount per meter regardless of
-pace (as long as \\(C_L\\) is held fixed). With \\(C_L = 0.13\\), \\(L_M \approx 208\\) m, and the
+pace (as long as \\(C\_L\\) is held fixed). With \\(C\_L = 0.13\\), \\(L\_M \approx 208\\) m, and the
 ratio of the two curvatures at launch is
 
-\\[\frac{1 / L_M}{g / v^2} = \frac{v^2}{g L_M} = \frac{2500}{9.81 \times 208} \approx 1.2\\]
+\\[\frac{1 / L\_M}{g / v^2} = \frac{v^2}{g L\_M} = \frac{2500}{9.81 \times 208} \approx 1.2\\]
 
 So at 50 m/s, 2500 rpm of topspin bends the serve slightly more than gravity does. For a hard serve, the curvature from spin is at least as large as the curvature from gravity.
 
 Putting the pieces together, the flat-trajectory path is
 
-\\[y(x) = H + x \tan \theta - F(x), \qquad F(x) = \frac{g L_D^2}{4 v^2} \left( e^{2 x / L_D} - 1 - \frac{2 x}{L_D} \right) + \frac{x^2}{2 L_M}\\]
+\\[y(x) = H + x \tan \theta - F(x), \qquad F(x) = \frac{g L\_D^2}{4 v^2} \left( e^{2 x / L\_D} - 1 - \frac{2 x}{L\_D} \right) + \frac{x^2}{2 L\_M}\\]
 
 and because \\(y\\) is linear in \\(\tan \theta\\), both conditions solve directly. The net condition
-\\(y(x_n) \geq h_n + r\\) and the service line condition \\(y(x_s) \leq r\\) give
+\\(y(x\_n) \geq h\_n + r\\) and the service line condition \\(y(x\_s) \leq r\\) give
 
-\\[\tan \theta_{\text{low}} = \frac{h_n + r - H + F(x_n)}{x_n}, \qquad \tan \theta_{\text{high}} = \frac{F(x_s) - (H - r)}{x_s}\\]
+\\[\tan \theta\_{\text{low}} = \frac{h\_n + r - H + F(x\_n)}{x\_n}, \qquad \tan \theta\_{\text{high}} = \frac{F(x\_s) - (H - r)}{x\_s}\\]
 
 and the width of the window, in the small angle approximation where
-\\(\Delta \theta \approx \tan \theta_{\text{high}} - \tan \theta_{\text{low}}\\), is
+\\(\Delta \theta \approx \tan \theta\_{\text{high}} - \tan \theta\_{\text{low}}\\), is
 
-\\[\Delta \theta \approx (H - r) \left( \frac{1}{x_n} - \frac{1}{x_s} \right) - \frac{h_n}{x_n} + \left( \frac{F(x_s)}{x_s} - \frac{F(x_n)}{x_n} \right)\\]
+\\[\Delta \theta \approx (H - r) \left( \frac{1}{x\_n} - \frac{1}{x\_s} \right) - \frac{h\_n}{x\_n} + \left( \frac{F(x\_s)}{x\_s} - \frac{F(x\_n)}{x\_n} \right)\\]
 
 The first two terms are the straight line geometry from earlier, and
 the last term is the bonus you get from curvature. For a pure parabola with constant curvature
-\\(c\\), \\(F(x) = c x^2 / 2\\), and the curvature term is just \\(c (x_s - x_n) / 2\\). The window is
+\\(c\\), \\(F(x) = c x^2 / 2\\), and the curvature term is just \\(c (x\_s - x\_n) / 2\\). The window is
 the straight line window plus half the curvature times the length of the service box. Anything that adds curvature between the net and the service line opens the window.
 
 Two consequences fall straight out of this formula. The first is that contact height enters
 linearly with a coefficient that doesn't depend on speed or spin at all:
 
-\\[\frac{\partial \, \Delta \theta}{\partial H} = \frac{1}{x_n} - \frac{1}{x_s} = \frac{x_s - x_n}{x_n x_s} = \frac{6.40}{11.885 \times 18.285} \approx 0.0295 \text{ rad/m}\\]
+\\[\frac{\partial \, \Delta \theta}{\partial H} = \frac{1}{x\_n} - \frac{1}{x\_s} = \frac{x\_s - x\_n}{x\_n x\_s} = \frac{6.40}{11.885 \times 18.285} \approx 0.0295 \text{ rad/m}\\]
 
 which is about 0.17 degrees of extra window for every 10 cm of extra contact height. For
 context, that's roughly an eighth of the whole window for a 50 m/s flat serve, so the height of your
@@ -186,7 +186,7 @@ contact point is not a minor detail. The second consequence is the high speed li
 \\(v \to \infty\\) the gravity part of \\(F\\) vanishes, and without spin the window approaches the
 straight line value,
 
-\\[\Delta \theta_\infty = (H - r) \frac{x_s - x_n}{x_n x_s} - \frac{h_n}{x_n} = 2.7665 \times 0.02945 - 0.0769 \approx 0.0046 \text{ rad} \approx 0.26°\\]
+\\[\Delta \theta\_\infty = (H - r) \frac{x\_s - x\_n}{x\_n x\_s} - \frac{h\_n}{x\_n} = 2.7665 \times 0.02945 - 0.0769 \approx 0.0046 \text{ rad} \approx 0.26°\\]
 
 for \\(H = 2.8\\) m. The window never closes for a contact point above 2.64 m, but it shrinks
 toward a quarter of a degree.
@@ -195,11 +195,11 @@ Drag also makes serving easier, which surprised me. Compare the vacuum table
 above with the results with drag included. At 50 m/s from 2.8 m, the vacuum window is 0.97
 degrees, and with drag it's 1.34 degrees. Drag slows the ball most at the end of its flight, which
 increases the curvature exactly where it helps, between the net and the service line. The
-\\(e^{2 x / L_D}\\) factor in \\(F_g\\) makes this precise: the curvature at the service line is
+\\(e^{2 x / L\_D}\\) factor in \\(F\_g\\) makes this precise: the curvature at the service line is
 \\(e^{2 \times 18.285 / 49.2} \approx 2.1\\) times what it is at the racquet.
 
 To check all of this I integrated the full equations of motion numerically, with the exact speed in
-the drag and Magnus terms, \\(C_L\\) recomputed from the spin parameter at every step as the ball
+the drag and Magnus terms, \\(C\_L\\) recomputed from the spin parameter at every step as the ball
 slows, and a scan over launch angles in steps of a hundredth of a degree. The window widths, in
 degrees, are:
 
@@ -214,7 +214,7 @@ degrees, are:
 
 Without spin, the closed form matches the simulation to within about 0.05 degrees everywhere in
 the table, so the flat-trajectory approximation holds up. With spin, the closed form comes out
-about 0.15 degrees narrow, because I evaluated \\(C_L\\) at the launch speed, and in reality the
+about 0.15 degrees narrow, because I evaluated \\(C\_L\\) at the launch speed, and in reality the
 spin parameter grows as the ball slows down, so the ball curves a bit more at the end than the
 formula assumes. You can also read the height result directly off the table: every 20 cm of contact
 height adds about 0.33 degrees in every column, just as the derivative predicted.
@@ -256,7 +256,7 @@ travels farther, crosses the net closer to the posts where it's higher, and has 
 that's angled relative to its path, which all narrow the window. I've also put the contact point
 directly above the baseline, while real servers make contact somewhat inside the court, which
 helps a little. The drag and lift coefficients are the weakest part of the model, since both
-depend on the condition of the felt and \\(C_D\\) can shift with spin. I've ignored the slow decay
+depend on the condition of the felt and \\(C\_D\\) can shift with spin. I've ignored the slow decay
 of spin during the flight, sidespin, and wind, and I've treated the ball as a point that only has
 size at the net and the bounce. None of these change the structure of the answer, which comes from
 the window formula: straight line geometry plus a curvature bonus over the length of the service
