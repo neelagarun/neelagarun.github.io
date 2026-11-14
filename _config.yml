@@ -1,9 +1,17 @@
 title: Nikhil Neelagaru
 description: Former physics researcher, now a founder and machine learning engineer, writing about physics, statistics, machine learning, puzzles, and travel.
+url: https://neelagarun.github.io
+author: Nikhil Neelagaru
+social:
+  name: Nikhil Neelagaru
+  links:
+    - https://github.com/neelagarun
 theme: minima
 plugins:
   - jekyll-feed
   - jekyll-redirect-from
+  - jekyll-sitemap
+  - jekyll-seo-tag
 show_excerpts: true
 future: true
 minima:
