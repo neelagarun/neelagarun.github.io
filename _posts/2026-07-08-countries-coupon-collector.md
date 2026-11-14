@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "23 Countries Down, 172 to Go: How Long Until I've Been Everywhere?"
-date: 2026-11-13 12:00:00 +0000
+date: 2026-07-08
+redirect_from:
+  - /travel/2026/11/13/countries-coupon-collector.html
 categories: [travel]
 ---
 

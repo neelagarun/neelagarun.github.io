@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "Testing a Thousand Hypotheses at Once: False Discoveries and the Benjamini-Hochberg Procedure"
-date: 2026-11-14 20:00:00 +0000
+date: 2026-09-30
+redirect_from:
+  - /statistics/2026/11/14/false-discovery-rate.html
 categories: [statistics]
 ---
 
