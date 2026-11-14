@@ -8,17 +8,13 @@ categories: [physics]
 When I was at Boston College, part of my research involved building nanoscale coaxial
 electrode arrays. We grew stem cells around these arrays and applied a current in solution to
 see how it affected the way the cells differentiated. At the time I mostly thought about the
-fabrication side of it. Only later did I sit down and work through the question that makes the
-whole idea work in the first place: why does a coaxial electrode keep its field to itself? If you
-want to stimulate one cell and leave the cell next to it alone, the field has to die off fast, and
-the coaxial geometry turns out to be very good at making that happen. This post is the math
+fabrication side of it. Only later did I work out why a coaxial electrode keeps its field to itself, which is the property the whole idea depends on. To stimulate one cell and leave the cell next to it alone, the field has to fall off quickly with distance, and the coaxial geometry makes it fall off much faster than a bare electrode does. This post is the math
 behind that.
 
-Before getting into it, I want to note that I'm going to use round, illustrative numbers
-throughout rather than the dimensions or results of any particular device. The point is the
+The numbers below are round values I picked, not the dimensions or results of any particular device. The point is the
 structure of the solution, which doesn't depend much on the exact sizes.
 
-The first thing you have to figure out is which equation actually governs the problem. The
+Start with the equation that governs the problem. The
 electrodes sit in a conducting electrolyte, roughly physiological saline, and current flows
 through it. Charge conservation says \\(\nabla \cdot \mathbf{J} + \partial_t \rho = 0\\), and in
 an ohmic medium \\(\mathbf{J} = \sigma \mathbf{E}\\). Combining with Gauss's law,
@@ -27,8 +23,7 @@ an ohmic medium \\(\mathbf{J} = \sigma \mathbf{E}\\). Combining with Gauss's law
 \\[\partial_t \rho = -\frac{\sigma}{\varepsilon} \rho \quad \Longrightarrow \quad \rho(t) = \rho(0) \, e^{-t / \tau}, \qquad \tau = \frac{\varepsilon}{\sigma}\\]
 
 For saline, \\(\varepsilon \approx 80 \varepsilon_0\\) and \\(\sigma \approx 1.5\\) S/m, which gives
-\\(\tau \approx 0.5\\) ns. So for anything slower than about a gigahertz, which covers essentially
-every stimulation protocol you would use on cells, the bulk is charge neutral, the problem is
+\\(\tau \approx 0.5\\) ns. So for anything slower than about a gigahertz, which covers almost every stimulation protocol you would use on cells, the bulk is charge neutral, the problem is
 quasi-static, and with \\(\mathbf{E} = -\nabla \phi\\) and uniform \\(\sigma\\),
 
 \\[\nabla \cdot (\sigma \nabla \phi) = 0 \quad \Longrightarrow \quad \nabla^2 \phi = 0\\]
@@ -40,10 +35,9 @@ themselves into a double layer. For a 1:1 electrolyte at concentration \\(c\\),
 
 which for 150 mM saline is about 0.8 nm. That is two orders of magnitude smaller than anything
 else in the problem, so I'll treat the double layer as part of the electrode interface and solve
-Laplace's equation everywhere else. The whole problem is a boundary value problem for
-\\(\nabla^2 \phi = 0\\), and everything interesting comes from the boundaries.
+Laplace's equation everywhere else.
 
-The naive starting point is the ideal coax: an inner conductor of radius \\(a\\) held at potential
+The simplest case is the ideal coax: an inner conductor of radius \\(a\\) held at potential
 \\(V\\), a grounded outer conductor of radius \\(b\\), infinitely long, with the space between them
 filled with a uniform medium. In cylindrical coordinates the Laplacian is
 
@@ -76,13 +70,12 @@ same magnitude everywhere on it. Gauss's law reads
 
 so \\(E_r = 0\\) for all \\(r > b\\). Combined with
 \\(\phi(b) = 0\\) and the uniqueness theorem for Laplace's equation, \\(\phi \equiv 0\\) outside.
-The ideal coax confines its field perfectly. Not approximately, exactly.
+In the ideal coax, the field outside the shield is exactly zero.
 
-The problem is that a real electrode isn't infinitely long. It has an open end, and that end is
-the whole point, because that's where the cell is. So the question splits into two parts: what
+A real electrode has an open end, though, and that end is where the cell sits. So the question splits into two parts: what
 happens just inside the opening, and what happens in the electrolyte outside it.
 
-The inside is a nice warm-up because it shows the same mechanism that controls the outside.
+The inside is simpler, and it shows the same mechanism that controls the outside.
 Suppose the annulus is open at \\(z = 0\\) and extends down to \\(z \to -\infty\\). Far from the
 opening, the solution has to approach the logarithmic profile. So write
 
@@ -147,9 +140,7 @@ but the approximation still lands close: the first root is \\(k_1 \approx 15.5\\
 \\(\pi / (b - a) \approx 15.7\\). Every mode decays at least as fast as \\(e^{k_1 z}\\), so whatever
 disturbance the opening creates is gone within a depth of about \\(1 / k_1 \approx 65\\) nm.
 
-Another way of reading this: a structure of width \\(w\\) can't support potential variations along
-its length on scales longer than about \\(w / \pi\\). The walls kill long wavelengths. That idea is
-the key to the outside problem too.
+In general, a structure of width \\(w\\) can't support potential variations along its length on scales longer than about \\(w / \pi\\), because the walls suppress long wavelengths. The same idea explains the outside problem.
 
 Outside, the coax ends flush with an insulating substrate at \\(z = 0\\) and the electrolyte fills
 \\(z > 0\\). Now the boundary conditions are mixed: on the metal the potential is fixed, and on the
@@ -173,8 +164,7 @@ where \\(\rho_\perp\\) is the horizontal distance. Differentiating with respect 
 
 \\[G(\mathbf{x}, \mathbf{x}') = \frac{1}{2 \pi \sigma \, \lvert \mathbf{x} - \mathbf{x}' \rvert}, \qquad \phi(\mathbf{x}) = \frac{1}{2 \pi \sigma} \int_{z' = 0} \frac{s(\mathbf{x}')}{\lvert \mathbf{x} - \mathbf{x}' \rvert} \, dA'\\]
 
-It's worth looking at what an unshielded electrode does first, because that's the comparison that
-matters. Take a bare disk electrode of radius \\(a\\) in the insulating plane, with the return
+First consider an unshielded electrode, since that's the comparison to make. Take a bare disk electrode of radius \\(a\\) in the insulating plane, with the return
 electrode far away. This is a classic result in electrochemistry: the problem can be solved
 exactly in oblate spheroidal coordinates, and the potential is
 
@@ -232,7 +222,7 @@ Every source point lies in the plane, at \\(\theta' = \pi / 2\\), so
 
 \\[\phi(R, \theta) = \frac{1}{2 \pi \sigma} \sum_{\ell = 0}^{\infty} P_\ell(0) \, \frac{M_\ell}{R^{\ell + 1}} \, P_\ell(\cos \theta), \qquad M_\ell = \int s(r') \, r'^{\ell} \, dA'\\]
 
-Now go term by term. The \\(\ell = 0\\) term is the monopole, and its coefficient is
+Taking the terms one at a time, the \\(\ell = 0\\) term is the monopole, and its coefficient is
 \\(M_0 = \int s \, dA = 0\\) by current conservation. The \\(\ell = 1\\) term is the dipole, and it
 vanishes for a different reason: \\(P_1(0) = 0\\). In fact \\(P_\ell(0) = 0\\) for every odd
 \\(\ell\\), because Legendre polynomials have definite parity, \\(P_\ell(-x) = (-1)^\ell P_\ell(x)\\),
@@ -256,8 +246,7 @@ so
 
 \\[\lvert \mathbf{E} \rvert = \frac{3 \lvert K \rvert}{R^4} \sqrt{P_2(\cos \theta)^2 + \sin^2 \theta \cos^2 \theta}\\]
 
-The field falls as \\(1 / R^4\\), compared with \\(1 / R^2\\) for the bare disk. Two whole powers
-of distance. That is the entire reason the geometry works.
+The field falls as \\(1 / R^4\\), compared with \\(1 / R^2\\) for the bare disk. That difference of two powers of distance is why the geometry works.
 
 To put a number on \\(M_2\\), model the source as a thin ring of outgoing current at radius
 \\(a\\) and a thin ring of returning current at radius \\(b\\):
@@ -275,11 +264,9 @@ read as effective radii. The far field is
 
 \\[\phi(R, \theta) \approx \frac{I \, (b^2 - a^2)}{4 \pi \sigma} \, \frac{P_2(\cos \theta)}{R^3}\\]
 
-The strength of the quadrupole scales with \\(b^2 - a^2\\), the area between the conductors. A
-smaller coax isn't just smaller; it's quieter by the square of its size.
+The strength of the quadrupole scales with \\(b^2 - a^2\\), the area between the conductors. Halving the size of the coax cuts its far field by a factor of four.
 
-There is a second way to see all of this that I think is more illuminating, and it connects back
-to the inside problem. Because the setup is axially symmetric, the natural tool is the Hankel
+A second way to see this connects back to the inside problem. Because the setup is axially symmetric, the natural tool is the Hankel
 transform. Any solution of Laplace's equation in \\(z > 0\\) that decays at infinity can be written
 as
 
@@ -314,8 +301,7 @@ so substituting into \\(\hat{s}\\) and integrating term by term,
 
 since \\(M_0 = 2 \pi \int s \, r \, dr\\) and \\(M_2 = 2 \pi \int s \, r^3 \, dr\\).
 
-For the bare disk, \\(M_0 = I \neq 0\\), and the spectrum has a nonzero value at \\(k = 0\\). For
-the coax, \\(M_0 = 0\\), and the spectrum starts at order \\(k^2\\). On the axis this turns into
+For the bare disk, \\(M_0 = I \neq 0\\), and the spectrum has a nonzero value at \\(k = 0\\). The coax has \\(M_0 = 0\\), so its spectrum starts at order \\(k^2\\). On the axis this turns into
 powers of distance directly, since \\(\int_0^\infty k^n e^{-k z} \, dk = n! / z^{n + 1}\\):
 
 \\[\phi(0, z) \approx \frac{1}{\sigma} \int_0^\infty \left( -\frac{k^2 M_2}{8 \pi} \right) e^{-k z} \, dk = -\frac{M_2}{8 \pi \sigma} \cdot \frac{2!}{z^3} = -\frac{M_2}{4 \pi \sigma z^3}\\]
@@ -367,7 +353,7 @@ expression numerically, and against the exact off-axis surface potential (which 
 complete elliptic integrals), and they agree to within about a percent once
 \\(R\\) is more than about ten times \\(b\\), and much better than that further out.
 
-Now to the numbers. Take \\(a = 100\\) nm, \\(b = 300\\) nm, and compare the field on the axis
+For a numerical example, take \\(a = 100\\) nm, \\(b = 300\\) nm, and compare the field on the axis
 from the coax with the field from the same current leaving a bare electrode. Using the exact
 on-axis expressions:
 
@@ -394,7 +380,7 @@ magnitude weaker than the bare electrode carrying the same current. Looking at i
 point of view, the field from the coax drops by a factor of about 500,000 between 0.5 μm and 15 μm
 above it. The bare electrode only drops by about 850 over the same distance.
 
-The reason this matters biologically is that what a cell responds to is the voltage across its
+Biologically, the field is important because what a cell responds to is the voltage across its
 membrane, and that scales with the local field. For a spherical cell of radius \\(R_c\\) in a
 uniform field \\(E\\) along \\(z\\), with a membrane that is much less conductive than the fluid on
 either side, the steady state is easy to work out. Once the membrane has charged up, no current
@@ -419,23 +405,19 @@ sitting half a micron above the coax and a neighbor 15 μm away see fields that 
 of about 500,000, so their membrane voltages differ by a comparable factor. That is what it means to stimulate one cell and not the
 cell next to it.
 
-There are a few things this analysis leaves out that are worth being upfront about. The first is
-the interface. Everything above assumes the metal is an equipotential in contact with the
+This analysis leaves out three things. The first is the electrode interface. Everything above assumes the metal is an equipotential in contact with the
 electrolyte, but a real electrode has a double layer with its own capacitance and, at high enough
 voltages, Faradaic reactions. The interface impedance redistributes current across the electrode
 face and makes the response frequency dependent, which changes \\(M_2\\) but not the fact that
-\\(M_0 = 0\\). The quadrupole structure is protected by current conservation, not by any detail of
-the interface.
+\\(M_0 = 0\\). The quadrupole structure comes from current conservation, so it holds whatever the details of the interface.
 
 The second is that the cells themselves are part of the boundary. A cell membrane is close to an
 insulator at low frequencies, so a cell sitting directly on the electrode reshapes the current
 paths around it, and if it adheres tightly it can form a thin, resistive cleft between itself and
-the substrate. That cleft is its own boundary value problem and a more interesting one. The third
-is arrays. With many coaxes on a grid of pitch \\(p\\), the fields superpose, and because each
+the substrate. That cleft is its own boundary value problem and a more interesting one. The third is what happens in arrays. With many coaxes on a grid of pitch \\(p\\), the fields superpose, and because each
 element is a quadrupole, the surface ratio above with \\(R = p\\) says the crosstalk from one element
 at its neighbor is about \\(\tfrac{3}{4} (b^2 - a^2) / p^2\\) of what a bare electrode array would
-give, so it scales like \\((b / p)^2\\). Pack the array twice as tightly and the
-crosstalk goes up by a factor of four, not two.
+give, so it scales like \\((b / p)^2\\). Packing the array twice as tightly raises the crosstalk by a factor of four.
 
 Finally, the exact solution of the full mixed problem, with fixed potentials on the conductors and
 zero current on the insulator, leads to a set of dual integral equations for \\(A(k)\\). Those
@@ -444,7 +426,4 @@ annular geometry they don't close in elementary functions, and the ring model is
 that harder calculation. The far-field result doesn't depend on it, because the multipole argument
 only used \\(M_0 = 0\\) and axial symmetry.
 
-There is more to say here, particularly about the time dependent problem, where the double layer
-charges up through the electrolyte resistance and the field near the electrode evolves on a time
-scale set by that RC product, and about what the cleft under an adherent cell does to all of this.
-I'd like to come back to both.
+Two problems I'd like to work through next are the time dependent one, where the double layer charges up through the electrolyte resistance and the field near the electrode evolves on a time scale set by that RC product, and what the cleft under an adherent cell does to all of this.

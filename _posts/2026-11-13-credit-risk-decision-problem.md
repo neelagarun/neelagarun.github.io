@@ -6,7 +6,7 @@ categories: [machine-learning, statistics]
 ---
 
 Most writing about credit risk models treats the problem as classification: predict whether a
-borrower defaults, report an AUC, and move on. But a lender doesn't actually need a
+borrower defaults, report an AUC, and move on. But a lender doesn't need a
 classification. A lender needs a decision, approve or deny, and the quality of that decision
 depends on things the classifier knows nothing about: what a default costs relative to what a
 repaid loan earns, how much risk the business is willing to carry, and whether the probabilities
@@ -15,14 +15,14 @@ coming out of the model mean what they say. The model is maybe half the problem.
 Before getting into it, I want to note that I am going to stay away from the specifics of how the
 model itself is built: the features, the tuning, and the way it is packaged and deployed are
 things I'm not going to share here. What I can talk about is the statistical framework around it,
-which is probably the more interesting part anyway, and which applies to essentially any scoring
+which applies to essentially any scoring
 model you could put in the middle.
 
 The data is a public set of roughly 32,000 personal loans with known outcomes, about 22% of which
 defaulted. Each row has the usual applicant information (income, employment length, housing
 status, loan amount and purpose, credit bureau history) along with two fields that turn out to
 matter enormously: the lender's own risk grade and the interest rate it assigned. I will come back
-to those, because they change what the model actually is.
+to those, because they change what the model is.
 
 The first choice, which sounds cosmetic but isn't, is what to predict. The raw label is default.
 I flip it and model the probability of repayment instead:
@@ -32,9 +32,8 @@ I flip it and model the probability of repayment instead:
 and approve whenever \\(p(x) \geq t\\) for some cutoff \\(t\\). The reason for doing this is
 that it makes a positive prediction mean *approve*, which means the expensive mistake, approving a
 loan that goes bad, is a false positive. Precision on the positive class then becomes the
-quantity the business actually cares about: of the loans we approved, what fraction paid us back.
-Recall is the secondary objective: of the borrowers who would have repaid, how many did we
-actually lend to. Every good borrower you deny is revenue you left on the table, so you want
+quantity the business cares about: of the loans we approved, what fraction paid us back.
+Recall is the secondary objective: of the borrowers who would have repaid, how many did we lend to. Every good borrower you deny is revenue you left on the table, so you want
 recall as high as you can get it, but only inside whatever precision constraint the lender is
 willing to live with.
 
@@ -51,7 +50,7 @@ which is positive exactly when
 \\[p \geq t^{\ast} = \frac{\ell}{g + \ell} = \frac{c}{1 + c}, \quad c = \frac{\ell}{g}\\]
 
 So at a cost ratio of 3:1, where a default loses three times what a good loan earns, the
-theoretically optimal cutoff is 0.75, not 0.5. This is a clean result, but it has a hidden
+theoretically optimal cutoff is 0.75, not 0.5. This result has a hidden
 assumption baked into it: it only holds if \\(p(x)\\) is *calibrated*, meaning that among all
 applicants the model scores at 0.8, about 80% actually repay. Gradient boosted trees are not
 guaranteed to be calibrated. They optimize log loss, which is a proper scoring rule and so pushes
@@ -63,7 +62,7 @@ realized profit over the candidate thresholds:
 
 \\[t_{\text{profit}} = \arg\max_t \sum_{i} \mathbb{1}[p_i \geq t] \big( y_i - c \, (1 - y_i) \big)\\]
 
-The nice thing is that this gives you a free diagnostic. If the model is well calibrated, the
+This also gives you a free diagnostic. If the model is well calibrated, the
 empirically optimal cutoff should land close to \\(c / (1 + c)\\). In my case it landed within a
 couple of hundredths of 0.75, which is a reassuring, independent confirmation of what the
 calibration metrics were already saying (expected calibration error on cross-validated
@@ -71,7 +70,7 @@ predictions was under one percentage point). When those two numbers disagree bad
 the probabilities shouldn't be taken at face value, and you would want to recalibrate with
 something like isotonic regression or Platt scaling before building any policy on top of them.
 
-It's worth making that diagnostic precise, because the argument is a little more subtle than it
+That diagnostic can be made precise, and the argument is a little more subtle than it
 looks. Let \\(f(s)\\) be the density of scores across applicants, and define the calibration map
 
 \\[q(s) = P(\text{repay} \mid p(x) = s)\\]
@@ -132,7 +131,7 @@ optimization problem:
 which is structurally the same as a Neyman–Pearson problem with the roles of the two error types
 arranged around precision instead of false positive rate. Since recall is monotonically
 non-increasing in \\(t\\), the solution is just the *lowest* cutoff whose precision clears the
-floor \\(\pi\\). One subtlety worth mentioning is that precision, unlike recall, is not monotonic
+floor \\(\pi\\). Precision, unlike recall, is not monotonic
 in \\(t\\). As you raise the cutoff, you can drop a run of good loans and watch precision dip
 before it climbs again. So you can't just binary search for the crossing point; you have to scan
 the whole precision–recall curve and take the best recall among every threshold that satisfies
@@ -228,7 +227,7 @@ with the \\(-1\\) as a continuity correction. The thing I like about this test i
 the thousands of loans both models get right, or both get wrong, carry no information about which
 model is better, and they don't enter the statistic at all. When two strong models agree on the
 vast majority of applicants, as they did here, \\(b + c\\) is small and the test is honest about
-how little evidence there actually is.
+how little evidence there is.
 
 The tuned candidate improved recall at the 95% floor by a few tenths of a point and profit by a
 fraction of a unit per hundred applicants, and neither difference came close to significance.
@@ -249,7 +248,7 @@ it really is, purely from noise. Real trials are correlated with each other, so 
 \\(K\\) is smaller and the bias is less severe than that, but the direction is never in doubt. The
 honest estimate of how good the winner is has to come from data that wasn't used to pick it.
 Some of the feature additions were actually significantly *worse* on log loss
-and PR-AUC, which is a useful reminder that trees are already quite good at constructing the
+and PR-AUC, which shows that trees are already quite good at constructing the
 ratios and interactions you might hand-engineer for them, and extra columns mostly give them more
 ways to overfit.
 
@@ -272,7 +271,7 @@ refitting on every labelled row including the test set, leaves you with no held-
 validate the refit on. It's a real tradeoff and it's a business decision more than a statistical
 one.
 
-It's worth noting what the model is actually relying on. Permutation importance measures how much
+To see what the model relies on, I used permutation importance, which measures how much
 a metric \\(M\\) degrades when one input is scrambled:
 
 \\[I_k = M\big(y, f(X)\big) - \frac{1}{R} \sum_{r=1}^{R} M\big(y, f(X^{(k, r)})\big)\\]
@@ -288,14 +287,13 @@ overlapping information, shuffling one leaves the other to carry the signal, so 
 unimportant even though removing both would hurt a lot. A low score means "redundant here," not
 "irrelevant." That brings me back to the two lender-assigned fields. If you
 remove the grade and the interest rate, recall at the 95% floor falls from about 93% to about 75%.
-So this model is not a replacement for the lender's underwriting; it is a refinement that sits on
-top of it, and it should only ever be applied to applications that have already been graded.
+So this model refines the lender's underwriting and sits on top of it, and it should only ever be applied to applications that have already been graded.
 Formally, what it estimates is \\(P(\text{repay} \mid x, \text{grade}, \text{rate})\\), and
 there's no reason to expect that to transfer to a setting where those inputs don't exist.
 
 There is a deeper version of that problem which no amount of modeling fixes. The data only
 contains loans that were approved and booked. Everyone the lender turned down is missing, so what
-the model actually learns is
+the model learns is
 
 \\[P(\text{repay} \mid x, \text{approved}) \neq P(\text{repay} \mid x)\\]
 
@@ -319,10 +317,10 @@ A lender's approval policy is close to deterministic, so for whole regions of ap
 \\(e(x) = 0\\): nobody like them was ever approved, and no amount of reweighting can conjure
 outcomes that were never observed. And in this data it's worse still, because the rejected
 applicants aren't in the file at all, so \\(e(x)\\) can't even be estimated. That's why the
-random-approval approach is the clean fix even though it costs money. Approving a small random
+random-approval approach is the direct fix even though it costs money. Approving a small random
 fraction \\(\varepsilon\\) of applicants who would otherwise be denied guarantees
 \\(e(x) \geq \varepsilon\\) everywhere and makes the weighting valid by construction. It's the
-single biggest reason to be cautious about how far any model trained on booked loans can be
+main reason to be cautious about how far any model trained on booked loans can be
 pushed.
 
 One more data issue, because I think it's a good cautionary tale. There is a second, larger loan
@@ -351,7 +349,7 @@ and additivity), which is why it has become the default. The problem is that the
 all \\(2^{\lvert F \rvert - 1}\\) subsets, which is exponential. For tree ensembles there's an algorithm,
 TreeSHAP, that exploits the tree structure to compute the values exactly in
 \\(O(T L D^2)\\) time for \\(T\\) trees with at most \\(L\\) leaves and depth \\(D\\). So a single
-tree ensemble has the nice property that Shapley attributions can be computed exactly rather than
+tree ensemble has the property that Shapley attributions can be computed exactly rather than
 approximated, and they're additive: for each applicant,
 
 \\[\text{logit}\big(p(x)\big) = \phi_0 + \sum_{k} \phi_k(x)\\]

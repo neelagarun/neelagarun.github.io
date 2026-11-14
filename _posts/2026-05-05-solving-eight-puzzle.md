@@ -88,7 +88,7 @@ $$s = (\mathbf{B}, \, \text{pred}, \, m, \, g), \qquad g(s) = \begin{cases} 0 & 
 
 The predecessor pointer is what lets me reconstruct the move sequence at
 the end without storing the full path inside the state. It also lets me
-detect cycles incredibly easily by walking back up the chain and checking for board
+detect cycles easily by walking back up the chain and checking for board
 equality.
 
 $$\text{cycle}(s) \iff \exists \, s' \in \text{ancestors}(s) : \, s'.\mathbf{B} = s.\mathbf{B}$$
@@ -249,8 +249,7 @@ this problem.
 
 $$h_{\text{MD}}(s) = \sum_{i=1}^{8} \big| r_i(s) - r_i^* \big| + \big| c_i(s) - c_i^* \big|$$
 
-It is worth asking whether the algorithm comparison generalizes. The
-answer is mostly yes. BFS is optimal but computationally expensive. DFS is computationally cheap but
+The algorithm comparison mostly generalizes. BFS is optimal but computationally expensive. DFS is computationally cheap but
 unreliable without an extremely good depth limit. Greedy is fast but lossy
 on solution quality. A* with an admissible heuristic is the one that
 guarantees optimality while searching less than BFS, and it pays for

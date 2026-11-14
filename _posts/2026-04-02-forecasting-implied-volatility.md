@@ -56,7 +56,7 @@ future step have to come from the model's own predicted residuals at the
 earlier steps, filled in one step at a time. Otherwise the model would be
 using information it can't actually have.
 
-One subtlety worth mentioning is that the lag features have to be computed per contract before 
+The lag features also have to be computed per contract before 
 concatenating everything into a single training dataset. If you compute them after concatenation, 
 lags will bleed across contract boundaries and you will be leaking information from one contract 
 into another.
@@ -79,8 +79,7 @@ scaled by \\(\sigma_t\\), and \\(\Phi\\) is the standard normal CDF. This gives 
 in the ARIMA confidence interval the hybrid forecast ends up, which turns out to be a useful 
 signal on its own.
 
-It's worth noting that this tends to be interesting for sizing trades with various procedures like Kelly
-Criterion, for example.
+This is useful for sizing trades with procedures like the Kelly criterion.
 
 There is a lot more to say about the ARIMA fitting procedure, how contracts are selected, and how 
 the forecasts are actually used to construct trades. I will get into that in future posts.
