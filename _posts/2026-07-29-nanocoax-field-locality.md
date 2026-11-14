@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "Why the Field of a Nanoscale Coaxial Electrode Stays Local"
-date: 2026-11-13 18:00:00 +0000
+date: 2026-07-29
+redirect_from:
+  - /physics/2026/11/13/nanocoax-field-locality.html
 categories: [physics]
 ---
 

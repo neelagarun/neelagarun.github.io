@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "Flying a Drone on Mars: Thin Air, Slow Sound, and the Fluid Dynamics of Hovering in Less Than 1% of an Atmosphere"
-date: 2026-11-14 18:00:00 +0000
+date: 2026-09-09
+redirect_from:
+  - /physics/2026/11/14/mars-drone-fluid-dynamics.html
 categories: [physics]
 ---
 
