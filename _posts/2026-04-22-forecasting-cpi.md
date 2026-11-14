@@ -40,8 +40,7 @@ positive horizon. The choice to predict a difference rather than a level is
 one I will return to when I get to the results, because it ends up mattering
 much more than it might look at first.
 
-The next and first genuinely interesting problem to consider is that with around 120 candidate features and only 689 rows
-of usable data, you will absolutely overfit if you hand the network everything
+The first real problem is that with around 120 candidate features and only 689 rows of usable data, you will overfit if you hand the network everything
 at once. So I run a three stage feature selector, fit only on the training
 portion of the data:
 
@@ -62,7 +61,7 @@ only on rows whose target time also falls inside the training window. If you
 fit it on the full sample, you have already leaked information about future
 inflation into the feature set, and every metric you report afterward is not useful (it's nonsense).
 
-It is worth asking whether the features the model selected make any economic sense. Among the top 30 by Random Forest importance, I would expect to find variables related to energy prices, labor market indicators, interest rate spreads, and money supply growth. If the selector is instead picking up series with no plausible link to inflation, then it might be a signal the model is fitting noise. I did not tune the selector to enforce selecting certain features, so whatever it picks is a revealed preference of the data. But the interpretation cuts both ways: a model that selects economically sensible features and still cannot beat a naive baseline is telling you that the signal to noise ratio in monthly macro data is genuinely low, and no amount of architecture will fix that.
+The next check is whether the features the model selected make economic sense. Among the top 30 by Random Forest importance, I would expect to find variables related to energy prices, labor market indicators, interest rate spreads, and money supply growth. If the selector is instead picking up series with no plausible link to inflation, then it might be a signal the model is fitting noise. I did not tune the selector to enforce selecting certain features, so whatever it picks is a revealed preference of the data. But the interpretation cuts both ways: a model that selects economically sensible features and still cannot beat a naive baseline is telling you that the signal to noise ratio in monthly macro data is genuinely low, and no amount of architecture will fix that.
 
 The next question is what model to use. There is a real argument for just
 running an autoregression on the differenced CPI series, because it seems that inflation has
@@ -172,13 +171,12 @@ state space layer in place of the LSTM, a probabilistic head that returns a
 distribution rather than a point estimate. Each of these changes the bias
 variance tradeoff in a different direction.
 
-So where does this leave the original question? Honestly, this version doesn't
-answer it yet. The level metrics look great for reasons that have nothing to do
+This version doesn't answer the original question yet. The level metrics look great for reasons that have nothing to do
 with the LSTM, the validation loss is worse than predicting the mean, and I
 haven't put a simple autoregression on the same test set to compare against.
 That comparison is the next thing to do: fit an AR(p) and a random walk (predict
 a change of zero) on the differenced CPI series and report their delta RMSE next
-to the LSTM's. Until the LSTM beats those, the honest conclusion is that monthly
+to the LSTM's. Until the LSTM beats those, the conclusion so far is that monthly
 macro data is noisy enough that the extra machinery isn't paying for itself.
 I still think there's room for neural networks here, probably alongside
 econometric methods rather than instead of them, but this post is a starting
