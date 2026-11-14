@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Yard-Sale Model with a Common Shock: When the Wealth Distribution Becomes Random"
+title: "The Yard-Sale Model with a Common Shock"
 date: 2026-11-04
 categories: [statistics, physics]
 ---
