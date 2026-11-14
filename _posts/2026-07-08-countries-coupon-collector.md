@@ -26,16 +26,16 @@ lands me in a country chosen uniformly at random from all 195, including ones I'
 been to. If I currently have \\(j\\) countries, the next trip is a new one with probability
 \\((n - j)/n\\), so the number of trips until I get a new country is geometric with mean
 
-\\[\mathbb{E}[T_j] = \frac{n}{n - j}\\]
+\\[\mathbb{E}[T\_j] = \frac{n}{n - j}\\]
 
 Summing from where I am now to the end:
 
-\\[\mathbb{E}[T] = \sum_{j=k}^{n-1} \frac{n}{n - j} = n \sum_{m=1}^{n-k} \frac{1}{m} = n \, H_{n-k}\\]
+\\[\mathbb{E}[T] = \sum\_{j=k}^{n-1} \frac{n}{n - j} = n \sum\_{m=1}^{n-k} \frac{1}{m} = n \, H\_{n-k}\\]
 
-where \\(H_m\\) is the \\(m\\)th harmonic number. With \\(n - k = 172\\),
-\\(H_{172} \approx \ln 172 + \gamma \approx 5.73\\), which gives
+where \\(H\_m\\) is the \\(m\\)th harmonic number. With \\(n - k = 172\\),
+\\(H\_{172} \approx \ln 172 + \gamma \approx 5.73\\), which gives
 
-\\[\mathbb{E}[T] = 195 \times H_{172} \approx 1{,}117 \text{ trips}\\]
+\\[\mathbb{E}[T] = 195 \times H\_{172} \approx 1{,}117 \text{ trips}\\]
 
 with a standard deviation of about 247 trips. I ran a quick simulation to check this and got
 1,117.0 averaged over 20,000 runs, so the formula holds up.
@@ -55,12 +55,12 @@ Uniform sampling is a bad model in two opposite directions, and I'll take them o
 The first is that countries are not equally likely. Over a lifetime of trips, I'm going to
 end up in France far more often than I end up in Nauru, Turkmenistan, or North Korea,
 whether I'm trying to or not. So instead of uniform probabilities, give each country
-\\(i\\) its own probability \\(p_i\\) per trip. The sum above no longer has a clean form, but
+\\(i\\) its own probability \\(p\_i\\) per trip. The sum above no longer has a clean form, but
 there's a nice trick: if you pretend trips arrive as a Poisson process with rate 1, then each
-country's first visit is an independent exponential with rate \\(p_i\\), and the expected
+country's first visit is an independent exponential with rate \\(p\_i\\), and the expected
 time until all remaining countries are visited is
 
-\\[\mathbb{E}[T] = \int_0^\infty \left( 1 - \prod_{i \in \text{remaining}} \left( 1 - e^{-p_i t} \right) \right) dt\\]
+\\[\mathbb{E}[T] = \int\_0^\infty \left( 1 - \prod\_{i \in \text{remaining}} \left( 1 - e^{-p\_i t} \right) \right) dt\\]
 
 To see what this does, I made up a rough split of the 172 remaining countries: 150 "easy"
 ones with weight 1, 17 "medium" ones with weight 0.2, and 5 "hard" ones with weight 0.02, so
@@ -70,9 +70,9 @@ of trips jumps from about 1,100 to about 20,000.
 
 Almost all of that comes from the five hard countries. Each one has a per-trip probability of
 roughly \\(1/8{,}800\\), and the expected time until you've collected all of a group of
-\\(m\\) equally rare coupons with probability \\(p\\) is \\(H_m / p\\). For five of them,
+\\(m\\) equally rare coupons with probability \\(p\\) is \\(H\_m / p\\). For five of them,
 
-\\[\frac{H_5}{p_{\min}} \approx 2.28 \times 8{,}825 \approx 20{,}150\\]
+\\[\frac{H\_5}{p\_{\min}} \approx 2.28 \times 8{,}825 \approx 20{,}150\\]
 
 which accounts for almost all of the 20,000. The other 167 countries add very little. The time to collect everything is set by the rarest few coupons, and how many easy ones there are makes little difference. For the whole list, what decides it is how hard the hardest five are.
 
@@ -94,4 +94,4 @@ by default. The finish line is decided by the small set of places that need visa
 guided tours, or a stable political situation to visit, and those are the ones worth planning
 around early instead of saving for the end.
 
-Two things I haven't worked out yet are how much repeat trips to favorite places cost in expected years, and whether I can estimate my own \\(p_i\\) from my travel history so far.
+Two things I haven't worked out yet are how much repeat trips to favorite places cost in expected years, and whether I can estimate my own \\(p\_i\\) from my travel history so far.

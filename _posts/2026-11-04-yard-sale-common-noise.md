@@ -13,24 +13,24 @@ In the standard model, the wealth distribution evolves by a deterministic partia
 With a common shock, the distribution itself becomes random, and the equation becomes a stochastic partial
 differential equation. I'll derive both equations and then work out when the common shock affects inequality and in which direction.
 
-The Yard-Sale model is a population of \\(N\\) agents with wealth \\(w_1, \ldots, w_N\\). At each step, two agents
+The Yard-Sale model is a population of \\(N\\) agents with wealth \\(w\_1, \ldots, w\_N\\). At each step, two agents
 are paired at random and trade. The amount at stake is a fixed fraction \\(\beta\\) of the poorer agent's wealth,
 
-\\[\Delta = \beta \min(w_i, w_j)\\]
+\\[\Delta = \beta \min(w\_i, w\_j)\\]
 
 and a fair coin decides who wins it. The winner gains \\(\Delta\\) and the loser loses \\(\Delta\\). The rule is meant to
 capture the fact that in a voluntary exchange, neither side can lose more than the poorer side has.
 
 Every trade is fair in expectation. Each agent gains or loses \\(\Delta\\) with probability one half, so the expected
-change in wealth is zero for both. But the trade isn't fair in a multiplicative sense. Suppose \\(w_i \leq w_j\\). The
+change in wealth is zero for both. But the trade isn't fair in a multiplicative sense. Suppose \\(w\_i \leq w\_j\\). The
 poorer agent's wealth is multiplied by \\(1 + \beta\\) or \\(1 - \beta\\), so the expected change in its logarithm is
 
-\\[\mathbb{E}[\Delta \log w_i] = \frac{1}{2} \log(1 + \beta) + \frac{1}{2} \log(1 - \beta) = \frac{1}{2} \log(1 - \beta^2) \approx -\frac{\beta^2}{2}\\]
+\\[\mathbb{E}[\Delta \log w\_i] = \frac{1}{2} \log(1 + \beta) + \frac{1}{2} \log(1 - \beta) = \frac{1}{2} \log(1 - \beta^2) \approx -\frac{\beta^2}{2}\\]
 
-The richer agent's wealth changes by \\(\pm \beta w_i\\), which is a fraction \\(\beta r\\) of its wealth, where
-\\(r = w_i / w_j \leq 1\\). Its expected log change is
+The richer agent's wealth changes by \\(\pm \beta w\_i\\), which is a fraction \\(\beta r\\) of its wealth, where
+\\(r = w\_i / w\_j \leq 1\\). Its expected log change is
 
-\\[\mathbb{E}[\Delta \log w_j] = \frac{1}{2} \log(1 - \beta^2 r^2) \approx -\frac{\beta^2 r^2}{2}\\]
+\\[\mathbb{E}[\Delta \log w\_j] = \frac{1}{2} \log(1 - \beta^2 r^2) \approx -\frac{\beta^2 r^2}{2}\\]
 
 which is smaller in magnitude. Both sides lose expected log wealth, but the poorer side loses more, because it
 bets a larger fraction of what it has. This is the same volatility drag that makes a stock that goes up 20% and
@@ -50,42 +50,42 @@ agent trades at rate one with a partner drawn from the current wealth distributi
 normalized to integrate to one. In a short time \\(dt\\), an agent with wealth \\(w\\) makes on average \\(dt\\) trades. Each
 trade changes its wealth by a mean-zero amount with variance
 
-\\[\mathbb{E}\big[ \Delta^2 \big] = \beta^2 \, \mathbb{E}_{w'}\big[ \min(w, w')^2 \big] = \beta^2 B(w), \qquad B(w) = \int_0^\infty \min(w, w')^2 \, \rho(w') \, dw'\\]
+\\[\mathbb{E}\big[ \Delta^2 \big] = \beta^2 \, \mathbb{E}\_{w\'}\big[ \min(w, w\')^2 \big] = \beta^2 B(w), \qquad B(w) = \int\_0^\infty \min(w, w\')^2 \, \rho(w\') \, dw\'\\]
 
-where \\(w'\\) is the partner's wealth. So over \\(dt\\) the wealth change has mean zero and variance
+where \\(w\'\\) is the partner's wealth. So over \\(dt\\) the wealth change has mean zero and variance
 \\(\beta^2 B(w) \, dt\\), and in the limit of many small trades the agent's wealth follows the diffusion
 
 \\[d w = \beta \sqrt{B(w)} \, d W\\]
 
 with \\(W\\) a Brownian motion. The function \\(B\\) can be split according to whether the partner is poorer or richer,
 
-\\[B(w) = \int_0^w w'^2 \rho(w') \, dw' + w^2 \int_w^\infty \rho(w') \, dw'\\]
+\\[B(w) = \int\_0^w w\'^2 \rho(w\') \, dw\' + w^2 \int\_w^\infty \rho(w\') \, dw\'\\]
 
 For an agent much poorer than everyone else, almost every partner is richer, the second term dominates, and
 \\(B(w) \approx w^2\\). Then \\(d w \approx \beta w \, d W\\), which is geometric Brownian motion, with the volatility drag of
 \\(-\beta^2 / 2\\) in log wealth found above. For an agent much richer than everyone else, the first term dominates and
-\\(B(w) \to \mathbb{E}[w'^2]\\), a constant. The rich agent's wealth wanders additively, with no drag in log terms.
+\\(B(w) \to \mathbb{E}[w\'^2]\\), a constant. The rich agent's wealth wanders additively, with no drag in log terms.
 
 The density follows from the diffusion by a standard argument with a test function. Take any smooth \\(\varphi\\) and
 apply Itô's formula to \\(\varphi(w)\\):
 
-\\[d \varphi(w) = \varphi'(w) \, \beta \sqrt{B(w)} \, d W + \frac{1}{2} \varphi''(w) \, \beta^2 B(w) \, dt\\]
+\\[d \varphi(w) = \varphi\'(w) \, \beta \sqrt{B(w)} \, d W + \frac{1}{2} \varphi\'\'(w) \, \beta^2 B(w) \, dt\\]
 
 Averaging over all agents, the Brownian term has mean zero, and the average of \\(\varphi\\) over the population is
 \\(\int \varphi \rho \, dw\\), so
 
-\\[\frac{d}{dt} \int \varphi(w) \rho(w, t) \, dw = \int \frac{\beta^2}{2} B(w) \, \varphi''(w) \, \rho(w, t) \, dw\\]
+\\[\frac{d}{dt} \int \varphi(w) \rho(w, t) \, dw = \int \frac{\beta^2}{2} B(w) \, \varphi\'\'(w) \, \rho(w, t) \, dw\\]
 
 Integrating by parts twice moves both derivatives onto \\(B \rho\\), with the boundary terms vanishing because
 \\(\rho\\) decays at infinity and \\(B(0) = 0\\). Since the identity holds for every \\(\varphi\\),
 
-\\[\partial_t \rho = \gamma \, \partial_w^2 \big( B(w) \rho \big), \qquad \gamma = \frac{\beta^2}{2}\\]
+\\[\partial\_t \rho = \gamma \, \partial\_w^2 \big( B(w) \rho \big), \qquad \gamma = \frac{\beta^2}{2}\\]
 
 This is a Fokker-Planck equation, but a nonlinear one, because \\(B\\) depends on \\(\rho\\) itself. Equations of this kind,
 where each particle's dynamics depend on the distribution of all the others, are called McKean-Vlasov equations.
 Multiplying by \\(w\\) and integrating by parts twice shows that the mean is conserved:
 
-\\[\frac{d}{dt} \int w \rho \, dw = \gamma \int w \, \partial_w^2 (B \rho) \, dw = \gamma \Big[ w \, \partial_w (B\rho) - B \rho \Big]_0^\infty = 0\\]
+\\[\frac{d}{dt} \int w \rho \, dw = \gamma \int w \, \partial\_w^2 (B \rho) \, dw = \gamma \Big[ w \, \partial\_w (B\rho) - B \rho \Big]\_0^\infty = 0\\]
 
 Without anything else in the model, this equation has no steady state with a smooth density. Its solutions drift
 toward the condensed state found in the simulation.
@@ -96,32 +96,32 @@ unit time into a pot that is shared equally. An agent with wealth \\(w\\) then g
 negative above it. The diffusion becomes \\(d w = \chi (\bar{W} - w) \, dt + \beta \sqrt{B(w)} \, d W\\), the drift adds
 a first-derivative term to the Fokker-Planck equation by the same test-function argument, and
 
-\\[\partial_t \rho = -\partial_w \Big[ \chi (\bar{W} - w) \rho \Big] + \gamma \, \partial_w^2 \big( B \rho \big)\\]
+\\[\partial\_t \rho = -\partial\_w \Big[ \chi (\bar{W} - w) \rho \Big] + \gamma \, \partial\_w^2 \big( B \rho \big)\\]
 
 The mean is still conserved, since \\(\int \chi(\bar{W} - w) \rho \, dw = \chi(\bar{W} - \bar{W}) = 0\\). Now there is a steady
-state. Write the equation as \\(\partial_t \rho = -\partial_w J\\), with the probability flux
+state. Write the equation as \\(\partial\_t \rho = -\partial\_w J\\), with the probability flux
 
-\\[J = \chi (\bar{W} - w) \rho - \gamma \, \partial_w (B \rho)\\]
+\\[J = \chi (\bar{W} - w) \rho - \gamma \, \partial\_w (B \rho)\\]
 
 In a steady state, \\(J\\) is constant in \\(w\\), and since it vanishes at \\(w = 0\\) it vanishes everywhere. Setting
 \\(g = B \rho\\),
 
-\\[\gamma \, g'(w) = \chi (\bar{W} - w) \frac{g(w)}{B(w)} \quad \Longrightarrow \quad \frac{g'}{g} = \frac{\chi}{\gamma} \cdot \frac{\bar{W} - w}{B(w)}\\]
+\\[\gamma \, g\'(w) = \chi (\bar{W} - w) \frac{g(w)}{B(w)} \quad \Longrightarrow \quad \frac{g\'}{g} = \frac{\chi}{\gamma} \cdot \frac{\bar{W} - w}{B(w)}\\]
 
 which integrates to
 
-\\[\rho(w) = \frac{C}{B(w)} \exp\!\left( \frac{\chi}{\gamma} \int_{\bar{W}}^{w} \frac{\bar{W} - s}{B(s)} \, ds \right)\\]
+\\[\rho(w) = \frac{C}{B(w)} \exp\!\left( \frac{\chi}{\gamma} \int\_{\bar{W}}^{w} \frac{\bar{W} - s}{B(s)} \, ds \right)\\]
 
 with \\(C\\) fixed by normalization. This isn't yet a solution, because \\(B\\) depends on \\(\rho\\), but it says a lot about
 the shape. Near zero, \\(B(s) \approx s^2\\), so the integral behaves like \\(\int \bar{W} / s^2 \, ds = -\bar{W} / s\\), and
 
-\\[\rho(w) \approx \frac{C'}{w^2} \exp\!\left( -\frac{\chi \bar{W}}{\gamma w} \right) \quad \text{as } w \to 0\\]
+\\[\rho(w) \approx \frac{C\'}{w^2} \exp\!\left( -\frac{\chi \bar{W}}{\gamma w} \right) \quad \text{as } w \to 0\\]
 
 The exponential makes the density vanish very quickly at small wealth: redistribution keeps anyone from getting too
-close to zero. At large wealth, \\(B(s) \to B_\infty = \mathbb{E}[w^2]\\), the integrand becomes
-\\((\bar{W} - s) / B_\infty\\), and
+close to zero. At large wealth, \\(B(s) \to B\_\infty = \mathbb{E}[w^2]\\), the integrand becomes
+\\((\bar{W} - s) / B\_\infty\\), and
 
-\\[\rho(w) \approx C'' \exp\!\left( -\frac{\chi}{2 \gamma B_\infty} (w - \bar{W})^2 \right) \quad \text{as } w \to \infty\\]
+\\[\rho(w) \approx C\'\' \exp\!\left( -\frac{\chi}{2 \gamma B\_\infty} (w - \bar{W})^2 \right) \quad \text{as } w \to \infty\\]
 
 a Gaussian tail. That's a consequence of the trade rule, where the rich can only ever stake an amount bounded by their
 partner's wealth, so their wealth moves additively.
@@ -135,38 +135,38 @@ the top 10% of agents hold about 33% of the wealth, the median agent has 0.65 ti
 agents have less than a fifth of the average.
 
 Now add the common shock. Suppose every agent also holds some of its wealth in a single risky asset whose return over
-\\(dt\\) is \\(\mu \, dt + \sigma \, dB_t\\), where \\(B_t\\) is one Brownian motion shared by everyone. For now, let every
-agent hold the same fraction, so that the shock adds \\(w (\mu \, dt + \sigma \, dB_t)\\) to each agent's wealth. Agent
+\\(dt\\) is \\(\mu \, dt + \sigma \, dB\_t\\), where \\(B\_t\\) is one Brownian motion shared by everyone. For now, let every
+agent hold the same fraction, so that the shock adds \\(w (\mu \, dt + \sigma \, dB\_t)\\) to each agent's wealth. Agent
 \\(i\\) then follows
 
-\\[d w_i = \chi (\bar{W} - w_i) \, dt + \beta \sqrt{B(w_i)} \, d W_i + w_i (\mu \, dt + \sigma \, dB_t)\\]
+\\[d w\_i = \chi (\bar{W} - w\_i) \, dt + \beta \sqrt{B(w\_i)} \, d W\_i + w\_i (\mu \, dt + \sigma \, dB\_t)\\]
 
-where the \\(W_i\\) are independent for different agents and \\(B_t\\) is the same for all of them.
+where the \\(W\_i\\) are independent for different agents and \\(B\_t\\) is the same for all of them.
 
-The derivation of the density equation changes in one place. Apply Itô's formula to \\(\varphi(w_i)\\) again. The
-quadratic variation now has two pieces, \\(\beta^2 B(w_i) \, dt\\) from the trades and \\(\sigma^2 w_i^2 \, dt\\) from the
-shock, with no cross term because \\(W_i\\) and \\(B_t\\) are independent:
+The derivation of the density equation changes in one place. Apply Itô's formula to \\(\varphi(w\_i)\\) again. The
+quadratic variation now has two pieces, \\(\beta^2 B(w\_i) \, dt\\) from the trades and \\(\sigma^2 w\_i^2 \, dt\\) from the
+shock, with no cross term because \\(W\_i\\) and \\(B\_t\\) are independent:
 
-\\[d \varphi(w_i) = \varphi'(w_i) \Big[ \chi(\bar{W} - w_i) + \mu w_i \Big] dt + \frac{1}{2} \varphi''(w_i) \Big[ \beta^2 B(w_i) + \sigma^2 w_i^2 \Big] dt + \varphi'(w_i) \beta \sqrt{B(w_i)} \, d W_i + \varphi'(w_i) \, \sigma w_i \, d B_t\\]
+\\[d \varphi(w\_i) = \varphi\'(w\_i) \Big[ \chi(\bar{W} - w\_i) + \mu w\_i \Big] dt + \frac{1}{2} \varphi\'\'(w\_i) \Big[ \beta^2 B(w\_i) + \sigma^2 w\_i^2 \Big] dt + \varphi\'(w\_i) \beta \sqrt{B(w\_i)} \, d W\_i + \varphi\'(w\_i) \, \sigma w\_i \, d B\_t\\]
 
-Now average over agents. With many agents, the idiosyncratic terms \\(d W_i\\) average to zero by the law of large
+Now average over agents. With many agents, the idiosyncratic terms \\(d W\_i\\) average to zero by the law of large
 numbers, since they're independent across agents. The common term doesn't, because every agent has the same
-\\(d B_t\\). So the empirical distribution of wealth, which I'll still write \\(\rho\\), becomes random, and
+\\(d B\_t\\). So the empirical distribution of wealth, which I'll still write \\(\rho\\), becomes random, and
 \\(\int \varphi \rho \, dw\\) satisfies
 
-\\[d \int \varphi \rho \, dw = \int \Big\\{ \varphi' \big[ \chi(\bar{W} - w) + \mu w \big] + \frac{1}{2} \varphi'' \big[ 2 \gamma B + \sigma^2 w^2 \big] \Big\\} \rho \, dw \, dt + \sigma \int \varphi' \, w \, \rho \, dw \; dB_t\\]
+\\[d \int \varphi \rho \, dw = \int \Big\\{ \varphi\' \big[ \chi(\bar{W} - w) + \mu w \big] + \frac{1}{2} \varphi\'\' \big[ 2 \gamma B + \sigma^2 w^2 \big] \Big\\} \rho \, dw \, dt + \sigma \int \varphi\' \, w \, \rho \, dw \; dB\_t\\]
 
 Integrating by parts in every term, once for each first derivative and twice for each second derivative,
 
-\\[d \rho = \Big[ -\partial_w \big( (\chi(\bar{W} - w) + \mu w) \rho \big) + \gamma \, \partial_w^2 (B \rho) + \frac{\sigma^2}{2} \partial_w^2 (w^2 \rho) \Big] dt - \sigma \, \partial_w (w \rho) \, dB_t\\]
+\\[d \rho = \Big[ -\partial\_w \big( (\chi(\bar{W} - w) + \mu w) \rho \big) + \gamma \, \partial\_w^2 (B \rho) + \frac{\sigma^2}{2} \partial\_w^2 (w^2 \rho) \Big] dt - \sigma \, \partial\_w (w \rho) \, dB\_t\\]
 
 This is the stochastic Fokker-Planck equation. Mathematically, \\(\rho\\) is the distribution of a single agent's wealth
 conditional on the path of the common shock. The last term is called transport noise: at each instant the whole
-distribution is stretched or squeezed along the wealth axis by a random amount. The \\(\frac{\sigma^2}{2} \partial_w^2(w^2 \rho)\\)
+distribution is stretched or squeezed along the wealth axis by a random amount. The \\(\frac{\sigma^2}{2} \partial\_w^2(w^2 \rho)\\)
 term is its Itô correction, and the two have to appear together for the equation to be consistent. Multiplying by \\(w\\) and
 integrating gives the dynamics of average wealth,
 
-\\[d \bar{W} = \mu \bar{W} \, dt + \sigma \bar{W} \, dB_t\\]
+\\[d \bar{W} = \mu \bar{W} \, dt + \sigma \bar{W} \, dB\_t\\]
 
 since the trades and the tax redistribute without creating or destroying wealth. Total wealth is a geometric Brownian
 motion, as you'd expect when everyone holds the same asset.
@@ -181,10 +181,10 @@ The shock contributes \\(w (\mu \, dt + \sigma \, dB)\\) to \\(d w\\) and \\(\ba
 first two terms these give \\(x (\mu \, dt + \sigma \, dB) - x (\mu \, dt + \sigma \, dB) = 0\\). In the last two, the
 cross-variation is \\(\sigma^2 w \bar{W} \, dt\\) and the variation of \\(\bar{W}\\) is \\(\sigma^2 \bar{W}^2 \, dt\\), giving
 \\(-\sigma^2 x \, dt + \sigma^2 x \, dt = 0\\). Everything from the shock cancels. The trade term also rescales neatly: since
-\\(\min(w, w')^2\\) scales as the square of wealth, \\(B(w) = \bar{W}^2 \tilde{B}(x)\\), where \\(\tilde{B}\\) is the same function computed
+\\(\min(w, w\')^2\\) scales as the square of wealth, \\(B(w) = \bar{W}^2 \tilde{B}(x)\\), where \\(\tilde{B}\\) is the same function computed
 from the distribution of relative wealth. So
 
-\\[d x = \chi (1 - x) \, dt + \beta \sqrt{\tilde{B}(x)} \, d W_i\\]
+\\[d x = \chi (1 - x) \, dt + \beta \sqrt{\tilde{B}(x)} \, d W\_i\\]
 
 with no common noise at all. The density of relative wealth follows the original deterministic equation, and the Gini
 coefficient follows a deterministic path. A shock that multiplies everyone's wealth by the same factor changes how rich the population is and leaves the sharing of that wealth unchanged.
@@ -199,10 +199,10 @@ That cancellation depends on everyone having the same exposure, and that's not h
 tend to hold more of their wealth in risky assets. To model this, let each agent hold a fraction \\(e(x)\\) of its wealth in the
 risky asset, with \\(e\\) increasing in relative wealth. I used \\(e(x) = x / (1 + x)\\), so an agent at half the average wealth
 holds a third of its wealth in the asset, an agent at the average holds half, and an agent at five times the average holds
-five sixths. The shock term becomes \\(e(x_i) \, w_i (\mu \, dt + \sigma \, dB_t)\\).
+five sixths. The shock term becomes \\(e(x\_i) \, w\_i (\mu \, dt + \sigma \, dB\_t)\\).
 
 Repeat the ratio calculation. Averaging the shock term over agents, the total wealth now gets
-\\(\bar{W} \bar{e} (\mu \, dt + \sigma \, dB_t)\\), where
+\\(\bar{W} \bar{e} (\mu \, dt + \sigma \, dB\_t)\\), where
 
 \\[\bar{e} = \int x \, e(x) \, \rho(x) \, dx\\]
 
@@ -215,7 +215,7 @@ which no longer cancels. In the last two, the cross-variation is \\(\sigma^2 e w
 
 Putting it together, the relative wealth of an agent follows
 
-\\[d x = \chi (1 - x) \, dt + \beta \sqrt{\tilde{B}(x)} \, d W_i + x \big( e(x) - \bar{e} \big) \Big[ \big( \mu - \sigma^2 \bar{e} \big) dt + \sigma \, dB_t \Big]\\]
+\\[d x = \chi (1 - x) \, dt + \beta \sqrt{\tilde{B}(x)} \, d W\_i + x \big( e(x) - \bar{e} \big) \Big[ \big( \mu - \sigma^2 \bar{e} \big) dt + \sigma \, dB\_t \Big]\\]
 
 This is the central result of the post. An agent whose exposure is above the wealth-weighted average, \\(e > \bar{e}\\), gets a
 common shock to its relative wealth proportional to how far above average it is. Its relative wealth drifts up on average if
@@ -235,7 +235,7 @@ average while making it random. A risky asset with an expected return above \\(\
 The density of relative wealth now satisfies a stochastic PDE that no longer reduces to a deterministic one. By the same
 test-function argument applied to the equation for \\(x\\),
 
-\\[d \rho = \Big[ -\partial_x \Big( \big( \chi(1 - x) + (\mu - \sigma^2 \bar{e}) x (e - \bar{e}) \big) \rho \Big) + \gamma \, \partial_x^2 (\tilde{B} \rho) + \frac{\sigma^2}{2} \partial_x^2 \Big( x^2 (e - \bar{e})^2 \rho \Big) \Big] dt - \sigma \, \partial_x \Big( x (e - \bar{e}) \rho \Big) dB_t\\]
+\\[d \rho = \Big[ -\partial\_x \Big( \big( \chi(1 - x) + (\mu - \sigma^2 \bar{e}) x (e - \bar{e}) \big) \rho \Big) + \gamma \, \partial\_x^2 (\tilde{B} \rho) + \frac{\sigma^2}{2} \partial\_x^2 \Big( x^2 (e - \bar{e})^2 \rho \Big) \Big] dt - \sigma \, \partial\_x \Big( x (e - \bar{e}) \rho \Big) dB\_t\\]
 
 When \\(e\\) is constant, \\(e = \bar{e}\\) and every term involving the shock vanishes, which recovers the proportional case. Note
 that \\(\bar{e}\\) depends on \\(\rho\\), so the noise coefficient itself depends on the current distribution, which makes the equation
