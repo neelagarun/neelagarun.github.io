@@ -6,11 +6,11 @@ categories: [travel]
 ---
 
 I've been to 23 countries so far, and I'd like to get to all of them. That raises a
-question I couldn't stop myself from formalizing: how long is that actually going to take?
+question I couldn't stop myself from formalizing: how long is that going to take?
 This is the first post in the travel section, so it seemed fitting that it would be about
 travel and also, unavoidably, about probability.
 
-The first thing you have to decide is what "all of them" means. There is no single answer.
+Before any math, I have to decide what "all of them" means, and there's more than one answer.
 The UN has 193 member states, and adding the two observer states (Vatican City and Palestine)
 gives 195, which is the number most people use. Other lists include Taiwan, Kosovo, or
 various territories and get you closer to 200. I'll use 195, which leaves
@@ -19,7 +19,7 @@ various territories and get you closer to 200. I'll use 195, which leaves
 
 countries remaining.
 
-The naive approach is to treat this as the coupon collector problem. Suppose every trip
+The simplest model treats this as the coupon collector problem. Suppose every trip
 lands me in a country chosen uniformly at random from all 195, including ones I've already
 been to. If I currently have \\(j\\) countries, the next trip is a new one with probability
 \\((n - j)/n\\), so the number of trips until I get a new country is geometric with mean
@@ -38,7 +38,7 @@ where \\(H_m\\) is the \\(m\\)th harmonic number. With \\(n - k = 172\\),
 with a standard deviation of about 247 trips. I ran a quick simulation to check this and got
 1,117.0 averaged over 20,000 runs, so the formula holds up.
 
-The interesting thing about this number is where it comes from. The very next trip is new
+Most of that number comes from the end of the list. The very next trip is new
 with probability \\(172/195\\), so it takes about 1.13 trips on average. Getting from 23 to
 roughly half the world, 98 countries, takes only about 111 trips. The other 1,000 or so are
 spent on the back half, and the very last country alone takes 195 trips on average, because
@@ -48,8 +48,7 @@ general shape of coupon collecting: the early progress is cheap and the tail is 
 At three international trips a year, 1,117 trips is about 372 years, which is not
 encouraging.
 
-The problem is that uniform sampling is a bad model in two opposite directions, and it's
-worth taking them one at a time.
+Uniform sampling is a bad model in two opposite directions, and I'll take them one at a time.
 
 The first is that countries are not equally likely. Over a lifetime of trips, I'm going to
 end up in France far more often than I end up in Nauru, Turkmenistan, or North Korea,
@@ -73,13 +72,9 @@ roughly \\(1/8{,}800\\), and the expected time until you've collected all of a g
 
 \\[\frac{H_5}{p_{\min}} \approx 2.28 \times 8{,}825 \approx 20{,}150\\]
 
-which is essentially the entire answer. The other 167 countries are a rounding error. Another
-way of reading this: the time to collect everything is set by the rarest few coupons, and how
-many easy ones there are barely matters. If you want to know how long the whole list takes,
-the only question worth asking is how hard the hardest five are.
+which accounts for almost all of the 20,000. The other 167 countries add very little. The time to collect everything is set by the rarest few coupons, and how many easy ones there are makes little difference. For the whole list, what decides it is how hard the hardest five are.
 
-The second way the model is wrong cuts in the other direction, and it's the one that
-actually matters. Trips aren't random. I choose where to go. Coupon collecting is slow
+The second problem cuts the other way and has the bigger effect. I choose where I travel, so trips aren't random. Coupon collecting is slow
 because of repeats, and someone who is deliberately trying to see every country can simply
 refuse to repeat. In the limit where every trip goes only to new places, the problem stops
 being probabilistic at all:
@@ -91,12 +86,10 @@ where \\(c\\) is the number of new countries per trip. A single-country trip giv
 At \\(c = 2\\) and three trips a year, that's 86 trips, or about 29 years. At \\(c = 3\\) it's
 about 19.
 
-The real answer probably sits somewhere between the two models, and the lesson about the
+My own number will fall somewhere between the two models, and the lesson about the
 hard countries survives into the deliberate version. The easy countries will get done almost
 by default. The finish line is decided by the small set of places that need visas, permits,
 guided tours, or a stable political situation to visit, and those are the ones worth planning
 around early instead of saving for the end.
 
-There is more to say here, like how much repeat trips to favorite places cost in expected
-years, and whether it's possible to estimate my own \\(p_i\\) from my travel history so far.
-But unlike the coupon collector, I don't plan to let the repeats get in the way.
+Two things I haven't worked out yet are how much repeat trips to favorite places cost in expected years, and whether I can estimate my own \\(p_i\\) from my travel history so far.

@@ -5,12 +5,8 @@ date: 2026-11-14 18:00:00 +0000
 categories: [physics]
 ---
 
-I want to work through what it would actually take to fly a small rotorcraft on Mars. NASA flew a
-small helicopter there in 2021, so whether it can be done isn't the question anymore. What I'm
-interested in is why it's hard, and the cleanest way to see that is to design a hypothetical drone
-on paper, starting from conservation laws, and keep track of where the Martian atmosphere makes
-each step harder than it would be on Earth. All the numbers below are round values I picked myself.
-None of this describes a real vehicle.
+I want to work through what it would take to fly a small rotorcraft on Mars. NASA flew a
+small helicopter there in 2021, so it can clearly be done. I'm more interested in why it's hard, and I'll approach that by designing a hypothetical drone on paper, starting from conservation laws, and keeping track of where the Martian atmosphere makes each step harder than it would be on Earth. The numbers below are round values I picked, and the design is my own.
 
 The problem comes from two directions at once. The air is so thin that a rotor has to move a lot of
 it to make any thrust, which means big rotors spinning fast. But the speed of sound on Mars is low,
@@ -18,7 +14,7 @@ which limits how fast the rotor can spin. And the air is very viscous relative t
 the blades end up working in a regime where ordinary airfoils perform poorly. Most of this post is
 about putting numbers on each of those constraints and seeing how they interact.
 
-The first thing you have to figure out is what the atmosphere actually is. Mars's atmosphere is
+Start with the atmosphere. Mars's atmosphere is
 mostly carbon dioxide, with a surface pressure that changes with season and location but sits around
 600 Pa, about 0.6% of Earth's sea level pressure of 101,325 Pa. A typical surface temperature is
 around 210 K. For an ideal gas,
@@ -33,7 +29,7 @@ mass. For CO₂, \\(\mathcal{M} = 0.04401\\) kg/mol, so
 Sea level air on Earth is 1.225 kg/m³, so Mars's air is about \\(1.225 / 0.0151 \approx 81\\) times
 less dense.
 
-The speed of sound matters almost as much, and it's worth deriving. Sound is a small pressure wave,
+The speed of sound is almost as important, so I'll derive it. Sound is a small pressure wave,
 and its speed is set by how much the pressure changes when you compress the gas slightly:
 \\(a^2 = (\partial p / \partial \rho)_s\\), where the subscript means the compression happens without
 heat exchange, since a sound wave moves too fast for heat to flow. For an ideal gas compressed
@@ -46,8 +42,7 @@ For CO₂ at these temperatures, \\(\gamma \approx 1.3\\), so
 
 \\[a = \sqrt{1.3 \times 188.9 \times 210} = \sqrt{51{,}570} \approx 227 \text{ m/s}\\]
 
-compared with about 340 m/s on Earth. Sound travels about a third slower on Mars. That matters a
-lot, because the tips of a rotor blade are where the air moves fastest relative to the blade.
+compared with about 340 m/s on Earth. Sound travels about a third slower on Mars. That has a large effect, because the tips of a rotor blade are where the air moves fastest relative to the blade.
 
 The third property is viscosity, and kinetic theory explains why it behaves the way it does. A rough
 picture of viscosity is that molecules carry momentum between layers of fluid moving at different
@@ -79,7 +74,7 @@ With \\(\bar{c} = \sqrt{8 \times 188.9 \times 210 / \pi} \approx 318\\) m/s,
 about 4.5 microns. For a blade with an 8 cm chord, the Knudsen number is
 \\(\text{Kn} = \lambda / c \approx 4.5 \times 10^{-6} / 0.081 \approx 5.5 \times 10^{-5}\\). Slip effects at
 surfaces start to matter around \\(\text{Kn} \approx 10^{-3}\\), so we're nearly twenty times below that
-and the Navier-Stokes equations apply. Mars's air is thin, but it isn't rarefied.
+and the Navier-Stokes equations apply. So despite the low pressure, the continuum description holds.
 
 One more property: the atmosphere thins with altitude. A thin slab of air of thickness \\(dz\\) has
 to be held up by the pressure difference across it, so \\(dp = -\rho g \, dz\\). Substituting
@@ -101,8 +96,7 @@ weaker gravity more than makes up for the heavier gas. The comparison in one pla
 | Speed of sound | 340 m/s | 227 m/s | 0.67 |
 | Kinematic viscosity | 1.5 × 10⁻⁵ m²/s | 7.1 × 10⁻⁴ m²/s | 47 |
 
-The naive hope is that the weaker gravity makes up for the thin air. It goes some of the way, and the
-cleanest way to see how far is momentum theory, which treats the rotor as an idealized disk that adds
+Mars's weaker gravity partly makes up for the thin air, and momentum theory shows by how much. It treats the rotor as an idealized disk that adds
 momentum to the air passing through it, without caring how.
 
 Put a disk of area \\(A\\) in still air and suppose it accelerates the flow to the induced velocity
@@ -164,7 +158,7 @@ velocity is
 and the ideal hover power is \\(W v_h = 7.42 \times 14.7 \approx 109\\) W. On Earth, the same drone
 weighs 19.6 N, its induced velocity is \\(\sqrt{19.6 / (2 \times 1.225 \times 1.131)} \approx 2.66\\) m/s,
 and its ideal hover power is about \\(19.6 \times 2.66 \approx 52\\) W. So far the numbers are
-manageable. The harder problems show up when you ask how the blades actually produce that thrust.
+manageable. The harder problems show up when you ask how the blades produce that thrust.
 
 Momentum theory doesn't know about blades, so the next step is blade element theory. Slice a blade
 into strips of width \\(dr\\) at radius \\(r\\). Ignoring for now the small effect of the induced
@@ -215,10 +209,10 @@ The same rotor, with the same solidity and lift coefficient, would hover on Eart
 \\[V_{\text{tip, Earth}} = \sqrt{\frac{6 W_{\text{Earth}}}{\rho_{\text{Earth}} A \sigma C_L}} = \sqrt{\frac{6 \times 19.62}{1.225 \times 1.131 \times 0.172 \times 0.6}} = \sqrt{\frac{117.7}{0.1430}} \approx 28.7 \text{ m/s}\\]
 
 So the Martian rotor has to spin about \\(159 / 28.7 \approx 5.5\\) times faster than it would on
-Earth, the same factor as the induced velocity. That isn't a coincidence. Both the tip speed and the
+Earth, the same factor as the induced velocity. The factors match because both the tip speed and the
 induced velocity scale as \\(\sqrt{W / (\rho A)}\\).
 
-It's worth going one level deeper into the blade, because it shows how the pitch has to be set. The
+Going one level deeper into the blade shows how the pitch has to be set. The
 induced velocity tilts the air coming at each blade section downward. At radius \\(r\\), the section
 sees the rotational speed \\(\Omega r\\) in the plane and the induced velocity \\(v_i\\) through the
 disk, so the air arrives at an inflow angle \\(\phi \approx v_i / (\Omega r)\\). Define the inflow
@@ -240,15 +234,14 @@ With \\(a_0 = 5.7\\) per radian,
 
 \\[\theta_t = \frac{4 \times 0.0172}{0.172 \times 5.7} + 0.093 = 0.070 + 0.093 = 0.163 \text{ rad} \approx 9.3°\\]
 
-More than half of the tip pitch goes into lining the blade up with the downward inflow, not into
-making lift. The lift coefficient along the blade is then \\(C_L(x) = 5.7 \times 0.070 / x = 0.40 / x\\),
+More than half of the tip pitch goes into lining the blade up with the downward inflow, and the rest makes lift. The lift coefficient along the blade is then \\(C_L(x) = 5.7 \times 0.070 / x = 0.40 / x\\),
 which is 0.40 at the tip, 0.53 at 75% radius, 0.80 at half radius, and 1.33 at 30% radius. That last
 value is above what a low Reynolds number airfoil can hold without stalling, so in practice the inner
 part of the blade would be twisted less than the ideal and carry less load. The mean value of 0.6 I
 used earlier is consistent with this, since
 \\(6 C_T / \sigma = 6 \times 0.0172 / 0.172 = 0.6\\).
 
-The next question is what the blades actually experience, and this is where the viscosity comes in.
+The viscosity comes in once you look at the flow over the blades.
 The Reynolds number at 75% of the radius, roughly where most of the thrust comes from, is
 
 \\[\text{Re} = \frac{V c}{\nu} = \frac{0.75 \times 159 \times 0.081}{7.1 \times 10^{-4}} = \frac{9.66}{7.1 \times 10^{-4}} \approx 13{,}600\\]
@@ -307,7 +300,7 @@ Substituting the solidity needed to hover, \\(\sigma = 6 W / (\rho A V_{\text{ti
 
 \\[P_0 = \frac{c_d}{8} \cdot \frac{6 W}{\rho A V_{\text{tip}}^2 C_L} \cdot \rho A V_{\text{tip}}^3 = \frac{3}{4} \, W \, V_{\text{tip}} \, \frac{c_d}{C_L}\\]
 
-The density cancels. When the blades are sized to carry the load, the profile power depends only on
+When the blades are sized to carry the load, the density cancels, and the profile power depends only on
 the weight, the tip speed, and the drag-to-lift ratio of the airfoil. That says two things about Mars.
 Profile power is proportional to tip speed, and Mars needs a high tip speed. And it's proportional to
 \\(c_d / C_L\\), which is exactly what the low Reynolds number makes worse. For the design here,
@@ -337,19 +330,7 @@ and \\(v_h^2 = W / (2 \rho A)\\), is
 
 which doesn't involve the density or the gravity at all. Plugging in,
 \\(P_0 / P_{\text{ind}} = (3 / 4.8) \times 0.05 \times 10.8 \approx 0.34\\), which matches
-\\(44 / 131\\). So in this idealized picture, Mars doesn't make the rotor less efficient. It makes it
-need twice the power, through momentum theory, and it makes \\(c_d / C_L\\) worse, through the
-Reynolds number. The second effect is the one that costs you. Here's how sensitive the total is to the
-airfoil:
-
-| \\(C_L\\) | \\(c_d\\) | Profile power | Total hover power |
-|---|---|---|---|
-| 0.8 | 0.03 | 33 W | 164 W |
-| 0.6 | 0.03 | 44 W | 175 W |
-| 0.5 | 0.04 | 71 W | 202 W |
-
-The last row is an airfoil that has lost some lift and picked up some drag to a separation bubble, and
-it needs 15% more power than the baseline. Every watt has to come from a battery that also has to be
+\\(44 / 131\\). So in this idealized picture, the fraction of power lost is the same on both planets. Mars doubles the power through momentum theory and raises \\(c_d / C_L\\) through the Reynolds number, and the second effect adds real losses. With \\(C_L = 0.8\\) and \\(c_d = 0.03\\), the profile power drops to 33 W and the total to 164 W. An airfoil that loses some lift and picks up drag to a separation bubble, with \\(C_L = 0.5\\) and \\(c_d = 0.04\\), needs 71 W of profile power and 202 W in total, 15% more than the baseline. Every watt has to come from a battery that also has to be
 lifted.
 
 To get a sense of what that means for flight time, suppose half a kilogram of the vehicle is battery,
@@ -357,8 +338,7 @@ with a specific energy of 150 Wh/kg. That's 75 Wh, and at 175 W the drone could 
 
 \\[t = \frac{75 \text{ Wh}}{175 \text{ W}} \approx 0.43 \text{ h} \approx 26 \text{ minutes}\\]
 
-before the battery is empty, ignoring reserves and the effect of cold on the battery. That's an
-illustrative number, not a real specification, but it shows the scale.
+before the battery is empty, ignoring reserves and the effect of cold on the battery. The battery numbers are my assumptions, so this only shows the scale.
 
 Forward flight adds a new constraint, and again it comes from the speed of sound. When the drone moves
 forward at speed \\(V\\), a blade on the advancing side sees air at \\(V_{\text{tip}} + V\\) at its tip,
@@ -375,8 +355,8 @@ If I set a conservative limit of Mach 0.8 for the advancing tip, with the hover 
 which is about 82 km/h. The Martian rotor needs a high tip Mach number just to hover, so most of the
 margin to the speed of sound is used up before the drone moves at all.
 
-The power in forward flight has three parts, and each is worth deriving. The induced power changes
-because the rotor now works on air coming at it from the front, not just air it pulls through itself.
+The power in forward flight has three parts, which I'll derive one at a time. The induced power changes
+because the rotor now works on air coming at it from the front, as well as air it pulls through itself.
 Glauert's extension of momentum theory treats the mass flow as \\(\rho A\\) times the total velocity at
 the disk, which in level flight with a small rotor tilt is about \\(\sqrt{V^2 + v_i^2}\\). The wake
 velocity is still \\(2 v_i\\) by the same argument as before, so
@@ -452,8 +432,7 @@ which is close to zero, so the minimum power speed is about 40 m/s, nearly twice
 allows. The drone always wants to fly as fast as compressibility lets it, both for range and for
 endurance, and cruising at the limit uses about \\(130 / 175 \approx 74\%\\) of the hover power. With the
 same 75 Wh battery, that's about 35 minutes of flight and a range of roughly
-\\(0.58 \text{ h} \times 82 \text{ km/h} \approx 47\\) km. Hovering is the most expensive thing a Mars
-drone can do.
+\\(0.58 \text{ h} \times 82 \text{ km/h} \approx 47\\) km. Hovering takes more power than flying at any speed up to the limit.
 
 The blades' motion causes a more subtle problem. Helicopter blades flap: they rise and fall slightly as
 they go around, which is how a rotor evens out the lift between the advancing and retreating sides.
@@ -500,8 +479,7 @@ decays by a factor of \\(e\\) after the azimuth has advanced by \\(1 / \zeta\\) 
 On Earth, the same blade has \\(\gamma \approx 12\\) and \\(\zeta \approx 0.76\\), and a disturbance dies out in
 about a fifth of a revolution. On Mars, any disturbance from a gust or a control input keeps the blades
 flapping for many revolutions. The density appears directly in the Lock number, so sizing can't fix
-this. The practical answer is to make the blades very stiff and rely on their structure, not the air,
-to control their motion, which in turn makes the blades heavier.
+this. The practical answer is to make the blades very stiff and rely on their structure to control their motion, since the air can't, which in turn makes the blades heavier.
 
 Close to the ground, the rotor gets some extra thrust, and the method of images gives a way to estimate
 how much. Seen from a distance, the rotor's wake looks like a point source blowing air out at the volume
@@ -541,49 +519,28 @@ grain's weight, scales as
 where \\(\rho_p\\) is the grain density and \\(d\\) is its diameter. That also scales with gravity, so the
 ratio of wake stress to threshold stress is the same on both planets for the same vehicle. To first
 order, a Mars drone stirs up dust about as easily as the same drone would over the same soil on Earth.
-The wake is fast, but it isn't forceful. This leaves out a lot, especially the cohesion between very fine
+This leaves out a lot, especially the cohesion between very fine
 dust particles, which doesn't scale with gravity and makes small particles harder to lift than this
 picture suggests.
 
-Last, altitude. From the scale height, the density at altitude \\(h\\) is \\(\rho_0 e^{-h / H_s}\\). The
+Last, consider altitude. From the scale height, the density at altitude \\(h\\) is \\(\rho_0 e^{-h / H_s}\\). The
 induced power scales as \\(\rho^{-1/2}\\), so it grows as \\(e^{h / (2 H_s)}\\), and at fixed tip speed the
 solidity needed to carry the load scales as \\(1 / \rho\\), so it grows as \\(e^{h / H_s}\\). At 4 km, for
 example, \\(e^{-4 / 10.7} \approx 0.69\\), so the density is \\(0.0151 \times 0.69 \approx 0.0104\\) kg/m³,
 the induced power goes up by \\(e^{4 / 21.4} \approx 1.21\\), and the solidity goes up by
-\\(e^{4 / 10.7} \approx 1.45\\):
-
-| Altitude | Density | Induced power | Solidity needed |
-|---|---|---|---|
-| 0 km | 0.0151 kg/m³ | 131 W | 0.17 |
-| 1 km | 0.0138 kg/m³ | 137 W | 0.19 |
-| 2 km | 0.0125 kg/m³ | 144 W | 0.21 |
-| 4 km | 0.0104 kg/m³ | 158 W | 0.25 |
+\\(e^{4 / 10.7} \approx 1.45\\). So at 4 km the induced power rises from 131 W to 158 W and the solidity from 0.17 to 0.25. At 1 km and 2 km, the induced power is 137 W and 144 W and the solidity 0.19 and 0.21.
 
 The power penalty is modest, but the solidity grows quickly, and the blades can only get so wide. Since
 the tip speed is already at its limit, the only other option in thinner air is to raise \\(C_L\\), and
 eventually the blades stall. So a Mars drone hits a ceiling sooner than the power numbers alone would
 suggest. Mars's surface spans tens of kilometers in elevation, so the drone has to be designed for the
-air where it will actually fly.
-
-To summarize what the physics says about the design: momentum theory says the thin air requires about
-twice the hover power and five and a half times the induced velocity of the same drone on Earth. Blade
-element theory says the only way to make enough thrust is to spin fast, and the speed of sound limits
-how fast, so the blades have to be wide. The high kinematic viscosity puts those wide, fast blades at a
-Reynolds number around ten thousand, where airfoils have more drag and less predictable lift. And the low
-density leaves the blades' flapping almost undamped. The parasite drag and the dust turn out not to be
-problems, the first because there's so little air and the second because gravity cancels out of the
-comparison.
+air where it will fly.
 
 There's a lot I've left out. I used a single atmospheric state, but the pressure on Mars changes by tens
 of percent over a year as CO₂ freezes onto the polar caps and comes back, and the temperature changes by
 tens of degrees between day and night, so the density varies a lot. I treated two coaxial rotors as one
-disk with a correction factor, which hides the real interference between them. The lift and drag
-coefficients are representative values, not results for a specific airfoil, and at Reynolds numbers this
-low they depend strongly on the exact shape. I haven't touched the thermal problem, which may be the
-hardest one in practice, since batteries and electronics have to survive nights that drop below 200 K.
-And I've ignored gusts, which matter more than usual on a vehicle whose blades barely damp their own
+disk with a correction factor, which hides the real interference between them. The lift and drag coefficients are representative values that I chose, and at Reynolds numbers this low the real values depend strongly on the exact shape. I haven't touched the thermal problem, which is a separate and difficult problem, since batteries and electronics have to survive nights that drop below 200 K.
+And I've ignored gusts, which have a bigger effect than usual on a vehicle whose blades barely damp their own
 motion.
 
-There is more to say, particularly about what the best blade section looks like at a Reynolds number of
-ten thousand, and about the control problem that comes from lightly damped flapping. I'd like to come
-back to both.
+The two things I'd like to work through next are what the best blade section looks like at a Reynolds number of ten thousand, and the control problem that comes from lightly damped flapping.
