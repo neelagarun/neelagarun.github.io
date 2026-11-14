@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "CPI Forecasting: Recurrent Neural Network Methods"
+excerpt: "I train an LSTM on the FRED-MD macro dataset to forecast monthly CPI, and show why its near-perfect level plot says little about how well it forecasts the monthly change."
 date: 2026-04-22
 categories: [machine-learning]
 ---

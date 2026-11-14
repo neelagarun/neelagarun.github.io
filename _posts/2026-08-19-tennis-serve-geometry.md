@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Why a Tennis Serve's Window Is So Narrow, and What Widens It: Projectile Motion, a Little Fluid Dynamics, and Some Asymptotics"
+excerpt: "For a hard flat serve, the range of launch angles that lands in is about a degree wide. Deriving that window with drag and topspin shows how speed, contact height and spin change it."
 date: 2026-08-19
 redirect_from:
   - /physics/2026/11/14/tennis-serve-geometry.html
@@ -218,6 +219,9 @@ about 0.15 degrees narrow, because I evaluated \\(C\_L\\) at the launch speed, a
 spin parameter grows as the ball slows down, so the ball curves a bit more at the end than the
 formula assumes. You can also read the height result directly off the table: every 20 cm of contact
 height adds about 0.33 degrees in every column, just as the derivative predicted.
+
+![Two shaded bands of launch angle against serve speed from 30 to 70 meters per second. The topspin band sits higher and is wider than the no-spin band at every speed, and both narrow as speed increases.](/assets/images/serve_angle_window.png)
+*The range of launch angles that clears the net and lands in, from the full simulation with drag, for contact at 2.8 m. Topspin moves the window up and widens it at every speed.*
 
 The effect of topspin is large. At 50 m/s from 2.8 m, adding 2500 rpm takes the window from 1.34
 degrees to 2.38, an increase of nearly 80 percent. It also changes the margins in physical terms.

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Forecasting Implied Volatility: A Hybrid ARIMA-XGBoost Approach"
+excerpt: "A hybrid model for forecasting implied volatility, where ARIMA fits each contract's own trajectory and XGBoost learns the errors it leaves behind from information shared across contracts."
 date: 2026-04-02
 categories: [machine-learning, statistics]
 ---
