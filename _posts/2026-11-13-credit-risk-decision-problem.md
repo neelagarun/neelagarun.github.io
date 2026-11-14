@@ -10,13 +10,12 @@ borrower defaults, report an AUC, and move on. But a lender doesn't actually nee
 classification. A lender needs a decision, approve or deny, and the quality of that decision
 depends on things the classifier knows nothing about: what a default costs relative to what a
 repaid loan earns, how much risk the business is willing to carry, and whether the probabilities
-coming out of the model mean what they say. The model is maybe half the problem. The other half
-is turning a score into a policy without fooling yourself along the way.
+coming out of the model mean what they say. The model is maybe half the problem.
 
 Before getting into it, I want to note that I am going to stay away from the specifics of how the
 model itself is built: the features, the tuning, and the way it is packaged and deployed are
 things I'm not going to share here. What I can talk about is the statistical framework around it,
-which is honestly the more interesting part anyway, and which applies to essentially any scoring
+which is probably the more interesting part anyway, and which applies to essentially any scoring
 model you could put in the middle.
 
 The data is a public set of roughly 32,000 personal loans with known outcomes, about 22% of which
