@@ -31,10 +31,10 @@ XGBoost can learn those patterns from the residuals across all contracts simulta
 The ARIMA(p, d, q) model expresses the differenced series as a linear combination of its own past 
 values and past forecast errors:
 
-\\[\Delta^d y_t = c + \sum_{i=1}^{p} \phi_i \Delta^d y_{t-i} + \sum_{j=1}^{q} \theta_j \varepsilon_{t-j} + \varepsilon_t\\]
+\\[\Delta^d y\_t = c + \sum\_{i=1}^{p} \phi\_i \Delta^d y\_{t-i} + \sum\_{j=1}^{q} \theta\_j \varepsilon\_{t-j} + \varepsilon\_t\\]
 
-where \\(\phi_i\\) are the autoregressive coefficients, \\(\theta_j\\) are the moving average 
-coefficients, \\(d\\) is the order of differencing, and \\(\varepsilon_t\\) is white noise. The 
+where \\(\phi\_i\\) are the autoregressive coefficients, \\(\theta\_j\\) are the moving average 
+coefficients, \\(d\\) is the order of differencing, and \\(\varepsilon\_t\\) is white noise. The 
 orders \\(p\\), \\(d\\), and \\(q\\) are selected separately per contract by minimizing an 
 information criterion.
 
@@ -43,7 +43,7 @@ fit window and a validation window. ARIMA is fit on the fit window, and its out-
 over the validation window give both a predicted trajectory and confidence intervals. The 
 difference between those forecasts and the actual observed IV is the residual:
 
-\\[r_t = y_t - \hat{y}_{\text{ARIMA}, t}\\]
+\\[r\_t = y\_t - \hat{y}\_{\text{ARIMA}, t}\\]
 
 and that residual becomes the target for XGBoost.
 
@@ -68,14 +68,14 @@ final IV forecast. I also compute the probability that realized IV will fall bel
 at each point. Using the ARIMA confidence interval as a proxy for the distribution, and treating 
 the interval as approximately normal, the standard deviation at each timestep is:
 
-\\[\sigma_t = \frac{\text{upper}_t - \text{lower}_t}{2 \times 1.96}\\]
+\\[\sigma\_t = \frac{\text{upper}\_t - \text{lower}\_t}{2 \times 1.96}\\]
 
 which gives the probability that realized IV falls below the hybrid forecast as:
 
-\\[P(\text{IV} \leq \hat{y}_t) = \Phi(z_t)\\]
+\\[P(\text{IV} \leq \hat{y}\_t) = \Phi(z\_t)\\]
 
-where \\(z_t\\) is the standardized distance between the hybrid forecast and the ARIMA baseline,
-scaled by \\(\sigma_t\\), and \\(\Phi\\) is the standard normal CDF. This gives a sense of where 
+where \\(z\_t\\) is the standardized distance between the hybrid forecast and the ARIMA baseline,
+scaled by \\(\sigma\_t\\), and \\(\Phi\\) is the standard normal CDF. This gives a sense of where 
 in the ARIMA confidence interval the hybrid forecast ends up, which turns out to be a useful 
 signal on its own.
 
