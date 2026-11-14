@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Testing a Thousand Hypotheses at Once: False Discoveries and the Benjamini-Hochberg Procedure"
+excerpt: "Running a thousand tests at the 5% level guarantees dozens of false discoveries. A full proof of the Benjamini-Hochberg procedure, and a simulated gene expression study comparing it with Bonferroni and Holm."
 date: 2026-09-30
 redirect_from:
   - /statistics/2026/11/14/false-discovery-rate.html
@@ -246,6 +247,9 @@ one-sided z-test is a cutoff of \\(z \approx 2.73\\). That sits between the unad
 Bonferroni's 3.89. The threshold depends on the data. When there are more real effects, more p-values
 land under the line, and the cutoff moves toward the unadjusted one. Of the 63 rejections in that run,
 2 were true nulls.
+
+![Sorted p-values against their rank with the Benjamini-Hochberg line. Points stay under the line through rank 63 and rise above it after that, and two of the points before the cutoff are true nulls.](/assets/images/fdr_bh_line.png)
+*The 76 smallest p-values from the run described above, sorted. Benjamini-Hochberg rejects everything up to the last point under the dashed line, at rank 63. The two orange points to its left are the false discoveries.*
 
 The independent case is the friendly one, and gene expression measurements aren't independent, since
 genes are co-regulated in groups. To see what correlation does, I reran the simulation with a shared
