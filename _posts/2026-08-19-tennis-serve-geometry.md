@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "Why a Tennis Serve's Window Is So Narrow, and What Widens It: Projectile Motion, a Little Fluid Dynamics, and Some Asymptotics"
-date: 2026-11-14
+date: 2026-08-19
+redirect_from:
+  - /physics/2026/11/14/tennis-serve-geometry.html
 categories: [physics]
 ---
 
