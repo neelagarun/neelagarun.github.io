@@ -1,0 +1,32 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@import "minima";
+
+.home-intro {
+  margin: 0 0 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.home-intro-lead {
+  font-size: 1.5rem;
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #111;
+  margin-bottom: 0.4rem;
+}
+
+.home-intro-sub {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .home-intro-lead {
+    font-size: 1.25rem;
+  }
+}
