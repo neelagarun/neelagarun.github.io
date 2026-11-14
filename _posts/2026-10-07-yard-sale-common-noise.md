@@ -2,7 +2,9 @@
 layout: post
 title: "The Yard-Sale Model with a Common Shock"
 excerpt: "Adding a market-wide shock to the Yard-Sale model of wealth exchange turns the wealth distribution into the solution of a stochastic PDE. Proportional shocks leave inequality unchanged, and wealth-dependent exposure makes it rise or fall depending on the asset's expected return."
-date: 2026-11-04
+date: 2026-10-07
+redirect_from:
+  - /statistics/physics/2026/11/04/yard-sale-common-noise.html
 categories: [statistics, physics]
 ---
 

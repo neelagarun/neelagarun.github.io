@@ -2,7 +2,9 @@
 layout: post
 title: "Jane Street Puzzle: March 2026: Planetary Parade"
 excerpt: "A solution to the March 2026 Jane Street puzzle. Euler's formula for seven great circles gives the chance of seeing all six planets, and the daylight boundary changes the correction from a small tower."
-date: 2026-05-02
+date: 2026-05-10
+redirect_from:
+  - /puzzles/2026/05/02/pyrknot-planetary-parade.html
 categories: [puzzles]
 ---
 
