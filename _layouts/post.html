@@ -1,6 +1,12 @@
 ---
 layout: default
 ---
+{% comment %}
+GitHub Pages builds with minima 2.5, whose head.html never includes custom-head.html,
+so the MathJax setup is pulled in here. Don't remove this without overriding head.html.
+{% endcomment %}
+{% include custom-head.html %}
+
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
     <h1 class="post-title p-name" itemprop="name headline">{{ page.title }}</h1>
