@@ -2,9 +2,10 @@
 layout: post
 title: "Why the Field of a Nanoscale Coaxial Electrode Stays Local"
 excerpt: "Solving Laplace's equation for a nanoscale coaxial electrode shows why its field falls off as the fourth power of distance, compared with the square for a bare electrode, which is what lets it stimulate one cell and leave its neighbor alone."
-date: 2026-07-29
+date: 2026-07-05
 redirect_from:
   - /physics/2026/11/13/nanocoax-field-locality.html
+  - /physics/2026/07/29/nanocoax-field-locality.html
 categories: [physics]
 ---
 
