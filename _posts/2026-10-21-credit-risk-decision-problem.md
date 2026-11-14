@@ -62,7 +62,7 @@ the tails.
 So rather than trusting the formula, I pick the cutoff empirically by directly maximizing
 realized profit over the candidate thresholds:
 
-\\[t_{\text{profit}} = \arg\max_t \sum_{i} \mathbb{1}[p_i \geq t] \big( y_i - c \, (1 - y_i) \big)\\]
+\\[t\_{\text{profit}} = \arg\max\_t \sum\_{i} \mathbb{1}[p\_i \geq t] \big( y\_i - c \, (1 - y\_i) \big)\\]
 
 This also gives you a free diagnostic. If the model is well calibrated, the
 empirically optimal cutoff should land close to \\(c / (1 + c)\\). In my case it landed within a
@@ -81,7 +81,7 @@ which is the true repayment rate among applicants the model scores at \\(s\\). A
 calibrated model has \\(q(s) = s\\). Over a population of \\(N\\) applicants, the expected profit
 of approving everyone above \\(t\\) is
 
-\\[\Pi(t) = N \int_t^1 \big[ q(s) \, g - (1 - q(s)) \, \ell \big] f(s) \, ds\\]
+\\[\Pi(t) = N \int\_t^1 \big[ q(s) \, g - (1 - q(s)) \, \ell \big] f(s) \, ds\\]
 
 and differentiating with respect to the lower limit gives
 
@@ -99,13 +99,13 @@ That said, the global numbers are still worth tracking, and the right ones are p
 rules, meaning scores that are minimized in expectation only by reporting the true probability.
 Log loss is the one the trees optimize directly:
 
-\\[\mathcal{L} = -\frac{1}{N} \sum_{i=1}^{N} \big[ y_i \ln p_i + (1 - y_i) \ln (1 - p_i) \big]\\]
+\\[\mathcal{L} = -\frac{1}{N} \sum\_{i=1}^{N} \big[ y\_i \ln p\_i + (1 - y\_i) \ln (1 - p\_i) \big]\\]
 
 and the Brier score is just the mean squared error of the probabilities,
-\\(\text{BS} = \frac{1}{N} \sum_i (p_i - y_i)^2\\). What makes the Brier score useful is
+\\(\text{BS} = \frac{1}{N} \sum\_i (p\_i - y\_i)^2\\). What makes the Brier score useful is
 Murphy's decomposition. Bin the predictions into \\(K\\) groups, where group \\(k\\) has
-\\(n_k\\) loans, mean predicted probability \\(\bar{p}_k\\), and observed repayment rate
-\\(\bar{y}_k\\), and let \\(\bar{y}\\) be the overall repayment rate. Then, up to a within-bin
+\\(n\_k\\) loans, mean predicted probability \\(\bar{p}\_k\\), and observed repayment rate
+\\(\bar{y}\_k\\), and let \\(\bar{y}\\) be the overall repayment rate. Then, up to a within-bin
 term that vanishes as the bins get fine,
 
 \\[\text{BS} \approx \underbrace{\sum\_{k} \frac{n\_k}{N} (\bar{p}\_k - \bar{y}\_k)^2}\_{\text{reliability}} \; - \; \underbrace{\sum\_{k} \frac{n\_k}{N} (\bar{y}\_k - \bar{y})^2}\_{\text{resolution}} \; + \; \underbrace{\bar{y} (1 - \bar{y})}\_{\text{uncertainty}}\\]
@@ -117,7 +117,7 @@ is how well the model separates borrowers into groups with genuinely different r
 completely useless, because its resolution is zero. The expected calibration error I quoted above
 is the same idea as the reliability term, with absolute values in place of squares:
 
-\\[\text{ECE} = \sum_{k} \frac{n_k}{N} \left\lvert \bar{y}_k - \bar{p}_k \right\rvert\\]
+\\[\text{ECE} = \sum\_{k} \frac{n\_k}{N} \left\lvert \bar{y}\_k - \bar{p}\_k \right\rvert\\]
 
 And if the reliability term ever does get large, Platt scaling fits two parameters on held-out
 data, \\(\tilde{p} = 1 / \big(1 + e^{-(a z + b)}\big)\\) where \\(z\\) is the model's raw
@@ -128,7 +128,7 @@ The second policy is a constraint rather than an objective. A lot of lenders don
 ratios; they think "no more than 5% of what we approve should default." That is a constrained
 optimization problem:
 
-\\[\max_t \ \text{Recall}(t) \quad \text{subject to} \quad \text{Precision}(t) \geq \pi\\]
+\\[\max\_t \ \text{Recall}(t) \quad \text{subject to} \quad \text{Precision}(t) \geq \pi\\]
 
 which is structurally the same as a Neyman–Pearson problem with the roles of the two error types
 arranged around precision instead of false positive rate. Since recall is monotonically
@@ -140,17 +140,17 @@ the whole precision–recall curve and take the best recall among every threshol
 the constraint.
 
 The cleanest way to see why is to write both metrics in terms of the score distributions. Let
-\\(\rho\\) be the base rate of repayment, and let \\(S_1(t)\\) and \\(S_0(t)\\) be the fractions
+\\(\rho\\) be the base rate of repayment, and let \\(S\_1(t)\\) and \\(S\_0(t)\\) be the fractions
 of repaid and defaulted loans, respectively, that score at or above \\(t\\). Then
 
-\\[\text{Recall}(t) = S_1(t), \qquad \text{Precision}(t) = \frac{\rho \, S_1(t)}{\rho \, S_1(t) + (1 - \rho) \, S_0(t)} = \left( 1 + \frac{1 - \rho}{\rho} \cdot \frac{S_0(t)}{S_1(t)} \right)^{-1}\\]
+\\[\text{Recall}(t) = S\_1(t), \qquad \text{Precision}(t) = \frac{\rho \, S\_1(t)}{\rho \, S\_1(t) + (1 - \rho) \, S\_0(t)} = \left( 1 + \frac{1 - \rho}{\rho} \cdot \frac{S\_0(t)}{S\_1(t)} \right)^{-1}\\]
 
 Recall is a survival function, so it can only go down as \\(t\\) goes up. Precision depends on
-the *ratio* \\(S_0(t) / S_1(t)\\), and both of those fall as \\(t\\) rises. If the next stretch of
-scores you cut off happens to be all repaid loans, \\(S_1\\) drops while \\(S_0\\) doesn't move,
+the *ratio* \\(S\_0(t) / S\_1(t)\\), and both of those fall as \\(t\\) rises. If the next stretch of
+scores you cut off happens to be all repaid loans, \\(S\_1\\) drops while \\(S\_0\\) doesn't move,
 the ratio goes up, and precision goes *down*. The floor constraint itself rearranges to
 
-\\[\text{Precision}(t) \geq \pi \quad \Longleftrightarrow \quad \frac{S_0(t)}{S_1(t)} \leq \frac{\rho}{1 - \rho} \cdot \frac{1 - \pi}{\pi}\\]
+\\[\text{Precision}(t) \geq \pi \quad \Longleftrightarrow \quad \frac{S\_0(t)}{S\_1(t)} \leq \frac{\rho}{1 - \rho} \cdot \frac{1 - \pi}{\pi}\\]
 
 which says the floor is really a cap on how many defaults you let through per good loan you
 approve.
@@ -162,8 +162,8 @@ applicants, around 14% of them, receive near-zero scores and essentially every o
 defaults. Cutting off just that sliver lifts the precision of the remaining pool above 90% on its
 own, and the "optimal" cutoff collapses to something like 0.03. The policy is technically correct
 and practically useless. The formula above makes this mechanical. At \\(t = 0\\) everyone is
-approved, \\(S_0 = S_1 = 1\\), and precision is exactly the base rate \\(\rho\\). Trimming a
-bottom tail that is almost entirely defaults cuts \\(S_0\\) sharply while leaving \\(S_1\\)
+approved, \\(S\_0 = S\_1 = 1\\), and precision is exactly the base rate \\(\rho\\). Trimming a
+bottom tail that is almost entirely defaults cuts \\(S\_0\\) sharply while leaving \\(S\_1\\)
 essentially at 1, so the ratio collapses and precision jumps, without the model having to rank
 anyone in the middle of the distribution correctly at all. The lesson is that a precision floor
 only means something once it's set well above what simple exclusion of the obvious defaults
@@ -200,17 +200,17 @@ additional features produced a candidate that beat the production model on every
 was shipped, and the reason why is the part of this I'd most want someone to take away.
 
 The standard approach to comparing two models is to run \\(k\\)-fold cross-validation, take the
-per-fold difference in some metric \\(d_j\\), and run a paired t-test. The problem is that the
+per-fold difference in some metric \\(d\_j\\), and run a paired t-test. The problem is that the
 folds are not independent. The training sets overlap heavily (in 5-fold CV, any two training sets
 share 75% of their rows), so the per-fold differences are positively correlated and the naive
 variance estimate is far too small. You end up declaring significance on noise. Nadeau and Bengio
 proposed a corrected statistic for exactly this situation. Over \\(J\\) total resamples with
-\\(n_1\\) training and \\(n_2\\) test rows per resample:
+\\(n\_1\\) training and \\(n\_2\\) test rows per resample:
 
-\\[t = \frac{\bar{d}}{\sqrt{\left( \dfrac{1}{J} + \dfrac{n_2}{n_1} \right) \hat{\sigma}_d^2}}\\]
+\\[t = \frac{\bar{d}}{\sqrt{\left( \dfrac{1}{J} + \dfrac{n\_2}{n\_1} \right) \hat{\sigma}\_d^2}}\\]
 
-where \\(\bar{d}\\) is the mean difference and \\(\hat{\sigma}_d^2\\) is the sample variance of the
-differences. The \\(n_2 / n_1\\) term is the correction. For 5-fold CV it equals 0.25, which
+where \\(\bar{d}\\) is the mean difference and \\(\hat{\sigma}\_d^2\\) is the sample variance of the
+differences. The \\(n\_2 / n\_1\\) term is the correction. For 5-fold CV it equals 0.25, which
 dwarfs the \\(1/J\\) term once you repeat CV a few times, and that's the point: adding more
 repetitions of the same CV on the same data makes the naive test look more and more confident,
 while the corrected one correctly recognizes that you haven't actually collected any new
@@ -223,7 +223,7 @@ right tool is a different one. McNemar's test only looks at the applicants where
 disagree. If \\(b\\) is the number of loans model A classifies correctly and model B gets wrong,
 and \\(c\\) is the reverse, then under the null hypothesis that the models are equally good,
 
-\\[\chi^2 = \frac{\big( \lvert b - c \rvert - 1 \big)^2}{b + c} \;\sim\; \chi^2_1\\]
+\\[\chi^2 = \frac{\big( \lvert b - c \rvert - 1 \big)^2}{b + c} \;\sim\; \chi^2\_1\\]
 
 with the \\(-1\\) as a continuity correction. The thing I like about this test is what it ignores:
 the thousands of loans both models get right, or both get wrong, carry no information about which
@@ -239,10 +239,10 @@ the winner's curse: if you try several hundred configurations and keep the best 
 score is the maximum of several hundred noisy estimates, and the maximum of noisy estimates is
 biased upward. You can put a rough number on how biased. Suppose, pessimistically, that every
 one of \\(K\\) configurations has the same true score \\(\mu\\), and each is measured with
-independent noise, \\(\hat{\mu}_k = \mu + \sigma Z_k\\) with \\(Z_k \sim \mathcal{N}(0, 1)\\).
+independent noise, \\(\hat{\mu}\_k = \mu + \sigma Z\_k\\) with \\(Z\_k \sim \mathcal{N}(0, 1)\\).
 Then for large \\(K\\),
 
-\\[\mathbb{E}\Big[ \max_{k \leq K} \hat{\mu}_k \Big] \approx \mu + \sigma \sqrt{2 \ln K}\\]
+\\[\mathbb{E}\Big[ \max\_{k \leq K} \hat{\mu}\_k \Big] \approx \mu + \sigma \sqrt{2 \ln K}\\]
 
 With a few hundred trials, \\(\sqrt{2 \ln K}\\) is already above 3. In other words, the best
 configuration of a few hundred identical ones would look about three standard errors better than
@@ -264,7 +264,7 @@ What *did* move the needle was data. A learning curve, training on increasing su
 training split and evaluating out of fold, had not flattened. Empirically, learning curves for
 models like this tend to follow something like a power law,
 
-\\[\varepsilon(n) \approx a \, n^{-b} + \varepsilon_\infty\\]
+\\[\varepsilon(n) \approx a \, n^{-b} + \varepsilon\_\infty\\]
 
 and the curve was still clearly on the steep part. The last few thousand training rows bought
 roughly 0.8 points of recall at the 95% floor, more than all the tuning combined. That is a strong
@@ -276,7 +276,7 @@ one.
 To see what the model relies on, I used permutation importance, which measures how much
 a metric \\(M\\) degrades when one input is scrambled:
 
-\\[I_k = M\big(y, f(X)\big) - \frac{1}{R} \sum_{r=1}^{R} M\big(y, f(X^{(k, r)})\big)\\]
+\\[I\_k = M\big(y, f(X)\big) - \frac{1}{R} \sum\_{r=1}^{R} M\big(y, f(X^{(k, r)})\big)\\]
 
 where \\(X^{(k, r)}\\) is the data with column \\(k\\) randomly permuted in repetition \\(r\\),
 which destroys that input's relationship with the label while keeping its marginal distribution
@@ -341,9 +341,9 @@ Finally, the interpretability and fairness side. The standard way to attribute a
 prediction to its inputs is the Shapley value from cooperative game theory. With \\(F\\) the set
 of inputs, the contribution of input \\(k\\) to the prediction for applicant \\(x\\) is
 
-\\[\phi_k(x) = \sum_{S \subseteq F \setminus \\{k\\}} \frac{\lvert S \rvert! \, \big( \lvert F \rvert - \lvert S \rvert - 1 \big)!}{\lvert F \rvert!} \Big[ v_x\big(S \cup \\{k\\}\big) - v_x(S) \Big]\\]
+\\[\phi\_k(x) = \sum\_{S \subseteq F \setminus \\{k\\}} \frac{\lvert S \rvert! \, \big( \lvert F \rvert - \lvert S \rvert - 1 \big)!}{\lvert F \rvert!} \Big[ v\_x\big(S \cup \\{k\\}\big) - v\_x(S) \Big]\\]
 
-where \\(v_x(S) = \mathbb{E}\big[ f(X) \mid X_S = x_S \big]\\) is the model's expected output when
+where \\(v\_x(S) = \mathbb{E}\big[ f(X) \mid X\_S = x\_S \big]\\) is the model's expected output when
 only the inputs in \\(S\\) are known. In words: average the marginal effect of revealing input
 \\(k\\) over every possible order in which the inputs could be revealed. It's the unique
 attribution satisfying a short list of fairness axioms (efficiency, symmetry, a dummy property,
@@ -354,9 +354,9 @@ TreeSHAP, that exploits the tree structure to compute the values exactly in
 tree ensemble has the property that Shapley attributions can be computed exactly rather than
 approximated, and they're additive: for each applicant,
 
-\\[\text{logit}\big(p(x)\big) = \phi_0 + \sum_{k} \phi_k(x)\\]
+\\[\text{logit}\big(p(x)\big) = \phi\_0 + \sum\_{k} \phi\_k(x)\\]
 
-where \\(\phi_0\\) is the average log-odds and \\(\phi_k(x)\\) is the contribution of input
+where \\(\phi\_0\\) is the average log-odds and \\(\phi\_k(x)\\) is the contribution of input
 \\(k\\) for that specific applicant. That matters because in most jurisdictions a denied applicant
 is owed a reason, and "the model said so" isn't one. It's also part of why the simpler model was
 preferable to the ensemble: the explanations are exact rather than an approximation of an
@@ -371,10 +371,10 @@ One last piece of math, because it's the first thing I would watch if a model li
 running on live applications. Outcomes take months to mature, so you can't measure precision in
 real time, but you can measure whether the population being scored still looks like the one the
 model was built on. The usual statistic is the population stability index. Bin the scores, let
-\\(e_i\\) be the fraction of the reference population in bin \\(i\\) and \\(a_i\\) the fraction of
+\\(e\_i\\) be the fraction of the reference population in bin \\(i\\) and \\(a\_i\\) the fraction of
 recent applicants, and compute
 
-\\[\text{PSI} = \sum_{i} (a_i - e_i) \ln \frac{a_i}{e_i} = D_{\text{KL}}(a \,\Vert\, e) + D_{\text{KL}}(e \,\Vert\, a)\\]
+\\[\text{PSI} = \sum\_{i} (a\_i - e\_i) \ln \frac{a\_i}{e\_i} = D\_{\text{KL}}(a \,\Vert\, e) + D\_{\text{KL}}(e \,\Vert\, a)\\]
 
 which is just a symmetrized KL divergence between the two distributions. The common rule of thumb
 is that below 0.1 is stable, 0.1 to 0.2 is worth a look, and above 0.2 means the population has

@@ -50,9 +50,9 @@ $$\text{Stage 2: } \text{argtop}_{K_1} \, \left| \rho(x_i, y) \right|$$
 
 $$\text{Stage 3: } \text{argtop}_{K_2} \, I_{\text{RF}}(x_i)$$
 
-Another way of explaining this: drop near constants, then keep the top \\(K_1 = 60\\) features by
+Another way of explaining this: drop near constants, then keep the top \\(K\_1 = 60\\) features by
 absolute Pearson correlation with the target delta, then refine to the top
-\\(K_2 = 30\\) features by Random Forest importance. The reason for the cascade
+\\(K\_2 = 30\\) features by Random Forest importance. The reason for the cascade
 rather than a single criterion is that correlation is a cheap linear filter
 while a Random Forest captures nonlinear and interaction effects but is computationally
 expensive to fit on a wide matrix. Doing the cheap filter first makes the more
@@ -88,15 +88,15 @@ h_t &= o_t \odot \tanh(c_t)
 \end{aligned}
 $$
 
-where \\(f_t\\), \\(i_t\\), \\(o_t\\) are the forget, input, and output gates,
-\\(\tilde{c}_t\\) is the candidate cell update, \\(c_t\\) is the cell state,
-\\(h_t\\) is the hidden state, and \\(\odot\\) is elementwise multiplication.
+where \\(f\_t\\), \\(i\_t\\), \\(o\_t\\) are the forget, input, and output gates,
+\\(\tilde{c}\_t\\) is the candidate cell update, \\(c\_t\\) is the cell state,
+\\(h\_t\\) is the hidden state, and \\(\odot\\) is elementwise multiplication.
 After running the input window of 24 months through the LSTM, I take the final
-hidden state \\(h_T\\) and pass it through a two layer head:
+hidden state \\(h\_T\\) and pass it through a two layer head:
 
 $$\hat{y} = W_2 \, \text{ReLU}(W_1 h_T + b_1) + b_2$$
 
-where \\(W_1 \in \mathbb{R}^{32 \times 64}\\) and \\(W_2 \in \mathbb{R}^{1 \times 32}\\).
+where \\(W\_1 \in \mathbb{R}^{32 \times 64}\\) and \\(W\_2 \in \mathbb{R}^{1 \times 32}\\).
 The output \\(\hat{y}\\) is the predicted standardized delta. To recover the
 level prediction at time \\(t + h\\), I undo the standardization and add the
 known anchor:
