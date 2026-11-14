@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "Credit Risk as a Decision Problem: Gradient Boosting, Cutoff Policies, and Knowing When Not to Ship"
-date: 2026-11-13
+date: 2026-10-21
+redirect_from:
+  - /machine-learning/statistics/2026/11/13/credit-risk-decision-problem.html
 categories: [machine-learning, statistics]
 ---
 
