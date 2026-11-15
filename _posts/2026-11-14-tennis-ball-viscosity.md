@@ -12,7 +12,7 @@ In the post on [the geometry of a tennis serve](/physics/2026/07/08/tennis-serve
 theory says those numbers should be. The natural place to start is the classical theory of an ideal fluid, which turns the
 problem into Laplace's equation around a sphere and can be solved exactly. The trouble is that it predicts a ball moving
 through air feels no drag at all, and that spin produces no sideways force. That result is known as d'Alembert's paradox, and
-working out exactly why it fails is the clearest way I know to see where drag and the Magnus force on a real ball come from.
+working out exactly why it fails shows where drag and the Magnus force on a real ball come from.
 
 Start with the equations. Air at serve speeds is described by the incompressible Navier-Stokes equations,
 
@@ -124,7 +124,7 @@ where \\(\text{Re}\_a = U a / \nu\\) is the Reynolds number based on the radius.
 the usual factor of about 5 from the full boundary-layer solution, the layer is around half a millimeter thick. That's comparable to the felt on a
 tennis ball, which sticks out on the order of a millimeter, so the fuzz sits right in the region where the drag is decided.
 
-What makes the boundary layer important is the pressure gradient it lives in. Over the front half of the ball, the potential-flow pressure falls from
+What makes the boundary layer important is the pressure gradient along the surface. Over the front half of the ball, the potential-flow pressure falls from
 \\(C\_p = 1\\) at the front to \\(C\_p = -1.25\\) at the sides, so the pressure pushes the air in the boundary layer along. Over the back half it rises again,
 from \\(-1.25\\) back to \\(+1\\), and the air in the boundary layer, already slowed by friction with the surface, has to climb that pressure hill. Eventually
 it can't, the flow next to the surface reverses, and the boundary layer lifts off the ball. That's separation, and behind the separation point the flow breaks into a wake and never closes smoothly around the back.
@@ -158,7 +158,7 @@ For separation at 80°, \\(s \approx 0.970\\), and a drag coefficient of 0.55 re
 and separating at 90° instead gives almost the same answer, \\(-0.68\\). So the 0.55 I used in the serve post corresponds to a wake where the pressure stays about
 two thirds of a dynamic pressure below ambient. The friction on the surface contributes very little by comparison. A laminar skin friction coefficient of
 \\(1.328 / \sqrt{\text{Re}} \approx 0.003\\) spread over the front of the ball adds something like 0.006 to \\(C\_D\\), about 1% of the total. Almost all of the drag on a
-tennis ball is pressure drag from the wake, and viscosity's role is to create the wake, not to rub against the ball. At 50 m/s a drag coefficient of 0.55
+tennis ball is pressure drag from the wake, and viscosity matters mostly because it causes the separation that makes the wake. At 50 m/s a drag coefficient of 0.55
 is a force of about 2.9 N, which decelerates the 57.7 g ball at around 51 m/s², a bit over five times gravity.
 
 ![Pressure coefficient against angle from the front of the ball. The potential-flow curve is symmetric, returning to 1 at the back, while the separated-flow curve follows it to 80 degrees and then stays flat at minus 0.66 across the wake.](/assets/images/tennis_ball_pressure.png)

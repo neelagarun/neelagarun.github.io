@@ -103,7 +103,7 @@ using \\(\sum\_{n \geq 1} 1 / n^2 = \pi^2 / 6\\), counted twice for positive and
 width grows like \\(L^{1/2}\\). Setting the growing and saturated widths equal gives the crossover time,
 \\(\sqrt{t\_\times} \propto L\\), so \\(t\_\times \propto L^2\\).
 
-These three facts combine into the scaling form that describes every growing interface. Define a roughness
+These three facts combine into the scaling form that's used for growing interfaces in general. Define a roughness
 exponent \\(\chi\\), a dynamic exponent \\(z\\), and a growth exponent \\(\beta\\) by
 
 \\[W(L, t) = L^{\chi} \, f\!\left( \frac{t}{L^z} \right), \qquad f(u) \sim \begin{cases} u^{\beta} & u \ll 1 \\\\ \text{const} & u \gg 1 \end{cases}\\]
