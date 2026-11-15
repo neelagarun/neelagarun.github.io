@@ -8,6 +8,7 @@ redirect_from:
   - /physics/2026/09/09/mars-drone-fluid-dynamics.html
   - /physics/2026/08/12/mars-drone-fluid-dynamics.html
 categories: [physics]
+image: /assets/images/mars_drone_power_curve.png
 ---
 
 I want to work through what it would take to fly a small rotorcraft on Mars. NASA flew a
@@ -438,6 +439,8 @@ allows. The drone always wants to fly as fast as compressibility lets it, both f
 endurance, and cruising at the limit uses about \\(130 / 175 \approx 74\%\\) of the hover power. With the
 same 75 Wh battery, that's about 35 minutes of flight and a range of roughly
 \\(0.58 \text{ h} \times 82 \text{ km/h} \approx 47\\) km. Hovering takes more power than flying at any speed up to the limit.
+
+![Power against forward speed from 0 to 60 meters per second, split into induced, profile and parasite power. The total falls from 175 watts in hover to about 130 watts at the 22 meter per second tip Mach limit, and its minimum, near 40 meters per second, lies in the shaded region beyond that limit.](/assets/images/mars_drone_power_curve.png)
 
 The blades' motion causes a more subtle problem. Helicopter blades flap: they rise and fall slightly as
 they go around, which is how a rotor evens out the lift between the advancing and retreating sides.

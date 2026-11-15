@@ -8,6 +8,7 @@ redirect_from:
   - /machine-learning/statistics/2026/10/21/credit-risk-decision-problem.html
   - /machine-learning/statistics/2026/09/19/credit-risk-decision-problem.html
 categories: [machine-learning, statistics]
+image: /assets/images/credit_risk_cutoff.png
 ---
 
 Most writing about credit risk models treats the problem as classification: predict whether a
@@ -61,6 +62,8 @@ applicants the model scores at 0.8, about 80% actually repay. Gradient boosted t
 guaranteed to be calibrated. They optimize log loss, which is a proper scoring rule and so pushes
 in the right direction, but with enough depth and enough trees they can become overconfident in
 the tails.
+
+![Expected value of approving a loan against repayment probability for cost ratios of 1 to 1, 3 to 1 and 5 to 1. Each line crosses zero at its break-even cutoff, 0.50, 0.75 and 0.83.](/assets/images/credit_risk_cutoff.png)
 
 So rather than trusting the formula, I pick the cutoff empirically by directly maximizing
 realized profit over the candidate thresholds:

@@ -7,6 +7,7 @@ redirect_from:
   - /statistics/physics/2026/11/04/yard-sale-common-noise.html
   - /statistics/physics/2026/10/07/yard-sale-common-noise.html
 categories: [statistics, physics]
+image: /assets/images/yard_sale_gini_paths.png
 ---
 
 During my master's at BU I worked on statistical mechanics problems, and some of that work touched the
