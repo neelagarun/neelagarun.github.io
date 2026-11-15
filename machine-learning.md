@@ -4,8 +4,4 @@ title: Machine Learning
 permalink: /machine-learning/
 ---
 
-{% for post in site.posts %}
-  {% if post.categories contains "machine-learning" %}
-- [{{ post.title }}]({{ post.url }})
-  {% endif %}
-{% endfor %}
+Write-ups on the machine learning research and engineering I do at Correllia Research are proprietary, so they can't be made available publicly.
