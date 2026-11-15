@@ -2,12 +2,14 @@
 layout: post
 title: "A Cell Sitting on a Nanoscale Coaxial Electrode: Solving Laplace's Equation Around the Membrane"
 excerpt: "The coax post estimated a cell's membrane voltage as if the cell sat in a uniform field. Solving the full three-dimensional problem with spherical harmonics and images shows the response is concentrated in a patch a few hundred nanometers wide under the cell, and is hundreds of times larger than the uniform-field estimate."
-date: 2026-10-29
+date: 2026-09-23
+redirect_from:
+  - /physics/2026/10/29/cell-on-coax-electrode.html
 categories: [physics]
 image: /assets/images/cell_membrane_patch.png
 ---
 
-In the post on [why a nanoscale coaxial electrode keeps its field local](/physics/2026/06/22/nanocoax-field-locality.html),
+In the post on [why a nanoscale coaxial electrode keeps its field local](/physics/2026/06/08/nanocoax-field-locality.html),
 I worked out the far field of the electrode and then estimated what a cell would feel by plugging the local field into the
 standard formula for a sphere in a uniform field, \\(\Delta V\_m = \frac{3}{2} E R \cos \theta\\). I said at the time that this
 was only a scaling argument, since the field near the electrode changes over a few hundred nanometers and a cell is several

@@ -2,8 +2,9 @@
 layout: post
 title: "Flying a Drone on Mars: Thin Air, Slow Sound, and the Fluid Dynamics of Hovering in Less Than 1% of an Atmosphere"
 excerpt: "Designing a hypothetical drone for Mars from conservation laws, and working out why its thin air and low speed of sound force wide, fast blades that operate at a Reynolds number around ten thousand."
-date: 2026-07-24
+date: 2026-07-04
 redirect_from:
+  - /physics/2026/07/24/mars-drone-fluid-dynamics.html
   - /physics/2026/11/14/mars-drone-fluid-dynamics.html
   - /physics/2026/09/09/mars-drone-fluid-dynamics.html
   - /physics/2026/08/12/mars-drone-fluid-dynamics.html

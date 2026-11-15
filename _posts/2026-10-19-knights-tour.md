@@ -2,7 +2,9 @@
 layout: post
 title: "The Knight's Tour: Which Square Boards Have One, and How to Build a Tour in Time Proportional to the Board"
 excerpt: "Working out which N × N boards a knight can tour, from the 3 × 3 board where it can't reach the center and a counting proof for 4 × 4, to a divide-and-conquer construction that builds a tour of any larger board in time proportional to its number of squares."
-date: 2026-11-15
+date: 2026-10-19
+redirect_from:
+  - /puzzles/2026/11/15/knights-tour.html
 categories: [puzzles]
 image: /assets/images/knights_tour_8x8.png
 ---

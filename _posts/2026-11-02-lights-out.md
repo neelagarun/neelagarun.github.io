@@ -2,7 +2,9 @@
 layout: post
 title: "Lights Out on an N × N Board: Linear Algebra over Two Elements, Fibonacci Polynomials, and Which Boards Can Always Be Cleared"
 excerpt: "Treating Lights Out as a linear system over the field with two elements, and reducing the question of which n × n boards can always be cleared to the degree of a gcd of two polynomials, which I check for every n up to 100."
-date: 2026-11-15
+date: 2026-11-02
+redirect_from:
+  - /puzzles/2026/11/15/lights-out.html
 categories: [puzzles]
 image: /assets/images/lights_out_19x19_quiet.png
 ---
