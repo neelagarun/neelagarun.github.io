@@ -26,7 +26,7 @@ preserve permutation parity.
 $$|S| = \frac{9!}{2} = 181{,}440$$
 
 So do random, breadth first, depth first, greedy best first, and A* search
-separate cleanly on this problem, and how much of the separation comes from
+separate clearly on this problem, and how much of the separation comes from
 the algorithm versus the heuristic you give it?
 
 The problem is that the state space, while finite, is large enough that
@@ -253,7 +253,7 @@ this problem.
 
 $$h_{\text{MD}}(s) = \sum_{i=1}^{8} \big| r_i(s) - r_i^* \big| + \big| c_i(s) - c_i^* \big|$$
 
-The algorithm comparison mostly generalizes. BFS is optimal but computationally expensive. DFS is computationally cheap but
+The algorithm comparison mostly generalizes. BFS is optimal but computationally expensive. DFS is computationally inexpensive but
 unreliable without an extremely good depth limit. Greedy is fast but lossy
 on solution quality. A* with an admissible heuristic is the one that
 guarantees optimality while searching less than BFS, and it pays for
