@@ -11,9 +11,9 @@ categories: [machine-learning, statistics]
 image: /assets/images/credit_risk_cutoff.png
 ---
 
-Most writing about credit risk models treats the problem as classification: predict whether a
-borrower defaults, report an AUC, and move on. But a lender doesn't need a
-classification. A lender needs a decision, approve or deny, and the quality of that decision
+A lot of credit risk work treats the problem as classification: predict whether a
+borrower defaults, report an AUC, and move on. A lender has to make a decision,
+approve or deny, and the quality of that decision
 depends on things the classifier knows nothing about: what a default costs relative to what a
 repaid loan earns, how much risk the business is willing to carry, and whether the probabilities
 coming out of the model mean what they say. The model is maybe half the problem.
@@ -72,7 +72,7 @@ realized profit over the candidate thresholds:
 
 This also gives you a free diagnostic. If the model is well calibrated, the
 empirically optimal cutoff should land close to \\(c / (1 + c)\\). In my case it landed within a
-couple of hundredths of 0.75, which is a reassuring, independent confirmation of what the
+couple of hundredths of 0.75, which agrees with what the
 calibration metrics were already saying (expected calibration error on cross-validated
 predictions was under one percentage point). When those two numbers disagree badly, it's a sign
 the probabilities shouldn't be taken at face value, and you would want to recalibrate with
@@ -93,9 +93,8 @@ and differentiating with respect to the lower limit gives
 
 \\[\frac{d\Pi}{dt} = -N f(t) \big[ q(t) \, g - (1 - q(t)) \, \ell \big] = 0 \quad \Longrightarrow \quad q(t^{\ast}) = \frac{\ell}{g + \ell}\\]
 
-So the empirical argmax isn't finding the point where the *score* equals \\(c / (1 + c)\\). It's
-finding the point where the *true repayment rate* equals \\(c / (1 + c)\\). Those coincide only if
-\\(q(t) = t\\) at that point. The interesting consequence is that the model only has to be
+So the empirical argmax finds the cutoff where the *true repayment rate* equals \\(c / (1 + c)\\).
+That's the same cutoff the formula gives only if \\(q(t) = t\\) at that point. The interesting consequence is that the model only has to be
 calibrated *locally*, near the cutoff, for the policy to be right. A model that is badly
 overconfident at 0.99 and 0.01 can still make perfectly good decisions at 0.75, which is part of
 why I care more about the cutoff landing where theory says it should than about any single global
@@ -130,19 +129,19 @@ data, \\(\tilde{p} = 1 / \big(1 + e^{-(a z + b)}\big)\\) where \\(z\\) is the mo
 log-odds, while isotonic regression fits an arbitrary monotone step function. Platt is safer with
 little data; isotonic is more flexible with a lot of it.
 
-The second policy is a constraint rather than an objective. A lot of lenders don't think in cost
+The second policy is a constraint. A lot of lenders don't think in cost
 ratios; they think "no more than 5% of what we approve should default." That is a constrained
 optimization problem:
 
 \\[\max\_t \ \text{Recall}(t) \quad \text{subject to} \quad \text{Precision}(t) \geq \pi\\]
 
-which is structurally the same as a Neyman–Pearson problem with the roles of the two error types
+which is structurally the same as a Neyman-Pearson problem with the roles of the two error types
 arranged around precision instead of false positive rate. Since recall is monotonically
 non-increasing in \\(t\\), the solution is just the *lowest* cutoff whose precision clears the
 floor \\(\pi\\). Precision, unlike recall, is not monotonic
 in \\(t\\). As you raise the cutoff, you can drop a run of good loans and watch precision dip
 before it climbs again. So you can't just binary search for the crossing point; you have to scan
-the whole precision–recall curve and take the best recall among every threshold that satisfies
+the whole precision-recall curve and take the best recall among every threshold that satisfies
 the constraint.
 
 The easiest way to see why is to write both metrics in terms of the score distributions. Let
@@ -191,8 +190,7 @@ roughly 83% relative to approving everyone. Under the 3:1 cost ratio, profit per
 applicants goes up by about a factor of five over the approve-everyone baseline. ROC-AUC on the
 test set is around 0.95.
 
-Those numbers are only part of the story, though, because they invite the obvious question of
-whether a fancier model would do better. I spent a while on this. Across a broad comparison of
+Those numbers invite the obvious question of whether a fancier model would do better. I spent a while on this. Across a broad comparison of
 model families, linear models, kernel methods, neural networks, bagging, and boosting, gradient
 boosted trees won by a wide margin. At a 95% precision floor, logistic regression approves only
 about two thirds of the good borrowers; boosted trees approve over 90%. That gap is large and it
@@ -366,7 +364,7 @@ where \\(\phi\_0\\) is the average log-odds and \\(\phi\_k(x)\\) is the contribu
 \\(k\\) for that specific applicant. That matters because in most jurisdictions a denied applicant
 is owed a reason, and "the model said so" isn't one. It's also part of why the simpler model was
 preferable to the ensemble: the explanations are exact rather than an approximation of an
-approximation. On fairness, I want to be direct: applicant age is one of the inputs, and
+approximation. On fairness: applicant age is one of the inputs, and
 age-based credit decisions are restricted in many places (the US Equal Credit Opportunity Act, for
 example). Income and housing status can act as proxies for protected characteristics, and since
 the data carries no protected attributes, no disparate impact analysis is possible on it. Before
