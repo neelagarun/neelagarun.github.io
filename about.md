@@ -28,9 +28,7 @@ so-called Yard-Sale model of wealth exchange, which I've kept thinking about [he
 Now I'm a co-founder of Correllia Research, a quantitative research firm that builds machine learning and
 statistical models for financial firms without in-house quant desks. I work on the engineering and model development, which includes our credit-risk and macro forecasting models and Quanta, the desktop platform our clients use to run those
 models on their own data. The part of the work I like most is taking a model that holds up statistically and turning
-it into a system other people can rely on, and a couple of the posts here, on
-[credit risk](/machine-learning/statistics/2026/07/31/credit-risk-decision-problem.html) and
-[CPI forecasting](/machine-learning/2026/04/15/forecasting-cpi.html), come straight out of that.
+it into a system other people can rely on.
 
 Outside of work, tennis is probably the thing I love most. I'm always looking for a match when I can find the time,
 and my favorite player has always been Rafael Nadal. It has a way of creeping into everything else I do, so I've spent
