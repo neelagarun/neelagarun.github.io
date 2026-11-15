@@ -2,12 +2,14 @@
 layout: post
 title: "Why a Tennis Ball Needs Viscosity to Curve: Potential Flow, d'Alembert's Paradox, and the Boundary Layer"
 excerpt: "Solving Laplace's equation for air flowing around a tennis ball predicts no drag and no lift from spin. Working out why, and where the drag and the Magnus force in the serve post come from instead, leads to the boundary layer and to a wake pressure that accounts for a drag coefficient of about 0.55."
-date: 2026-11-14
+date: 2026-10-06
+redirect_from:
+  - /physics/2026/11/14/tennis-ball-viscosity.html
 categories: [physics]
 image: /assets/images/tennis_ball_pressure.png
 ---
 
-In the post on [the geometry of a tennis serve](/physics/2026/07/08/tennis-serve-geometry.html), I used a drag coefficient of
+In the post on [the geometry of a tennis serve](/physics/2026/06/21/tennis-serve-geometry.html), I used a drag coefficient of
 0.55 and an empirical formula for the lift from topspin, and I treated both as given. I wanted to go back and ask what
 theory says those numbers should be. The natural place to start is the classical theory of an ideal fluid, which turns the
 problem into Laplace's equation around a sphere and can be solved exactly. The trouble is that it predicts a ball moving

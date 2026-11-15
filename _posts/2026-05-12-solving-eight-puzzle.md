@@ -2,8 +2,9 @@
 layout: post
 title: "Eight Puzzle: State Space Search and the Cost of Heuristic Choices"
 excerpt: "Comparing breadth-first, depth-first, greedy and A* search on boards that take 5, 18 and 27 moves to solve, and how much of the difference comes from the heuristic."
-date: 2026-05-20
+date: 2026-05-12
 redirect_from:
+  - /puzzles/2026/05/20/solving-eight-puzzle.html
   - /puzzles/2026/05/05/solving-eight-puzzle.html
   - /puzzles/2026/05/28/solving-eight-puzzle.html
 categories: [puzzles]
