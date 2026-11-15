@@ -2,10 +2,11 @@
 layout: post
 title: "23 Countries Down, 172 to Go: How Long Until I've Been Everywhere?"
 excerpt: "I've been to 23 countries, and treating the other 172 as a coupon collector problem says finishing could take centuries. Once some countries are much harder to reach than others, the five hardest account for almost all of the expected time."
-date: 2026-06-16
+date: 2026-06-06
 redirect_from:
   - /travel/2026/11/13/countries-coupon-collector.html
   - /travel/2026/07/08/countries-coupon-collector.html
+  - /travel/2026/06/16/countries-coupon-collector.html
 categories: [travel]
 ---
 
