@@ -2,9 +2,10 @@
 layout: post
 title: "Growing Interfaces and the KPZ Equation: Why Fluctuations Grow Like the Cube Root of Time"
 excerpt: "Deriving why a growing interface roughens like the cube root of time, from the exact solution of the linear equation to the Cole-Hopf transform, with a simulation that matches the Tracy-Widom law."
-date: 2026-10-26
+date: 2026-09-27
 redirect_from:
   - /physics/2026/11/14/kpz-equation.html
+  - /physics/2026/10/26/kpz-equation.html
 categories: [physics]
 ---
 

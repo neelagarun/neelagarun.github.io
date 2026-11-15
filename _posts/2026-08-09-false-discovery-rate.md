@@ -2,10 +2,11 @@
 layout: post
 title: "Testing a Thousand Hypotheses at Once: False Discoveries and the Benjamini-Hochberg Procedure"
 excerpt: "Running a thousand tests at the 5% level guarantees dozens of false discoveries. A full proof of the Benjamini-Hochberg procedure, and a simulated gene expression study comparing it with Bonferroni and Holm."
-date: 2026-08-31
+date: 2026-08-09
 redirect_from:
   - /statistics/2026/11/14/false-discovery-rate.html
   - /statistics/2026/09/30/false-discovery-rate.html
+  - /statistics/2026/08/31/false-discovery-rate.html
 categories: [statistics]
 ---
 
