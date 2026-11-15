@@ -4,4 +4,4 @@ title: Machine Learning
 permalink: /machine-learning/
 ---
 
-Write-ups on the machine learning research and engineering I do at Correllia Research are proprietary, so they can't be made available publicly.
+Unfortunately, I've had to take down these posts. The research and engineering stack they described is now proprietary to Correllia Research, so I'm no longer able to share it publicly.
