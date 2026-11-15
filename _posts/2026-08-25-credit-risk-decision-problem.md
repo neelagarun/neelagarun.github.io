@@ -2,10 +2,11 @@
 layout: post
 title: "Credit Risk as a Decision Problem: Gradient Boosting, Cutoff Policies, and Knowing When Not to Ship"
 excerpt: "Treating a credit model as a lending decision, from choosing approval cutoffs with cost ratios and precision floors to deciding when a model that looks better on paper shouldn't be shipped."
-date: 2026-09-19
+date: 2026-08-25
 redirect_from:
   - /machine-learning/statistics/2026/11/13/credit-risk-decision-problem.html
   - /machine-learning/statistics/2026/10/21/credit-risk-decision-problem.html
+  - /machine-learning/statistics/2026/09/19/credit-risk-decision-problem.html
 categories: [machine-learning, statistics]
 ---
 
