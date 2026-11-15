@@ -8,6 +8,7 @@ redirect_from:
   - /physics/2026/07/29/nanocoax-field-locality.html
   - /physics/2026/07/05/nanocoax-field-locality.html
 categories: [physics]
+image: /assets/images/nanocoax_field_falloff.png
 ---
 
 When I was at Boston College, part of my research involved building nanoscale coaxial
@@ -368,6 +369,8 @@ on-axis expressions:
 | 1 μm | 0.11 |
 | 3 μm | 0.013 |
 | 15 μm | 0.00053 |
+
+![Log-log plot of the on-axis field against height above the electrode from 50 nanometers to 30 microns. The bare electrode's field falls as one over z squared, the coax's falls as one over z to the fourth, and the gap between them widens with height.](/assets/images/nanocoax_field_falloff.png)
 
 Far away the ratio follows the multipole prediction. With \\(\lvert K \rvert = I (b^2 - a^2) / (4 \pi \sigma)\\),
 the quadrupole field on the axis (\\(\theta = 0\\), where \\(P\_2 = 1\\) and \\(\sin \theta = 0\\)) is
