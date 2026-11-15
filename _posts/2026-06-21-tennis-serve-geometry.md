@@ -2,8 +2,9 @@
 layout: post
 title: "Why a Tennis Serve's Window Is So Narrow, and What Widens It: Projectile Motion, a Little Fluid Dynamics, and Some Asymptotics"
 excerpt: "For a hard flat serve, the range of launch angles that lands in is about a degree wide. Deriving that window with drag and topspin shows how speed, contact height and spin change it."
-date: 2026-07-08
+date: 2026-06-21
 redirect_from:
+  - /physics/2026/07/08/tennis-serve-geometry.html
   - /physics/2026/11/14/tennis-serve-geometry.html
   - /physics/2026/08/19/tennis-serve-geometry.html
   - /physics/2026/07/24/tennis-serve-geometry.html
