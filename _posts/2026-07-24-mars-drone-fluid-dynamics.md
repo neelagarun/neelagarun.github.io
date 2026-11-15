@@ -507,7 +507,7 @@ At one rotor radius above the ground, \\(R / 4 z = 0.25\\) and the gain is
 radius, where the point source picture is reasonable, but it shows why takeoff and landing are the
 easiest parts of a flight.
 
-Near the ground, the wake also hits dust, and Mars has a lot of fine dust. Momentum theory gives a clean
+Near the ground, the wake also hits dust, and Mars has a lot of fine dust. Momentum theory gives a simple
 way to compare with Earth. The far wake moves at \\(w = 2 v\_i\\), so its dynamic pressure is
 
 \\[q\_{\text{wake}} = \frac{1}{2} \rho w^2 = \frac{1}{2} \rho (2 v\_i)^2 = 2 \rho v\_i^2 = \frac{T}{A}\\]

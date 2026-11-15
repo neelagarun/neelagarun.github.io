@@ -57,9 +57,9 @@ $$\text{Stage 3: } \text{argtop}_{K_2} \, I_{\text{RF}}(x_i)$$
 Another way of explaining this: drop near constants, then keep the top \\(K\_1 = 60\\) features by
 absolute Pearson correlation with the target delta, then refine to the top
 \\(K\_2 = 30\\) features by Random Forest importance. The reason for the cascade
-rather than a single criterion is that correlation is a cheap linear filter
+rather than a single criterion is that correlation is a fast linear filter
 while a Random Forest captures nonlinear and interaction effects but is computationally
-expensive to fit on a wide matrix. Doing the cheap filter first makes the more
+expensive to fit on a wide matrix. Doing the fast filter first makes the more
 expensive RF stage tractable. An important detail is that the selector is fit
 only on rows whose target time also falls inside the training window. If you
 fit it on the full sample, you have already leaked information about future
@@ -167,7 +167,7 @@ dependence on a single feature while holding the others at their median. All
 of those are post hoc and approximate. 
 
 The natural next question is whether this approach extends to longer horizons,
-and whether you can get cleaner generalization by changing the inductive bias.
+and whether you can get better generalization by changing the inductive bias.
 
 There are also obvious
 modifications to the architecture: attention over the input window, a
