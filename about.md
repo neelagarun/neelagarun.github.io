@@ -4,6 +4,8 @@ title: About
 permalink: /about/
 ---
 
+<img class="about-photo" src="/assets/images/nikhil.jpg" alt="Photo of Nikhil Neelagaru" width="280" height="353">
+
 I'm Nikhil Neelagaru. I did my undergrad at Boston College, where I majored in biology but
 spent most of my time in an experimental condensed matter physics lab. We built nanoscale coaxial electrode arrays,
 grew stem cells around them, and passed current through the solution to see how it changed the way the cells

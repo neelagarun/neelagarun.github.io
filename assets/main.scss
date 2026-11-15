@@ -69,3 +69,20 @@
     margin-top: 0;
   }
 }
+
+.about-photo {
+  float: right;
+  width: 220px;
+  height: auto;
+  margin: 0.3rem 0 1rem 1.5rem;
+  border-radius: 6px;
+}
+
+@media screen and (max-width: 600px) {
+  .about-photo {
+    float: none;
+    display: block;
+    width: 180px;
+    margin: 0 auto 1.25rem;
+  }
+}
