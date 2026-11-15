@@ -2,7 +2,9 @@
 layout: post
 title: "Physics of Asteroid B-612 from Antoine de Saint-Exupéry's The Little Prince"
 excerpt: "I work out what B-612 would have to be made of for the little prince to walk on it, which turns out to be impossible either way you try it. His dozens of sunsets in a single day hold up surprisingly well, and his rose never could have had air to breathe."
-date: 2026-11-14
+date: 2026-10-13
+redirect_from:
+  - /physics/2026/11/14/physics-of-asteroid-b612.html
 categories: [physics]
 ---
 
