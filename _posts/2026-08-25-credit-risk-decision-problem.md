@@ -142,7 +142,7 @@ before it climbs again. So you can't just binary search for the crossing point; 
 the whole precision–recall curve and take the best recall among every threshold that satisfies
 the constraint.
 
-The cleanest way to see why is to write both metrics in terms of the score distributions. Let
+The easiest way to see why is to write both metrics in terms of the score distributions. Let
 \\(\rho\\) be the base rate of repayment, and let \\(S\_1(t)\\) and \\(S\_0(t)\\) be the fractions
 of repaid and defaulted loans, respectively, that score at or above \\(t\\). Then
 

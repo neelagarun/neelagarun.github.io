@@ -184,7 +184,7 @@ exactly. Inequality measures like the Gini coefficient don't depend on units, so
 The shock contributes \\(w (\mu \, dt + \sigma \, dB)\\) to \\(d w\\) and \\(\bar{W} (\mu \, dt + \sigma \, dB)\\) to \\(d \bar{W}\\). In the
 first two terms these give \\(x (\mu \, dt + \sigma \, dB) - x (\mu \, dt + \sigma \, dB) = 0\\). In the last two, the
 cross-variation is \\(\sigma^2 w \bar{W} \, dt\\) and the variation of \\(\bar{W}\\) is \\(\sigma^2 \bar{W}^2 \, dt\\), giving
-\\(-\sigma^2 x \, dt + \sigma^2 x \, dt = 0\\). Everything from the shock cancels. The trade term also rescales neatly: since
+\\(-\sigma^2 x \, dt + \sigma^2 x \, dt = 0\\). Everything from the shock cancels. The trade term also rescales simply: since
 \\(\min(w, w\')^2\\) scales as the square of wealth, \\(B(w) = \bar{W}^2 \tilde{B}(x)\\), where \\(\tilde{B}\\) is the same function computed
 from the distribution of relative wealth. So
 
