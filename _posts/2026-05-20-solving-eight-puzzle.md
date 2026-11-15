@@ -271,7 +271,7 @@ The 8-puzzle is small enough that you can see all four behaviors on a
 single laptop in a few minutes of runtime.
 
 The A* with h2 numbers on 18_moves.txt make informed search look like an
-obvious win, but they don't tell the whole story. On the boards it didn't
+obvious win. On the boards it didn't
 finish in the same file, the blank's position is a weak signal of the true
 distance to the goal, so A* with h2 has to test nearly as many states as
 BFS, and I stopped those runs before they finished.
