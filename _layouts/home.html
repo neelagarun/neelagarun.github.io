@@ -1,0 +1,46 @@
+---
+layout: default
+---
+{% comment %}
+Same as minima 2.5's home layout, plus a thumbnail next to the excerpt for any post
+whose front matter sets `image:`. Posts without one render exactly as before.
+{% endcomment %}
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+  {%- if site.posts.size > 0 -%}
+    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
+    <ul class="post-list">
+      {%- for post in site.posts -%}
+      <li{% if post.image %} class="has-thumb"{% endif %}>
+        {%- if post.image -%}
+        <a class="post-thumb" href="{{ post.url | relative_url }}" tabindex="-1" aria-hidden="true">
+          <img src="{{ post.image | relative_url }}" alt="" loading="lazy">
+        </a>
+        <div class="post-list-text">
+        {%- endif -%}
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <span class="post-meta">{{ post.date | date: date_format }}</span>
+        <h3>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            {{ post.title | escape }}
+          </a>
+        </h3>
+        {%- if site.show_excerpts -%}
+          {{ post.excerpt }}
+        {%- endif -%}
+        {%- if post.image -%}
+        </div>
+        {%- endif -%}
+      </li>
+      {%- endfor -%}
+    </ul>
+
+    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+  {%- endif -%}
+
+</div>

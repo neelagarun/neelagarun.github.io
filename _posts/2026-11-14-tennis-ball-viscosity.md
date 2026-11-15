@@ -4,6 +4,7 @@ title: "Why a Tennis Ball Needs Viscosity to Curve: Potential Flow, d'Alembert's
 excerpt: "Solving Laplace's equation for air flowing around a tennis ball predicts no drag and no lift from spin. Working out why, and where the drag and the Magnus force in the serve post come from instead, leads to the boundary layer and to a wake pressure that accounts for a drag coefficient of about 0.55."
 date: 2026-11-14
 categories: [physics]
+image: /assets/images/tennis_ball_pressure.png
 ---
 
 In the post on [the geometry of a tennis serve](/physics/2026/07/08/tennis-serve-geometry.html), I used a drag coefficient of
@@ -159,6 +160,8 @@ two thirds of a dynamic pressure below ambient. The friction on the surface cont
 \\(1.328 / \sqrt{\text{Re}} \approx 0.003\\) spread over the front of the ball adds something like 0.006 to \\(C\_D\\), about 1% of the total. Almost all of the drag on a
 tennis ball is pressure drag from the wake, and viscosity's role is to create the wake, not to rub against the ball. At 50 m/s a drag coefficient of 0.55
 is a force of about 2.9 N, which decelerates the 57.7 g ball at around 51 m/s², a bit over five times gravity.
+
+![Pressure coefficient against angle from the front of the ball. The potential-flow curve is symmetric, returning to 1 at the back, while the separated-flow curve follows it to 80 degrees and then stays flat at minus 0.66 across the wake.](/assets/images/tennis_ball_pressure.png)
 
 The Magnus force comes from the same place. With topspin, the top of the ball moves against the oncoming air and the bottom moves with it. The boundary
 layer on the bottom gets dragged along toward the back and stays attached longer, while the one on the top is slowed further and separates earlier. The

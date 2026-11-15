@@ -4,6 +4,7 @@ title: "A Cell Sitting on a Nanoscale Coaxial Electrode: Solving Laplace's Equat
 excerpt: "The coax post estimated a cell's membrane voltage as if the cell sat in a uniform field. Solving the full three-dimensional problem with spherical harmonics and images shows the response is concentrated in a patch a few hundred nanometers wide under the cell, and is hundreds of times larger than the uniform-field estimate."
 date: 2026-10-29
 categories: [physics]
+image: /assets/images/cell_membrane_patch.png
 ---
 
 In the post on [why a nanoscale coaxial electrode keeps its field local](/physics/2026/06/22/nanocoax-field-locality.html),
@@ -127,6 +128,8 @@ patch the electrode affects is about as wide as the gap, plus the electrode's ow
 Elsewhere on the cell the voltage is small and of the opposite sign, about \\(+0.004\\) in the same units for the 0.5 μm gap, which
 is just the zero-net-charge condition spreading a little compensating voltage over everything outside the patch. With the inner
 ring sourcing current, the patch is pushed negative, and reversing the current reverses it.
+
+![Membrane voltage divided by its peak against distance along the membrane from the bottom of the cell, for gaps of 2, 1, 0.5 and 0.25 microns. The voltage falls to half its peak within about 0.9, 0.5, 0.3 and 0.2 microns, and the curve narrows as the gap shrinks.](/assets/images/cell_membrane_patch.png)
 
 To check the series solution I also solved the full problem numerically. Since everything is symmetric about the axis, Laplace's
 equation reduces to two dimensions in \\((r, z)\\),

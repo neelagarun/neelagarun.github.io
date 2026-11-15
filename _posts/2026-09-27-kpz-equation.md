@@ -7,6 +7,7 @@ redirect_from:
   - /physics/2026/11/14/kpz-equation.html
   - /physics/2026/10/26/kpz-equation.html
 categories: [physics]
+image: /assets/images/kpz_tracy_widom.png
 ---
 
 Hold a lighter to the edge of a sheet of paper and watch the burning front move inward. It isn't

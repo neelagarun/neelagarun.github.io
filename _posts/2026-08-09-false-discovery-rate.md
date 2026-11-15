@@ -8,6 +8,7 @@ redirect_from:
   - /statistics/2026/09/30/false-discovery-rate.html
   - /statistics/2026/08/31/false-discovery-rate.html
 categories: [statistics]
+image: /assets/images/fdr_bh_line.png
 ---
 
 Suppose you measure the expression level of 1,000 genes in two groups of samples, say tissue from

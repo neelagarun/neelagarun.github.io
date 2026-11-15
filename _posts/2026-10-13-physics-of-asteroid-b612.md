@@ -6,6 +6,7 @@ date: 2026-10-13
 redirect_from:
   - /physics/2026/11/14/physics-of-asteroid-b612.html
 categories: [physics]
+image: /assets/images/b612_density_needed.png
 ---
 
 I reread The Little Prince recently, and I wanted to work through the physics of the prince's home planet, asteroid B-612, since the book describes it in enough detail to check. It's supposed to be barely bigger than a house, and the prince walks around on it, cleans out its volcanoes, pulls up the baobab sprouts every morning, and keeps a rose that he covers with a glass globe at night. He also tells the pilot about a day when he watched the sun set 44 times by moving his chair a few steps each time, although some translations say 43. The book obviously isn't asking to be checked, but the numbers are easy enough to work out that I couldn't resist. They split in an interesting way: the gravity is wrong by many orders of magnitude whatever you assume, while the sunsets work almost exactly the way he describes them.
@@ -43,6 +44,8 @@ So a rock B-612 doesn't work, and the natural next question is what B-612 would 
 \\[\rho = \frac{3 g}{4 \pi G R} = \frac{3 \times 9.81}{4 \pi \times 6.674 \times 10^{-11} \times 10} \approx 3.5 \times 10^{9} \text{ kg/m}^3\\]
 
 which is about 1.2 million times the density of rock and puts B-612 in the same range as the material inside a white dwarf star. The planet's mass would be \\(\frac{4}{3} \pi (10)^3 \times 3.5 \times 10^9 \approx 1.5 \times 10^{13}\\) kg, and its escape velocity would be \\(\sqrt{2 g R} = \sqrt{2 \times 9.81 \times 10} \approx 14\\) m/s, which at least lets him stand up.
+
+![Log-log plot of the density a planet needs for Earth's surface gravity against its radius, from 1 meter to 10 million meters. The line meets rock density near Earth's radius and reaches 3.5 billion kilograms per cubic meter at B-612's 10 meter radius.](/assets/images/b612_density_needed.png)
 
 The problem with this version is that matter at that density can't stay that dense unless something squeezes it. At \\(3.5 \times 10^9\\) kg/m³ the electrons are packed so tightly that they form a degenerate gas, where the pressure comes from the Pauli exclusion principle and doesn't depend on temperature at all. In a real white dwarf it's the gravity of a whole star that holds that pressure in. Here it would have to be the gravity of a ball 10 m in radius, so the thing to compare is how much pressure that gravity can supply against how much the electrons push back with.
 

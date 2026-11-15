@@ -30,3 +30,42 @@
     font-size: 1.25rem;
   }
 }
+
+.post-list > li.has-thumb {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.post-list-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-thumb {
+  flex: 0 0 200px;
+  order: 2;
+  margin-top: 1.6rem;
+}
+
+.post-thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+}
+
+@media screen and (max-width: 600px) {
+  .post-list > li.has-thumb {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .post-thumb {
+    flex: none;
+    order: 0;
+    width: 100%;
+    margin-top: 0;
+  }
+}

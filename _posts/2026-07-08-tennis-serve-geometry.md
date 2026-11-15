@@ -8,6 +8,7 @@ redirect_from:
   - /physics/2026/08/19/tennis-serve-geometry.html
   - /physics/2026/07/24/tennis-serve-geometry.html
 categories: [physics]
+image: /assets/images/serve_angle_window.png
 ---
 
 Anyone who plays tennis knows the feeling of a first serve that clips the tape or lands a foot
