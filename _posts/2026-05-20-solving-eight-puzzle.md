@@ -32,12 +32,11 @@ the algorithm versus the heuristic you give it?
 The problem is that the state space, while finite, is large enough that
 uninformed search wastes most of its work on configurations no human solver
 would ever consider. A blind frontier expansion at depth 18 still has roughly
-\\(3^{18}\\) candidates if you ignore cycle detection, which is around 387
-million.
+200 million candidates if you ignore cycle detection, starting from the board above.
 
-$$N(d) \leq b^d, \qquad b = 3, \, d = 18 \;\Longrightarrow\; N \approx 3.87 \times 10^8$$
+$$N(d) \leq 4^d, \qquad d = 18 \;\Longrightarrow\; N \approx 2.0 \times 10^8$$
 
-Even after pruning cycles the count stays in the millions on the harder
+Even after pruning cycles the count stays in the tens of thousands on the harder
 boards. Any algorithm that does not somehow weight the search toward
 goal-like states is going to spend almost all of its budget visiting
 irrelevant ones. That is the case for heuristic search. The flip side is
@@ -109,7 +108,7 @@ $$\text{succ}(s) = \left\{\, (\text{apply}(s, m), \, s, \, m, \, g(s) + 1) \,:\,
 The branching factor is at most four, typically two or three after cycle
 pruning.
 
-$$2 \leq \big|\,\text{succ}(s) \setminus \{s' : \text{cycle}(s')\}\,\big| \leq 4$$
+$$1 \leq \big|\,\text{succ}(s) \setminus \{s' : \text{cycle}(s')\}\,\big| \leq 3$$
 
 The search abstraction is a Searcher base class with a list of untested
 states, a depth limit, and a tested counter. The contract is that
@@ -165,7 +164,7 @@ $$\text{priority}(s) = -\left( \, \text{misplaced}(s) + h(s) \, \right)$$
 with h treated as zero unless the heuristic is h2, in which case it is
 added.
 
-$$\text{misplaced}(s) = \begin{cases} 0 & \mathbf{B} = \mathbf{G} \\ \displaystyle\left(\sum_{r=0}^{2}\sum_{c=0}^{2} \mathbf{1}\!\left[\mathbf{B}(r,c) \neq \mathbf{G}(r,c)\right]\right) - 1 & \text{otherwise} \end{cases}$$
+$$\text{misplaced}(s) = \sum_{r=0}^{2}\sum_{c=0}^{2} \mathbf{1}\!\left[\mathbf{B}(r,c) \neq 0 \;\wedge\; \mathbf{B}(r,c) \neq \mathbf{G}(r,c)\right]$$
 
 The negation is there because I take max over priorities to pick the next
 state. Misplaced tile count, defined as the number of tiles not in their
@@ -189,16 +188,19 @@ $$f_{h_1}(s) = g(s) + h_1(s) = 2 \, g(s)$$
 
 With h2 things improve, because the blank distance term breaks ties
 in a way that prefers states whose blank is closer to the top left corner,
-which is where the goal puts it. On these particular puzzles that correlates
-with progress.
+which is where the goal puts it. That correlates with progress on every
+board, since the blank has to end up there.
 
 $$f_{h_2}(s) = 2 \, g(s) + |\text{blank}_r(s)| + |\text{blank}_c(s)|$$
 
 Notice that 2g goes up by 2 with every move, while the blank term only ranges
 from 0 to 4. So A* with h2 still mostly expands states in order of depth,
 like BFS, with the blank position deciding the order within and between
-neighboring depths. That is why it keeps finding optimal solutions even
-though h2 isn't admissible.
+neighboring depths. Dividing f by 2 doesn't change the order, and gives
+\\(g(s) + (\lvert \text{blank}\_r(s) \rvert + \lvert \text{blank}\_c(s) \rvert) / 2\\). The blank needs at
+least as many moves as its distance from the corner, so half that distance
+is an admissible heuristic. That is why it keeps finding optimal solutions
+even though h2 itself isn't admissible.
 
 Now to the results:
 
@@ -239,14 +241,11 @@ The four boards it does not solve are ones where I ran out of patience and
 interrupted the search rather than ones where the algorithm failed in
 principle.
 
-![Test set summary across the three difficulty files: states tested by algorithm, solution length by algorithm, and the BFS vs A* frontier comparison on 18_moves.txt.](/assets/images/eight_puzzle_results.png)
-*Algorithm comparison across difficulty levels. BFS and A* track each other on optimality. Greedy diverges as soon as the optimal length crosses the easy threshold.*
-
 The 27_moves.txt file is past the point where any of these algorithms
-reach a solution in a reasonable wall clock time without a much stronger
-heuristic. A heuristic that
-does not estimate distance to goal cannot, in general, prune deep enough
-to reach a 27 move target. If I wanted to push the difficulty further I
+reach a solution in a reasonable wall clock time in my implementation,
+which only checks a state's own ancestors for cycles and so expands the
+same boards many times over. With a set of every board already visited,
+even BFS never tests more than 181,440 states. If I wanted to push the difficulty further I
 would replace h2 with the sum of Manhattan distances of every tile from
 its goal position, which is admissible and well known to be effective on
 this problem.
@@ -264,19 +263,18 @@ $$h \leq h^* \;\Longrightarrow\; \text{A*\;optimal}$$
 The "searching less" part needs a caveat. If the heuristic is also
 consistent (it never drops by more than 1 across a single move), A* never
 expands more states than uniform cost search, ties aside. That isn't a
-guarantee for every heuristic, and it's not what my h2 runs show, since h2
-is neither admissible nor consistent. The smaller counts I got come from the
-tiebreaking described above.
+guarantee for every heuristic, but it does cover my h2 runs, since half the
+blank's distance changes by at most 1/2 with each move, so it is consistent
+as well as admissible.
 
 The 8-puzzle is small enough that you can see all four behaviors on a
 single laptop in a few minutes of runtime.
 
 The A* with h2 numbers on 18_moves.txt make informed search look like an
-obvious win, but they don't tell the whole story. On the boards it failed to
-solve in the same file, the blank's position happens to be a poor proxy for
-true distance to the goal. On those, the priority queue keeps preferring
-states that score well by the heuristic but are actually further from the
-goal in moves.
+obvious win, but they don't tell the whole story. On the boards it didn't
+finish in the same file, the blank's position is a weak signal of the true
+distance to the goal, so A* with h2 has to test nearly as many states as
+BFS, and I stopped those runs before they finished.
 
 $$h(s) \text{ small} \;\not\!\Longrightarrow\; h^*(s) \text{ small}$$
 
@@ -296,5 +294,5 @@ $$|S_{15}| = \frac{16!}{2} \approx 1.05 \times 10^{13}$$
 The result of this exercise is that the algorithm hierarchy mostly
 behaves as expected, and that the heuristic matters as much as the
 algorithm. Even a weak heuristic like h2 was enough to beat BFS in the 18
-move regime, but not enough to push to 27. That needs a heuristic that
-actually estimates distance to the goal.
+move regime, but not enough to push to 27. That needs a set of visited boards, or a
+heuristic that actually estimates distance to the goal.
