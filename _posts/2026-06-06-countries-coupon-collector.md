@@ -48,7 +48,7 @@ with probability \\(172/195\\), so it takes about 1.13 trips on average. Getting
 roughly half the world, 98 countries, takes only about 111 trips. The other 1,000 or so are
 spent on the back half, and the very last country alone takes 195 trips on average, because
 at that point every trip has a \\(1/195\\) chance of landing somewhere new. That is the
-general shape of coupon collecting: the early progress is cheap and the tail is brutal.
+general shape of coupon collecting: the early progress is easy and the tail is brutal.
 
 At three international trips a year, 1,117 trips is about 372 years, which is not
 encouraging.
@@ -58,7 +58,7 @@ Uniform sampling is a bad model in two opposite directions, and I'll take them o
 The first is that countries are not equally likely. Over a lifetime of trips, I'm going to
 end up in France far more often than I end up in Nauru, Turkmenistan, or North Korea,
 whether I'm trying to or not. So instead of uniform probabilities, give each country
-\\(i\\) its own probability \\(p\_i\\) per trip. The sum above no longer has a clean form, but
+\\(i\\) its own probability \\(p\_i\\) per trip. The sum above no longer has a simple form, but
 there's a nice trick: if you pretend trips arrive as a Poisson process with rate 1, then each
 country's first visit is an independent exponential with rate \\(p\_i\\), and the expected
 time until all remaining countries are visited is
