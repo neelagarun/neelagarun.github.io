@@ -20,7 +20,7 @@ Start with the equations. Air at serve speeds is described by the incompressible
 
 \\[\rho \left( \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla) \mathbf{u} \right) = -\nabla p + \mu \nabla^2 \mathbf{u}, \qquad \nabla \cdot \mathbf{u} = 0\\]
 
-Treating the air as incompressible is safe here. At 50 m/s the Mach number is \\(50 / 340 \approx 0.15\\), and density changes in a
+Treating the air as incompressible is fine here. At 50 m/s the Mach number is \\(50 / 340 \approx 0.15\\), and density changes in a
 flow scale like \\(M^2 / 2\\), about 1%. The relative size of the viscous term is measured by the Reynolds number,
 
 \\[\text{Re} = \frac{U d}{\nu} = \frac{50 \times 0.067}{1.5 \times 10^{-5}} \approx 223{,}000\\]
